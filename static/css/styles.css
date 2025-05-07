@@ -53,7 +53,7 @@ body {
 .header-alocacao {
     display: flex;
     align-items: center;
-    margin-bottom: 8px; /* Reduzido para economizar espaço */
+    margin-bottom: 8px; /* Reduzido para economiar espaço */
     width: 100%;
 }
 
@@ -287,21 +287,28 @@ h3 {
 }
 
 .calendar-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas de tamanho igual */
     width: 100%; /* Ocupa toda a largura */
-    flex-wrap: nowrap; /* Impede que as células quebrem para a próxima linha */
+    box-sizing: border-box;
 }
 
 .calendar-header-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas de tamanho igual */
     width: 100%;
     background-color: #f4f4f4;
-    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+
+.calendar-body .calendar-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 colunas de tamanho igual */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .calendar-cell {
-    flex: 1; /* Divide o espaço igualmente entre as 7 células */
-    min-width: 0;
     height: 40px;
     border: 1px solid #C8102E;
     text-align: center;
@@ -316,8 +323,6 @@ h3 {
 }
 
 .calendar-header-row .calendar-cell {
-    flex: 1; /* Divide o espaço igualmente entre as 7 células */
-    min-width: 0;
     font-weight: bold;
     border: 1px solid #C8102E;
     box-sizing: border-box;
