@@ -49,7 +49,7 @@ body {
     flex-direction: column;
 }
 
-/* Ajustes para o logotipo e header na tela de alocação */
+/* Ajustes para o header na tela de alocação */
 .header-alocacao {
     display: flex;
     align-items: center;
@@ -287,21 +287,21 @@ h3 {
 }
 
 .calendar-row {
-    display: table;
+    display: flex;
     width: 100%; /* Ocupa toda a largura */
-    table-layout: fixed; /* Garante largura fixa para cada célula */
+    flex-wrap: nowrap; /* Impede que as células quebrem para a próxima linha */
 }
 
 .calendar-header-row {
-    display: table;
+    display: flex;
     width: 100%;
-    table-layout: fixed;
     background-color: #f4f4f4;
+    flex-wrap: nowrap;
 }
 
 .calendar-cell {
-    display: table-cell;
-    width: calc(100% / 7); /* Divide exatamente em 7 partes */
+    flex: 1; /* Divide o espaço igualmente entre as 7 células */
+    min-width: 0;
     height: 40px;
     border: 1px solid #C8102E;
     text-align: center;
@@ -316,8 +316,8 @@ h3 {
 }
 
 .calendar-header-row .calendar-cell {
-    display: table-cell;
-    width: calc(100% / 7); /* Garante que o cabeçalho tenha a mesma largura */
+    flex: 1; /* Divide o espaço igualmente entre as 7 células */
+    min-width: 0;
     font-weight: bold;
     border: 1px solid #C8102E;
     box-sizing: border-box;
@@ -436,11 +436,6 @@ th {
         align-items: flex-start;
     }
 
-    .logo {
-        max-width: 20%;
-        margin: 0 auto 10px;
-    }
-
     .header-right {
         width: 100%;
         justify-content: space-between;
@@ -448,6 +443,11 @@ th {
 
     .title-alocacao {
         text-align: center;
+    }
+
+    .logo {
+        max-width: 20%;
+        margin: 0 auto 10px;
     }
 
     .filters {
@@ -490,11 +490,6 @@ th {
     .calendar-cell {
         height: 30px;
         font-size: 0.8em;
-        width: calc(100% / 7);
-    }
-
-    .calendar-header-row .calendar-cell {
-        width: calc(100% / 7);
     }
 
     .selection-info {
