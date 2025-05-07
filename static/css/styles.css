@@ -57,11 +57,6 @@ body {
     width: 100%;
 }
 
-.logo-alocacao {
-    max-width: 30%; /* Igual ao tamanho da tela de login */
-    margin: 0 15px 0 0; /* Espaçamento ajustado */
-}
-
 .header-right {
     flex-grow: 1;
     display: flex;
@@ -292,21 +287,20 @@ h3 {
 }
 
 .calendar-row {
-    display: flex;
+    display: table;
     width: 100%; /* Ocupa toda a largura */
-    justify-content: center;
     table-layout: fixed; /* Garante largura fixa para cada célula */
 }
 
 .calendar-header-row {
-    background-color: #f4f4f4;
+    display: table;
     width: 100%;
-    display: flex;
     table-layout: fixed;
+    background-color: #f4f4f4;
 }
 
 .calendar-cell {
-    flex: 1;
+    display: table-cell;
     width: calc(100% / 7); /* Divide exatamente em 7 partes */
     height: 40px;
     border: 1px solid #C8102E;
@@ -322,7 +316,7 @@ h3 {
 }
 
 .calendar-header-row .calendar-cell {
-    flex: 1;
+    display: table-cell;
     width: calc(100% / 7); /* Garante que o cabeçalho tenha a mesma largura */
     font-weight: bold;
     border: 1px solid #C8102E;
@@ -442,7 +436,7 @@ th {
         align-items: flex-start;
     }
 
-    .logo-alocacao {
+    .logo {
         max-width: 20%;
         margin: 0 auto 10px;
     }
@@ -454,11 +448,6 @@ th {
 
     .title-alocacao {
         text-align: center;
-    }
-
-    .logo {
-        max-width: 20%;
-        margin-bottom: 10px;
     }
 
     .filters {
