@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema de Alocações</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <img src="/static/logoclaro.png" alt="Logo Claro" class="logo">
+        <h2>App Alocação HH</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST" class="login-form">
+            <div class="form-group">
+                <label for="perfil">Tipo Headcount:</label>
+                <select id="perfil" name="perfil" required onchange="filterUsers()">
+                    <option value="">Selecione o Perfil</option>
+                    <option value="Colaborador">Colaborador</option>
+                    <option value="Terceiro">Terceiro</option>
+                    <option value="Gestor">Gestor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="username">Usuário:</label>
+                <input type="text" id="username" name="username" list="nomes" autocomplete="off" required>
+                <datalist id="nomes">
+                    <!-- Opções preenchidas dinamicamente pelo JavaScript -->
+                </datalist>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" name="bypass" value="bypass" class="btn btn-secondary">Bypass (Leonardo Lima Sanches)</button>
+        </form>
+        <div class="links">
+            <a href="/ajuda" class="link">Ajuda</a> | <a href="/faq" class="link">FAQ</a>
+        </div>
+    </div>
+    <script src="/static/js/login.js"></script>
+</body>
+</html>

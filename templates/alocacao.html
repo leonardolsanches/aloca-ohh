@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alocação - Sistema de Alocações</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header-alocacao">
+            <img src="/static/logoclaro.png" alt="Logo Claro" class="logo logo-alocacao">
+            <div class="header-right">
+                <h2 class="title-alocacao">LANÇAMENTO DA ALOCAÇÃO</h2>
+                <span>Usuário: {{ session['username'] }}</span>
+            </div>
+        </header>
+        <nav>
+            <a href="/alocacao">Alocação</a>
+            <a href="/aprovacao">Aprovação</a>
+            <a href="/historico">Histórico</a>
+            <a href="/relatorios">Relatórios</a>
+            <a href="/logout">Sair</a>
+        </nav>
+        <div class="filters">
+            <h3>Filtros</h3>
+            <div class="filter-row">
+                <select id="tipo-entregavel" class="filter-input" onchange="updateProjetos()">
+                    <option value="">Tipo Entregável</option>
+                    <option value="MÃO DE OBRA PRÓPRIA (HC)">Mão de Obra Própria (HC)</option>
+                    <option value="MÃO DE OBRA TERCERIZADA">Mão de Obra Terceirizada</option>
+                </select>
+                <select id="projeto" class="filter-input" onchange="updateAtividades()" disabled>
+                    <option value="">Projeto</option>
+                </select>
+                <select id="atividade" class="filter-input" disabled>
+                    <option value="">Atividade</option>
+                </select>
+            </div>
+            <div class="filter-row">
+                <input type="date" id="data-inicio" class="filter-input">
+                <input type="date" id="data-fim" class="filter-input">
+                <input type="number" id="percentual" class="filter-input" placeholder="Percentual (%)" min="0" max="200">
+            </div>
+            <button onclick="aplicarAlocacao()" class="filter-btn btn btn-primary">Inserir</button>
+        </div>
+        <div class="filter-divider"></div>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="btn btn-secondary" onclick="mudarMes(-1)" title="Mês Anterior"><</button>
+                <h3 id="mes-ano"></h3>
+                <button class="btn btn-secondary" onclick="mudarMes(1)" title="Próximo Mês">></button>
+            </div>
+            <div class="calendar-row calendar-header-row">
+                <div class="calendar-cell">Dom</div>
+                <div class="calendar-cell">Seg</div>
+                <div class="calendar-cell">Ter</div>
+                <div class="calendar-cell">Qua</div>
+                <div class="calendar-cell">Qui</div>
+                <div class="calendar-cell">Sex</div>
+                <div class="calendar-cell">Sáb</div>
+            </div>
+            <div id="calendar-body"></div>
+            <div class="selection-info">
+                <p>Dias selecionados: <span id="selected-days-count">0</span></p>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/alocacao.js"></script>
+</body>
+</html>

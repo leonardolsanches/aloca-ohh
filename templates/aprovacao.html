@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprovação - Sistema de Alocações</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="/static/logoclaro.png" alt="Logo Claro" class="logo">
+        <header>
+            <h2>Aprovação de Alocações</h2>
+            <span>Usuário: {{ session['username'] }}</span>
+        </header>
+        <nav>
+            <a href="/alocacao">Alocação</a>
+            <a href="/aprovacao">Aprovação</a>
+            <a href="/historico">Histórico</a>
+            <a href="/relatorios">Relatórios</a>
+            <a href="/logout">Sair</a>
+        </nav>
+        <div class="filters">
+            <div class="filter-row">
+                <select id="gestor" class="filter-input">
+                    <option value="">Todos Gestores</option>
+                    <option value="ANA LUCIA ANTUNES DE ARAUJO">ANA LUCIA ANTUNES DE ARAUJO</option>
+                </select>
+                <select id="tipo" class="filter-input">
+                    <option value="">Tipo</option>
+                    <option value="Colaborador">Colaborador</option>
+                    <option value="Terceiro">Terceiro</option>
+                    <option value="Gestor">Gestor</option>
+                </select>
+            </div>
+            <div class="filter-row">
+                <input type="text" id="colaborador" class="filter-input" list="colaboradores" placeholder="Colaborador">
+                <datalist id="colaboradores">
+                    <option value="AGOSTINHO AYRES CARDOSO DE PINHO">
+                    <option value="ANA LUCIA ANTUNES DE ARAUJO">
+                </datalist>
+                <input type="text" id="projeto" class="filter-input" list="projetos" placeholder="Projeto">
+                <datalist id="projetos">
+                    <option value="CAUSA RAIZ">
+                    <option value="PROGRAMA SOLAR">
+                </datalist>
+                <input type="text" id="atividade" class="filter-input" list="atividades" placeholder="Atividade">
+                <datalist id="atividades">
+                    <option value="FUNCIONAL">
+                    <option value="LIDERANÇA TÉCNICA">
+                </datalist>
+            </div>
+            <button id="filtrar" class="filter-full">Filtrar</button>
+        </div>
+        <div class="hierarchy">
+            <span>Agrupamento: </span>
+            <button onclick="toggleHierarchy('colaborador')">Colaborador ⬇</button>
+            <button onclick="toggleHierarchy('projeto')">Projeto ⬆⬇</button>
+            <button onclick="toggleHierarchy('atividade')">Atividade ⬆</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Colaborador</th>
+                    <th>Jan</th>
+                    <th>Fev</th>
+                    <th>Mar</th>
+                    <th>Abr</th>
+                    <th>Mai</th>
+                    <th>Jun</th>
+                    <th>Jul</th>
+                    <th>Ago</th>
+                    <th>Set</th>
+                    <th>Out</th>
+                    <th>Nov</th>
+                    <th>Dez</th>
+                </tr>
+            </thead>
+            <tbody id="aprovacao-table"></tbody>
+        </table>
+        <div class="actions">
+            <button onclick="reprovarMeses()">Reprovar Meses</button>
+            <button onclick="reprovarFiltrados()">Reprovar Filtrados</button>
+            <button onclick="salvarAprovacoes()">Salvar Aprovações</button>
+        </div>
+    </div>
+    <script src="/static/js/aprovacao.js"></script>
+</body>
+</html>
