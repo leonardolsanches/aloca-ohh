@@ -1,55 +1,76 @@
-/* Atualizando estilos do body (originalmente em styles.css:1) */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #FFFFFF;
-    min-height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px; /* Espaço no topo */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
-/* Atualizando estilos da .calendar-cell (originalmente em styles.css:311) */
-.calendar-cell {
-    height: 40px;
-    min-width: 40px; /* Largura mínima para responsividade */
-    border: 1px solid #C8102E;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1em; /* Tamanho da fonte ajustado */
-    color: #333;
-    box-sizing: border-box;
+.calendar-container {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* Atualizando estilos do .tooltip (originalmente em styles.css:339) */
-.tooltip {
-    visibility: hidden;
-    position: absolute;
-    background-color: #333;
-    color: #fff;
+.calendar-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* Estilizar o calendário */
+.calendar {
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+/* Cabeçalho: Dias da semana */
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.calendar-header .day {
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+/* Dias do mês */
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: #ddd;
+}
+
+.calendar-days .day {
+  background-color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9em;
+  min-height: 50px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.calendar-days .day.empty {
+  background-color: #f5f5f5;
+}
+
+/* Destacar os dias 1 a 5 (como na imagem) */
+.calendar-days .day.highlighted {
+  background-color: #ffe6e6;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .calendar-header .day,
+  .calendar-days .day {
     padding: 5px;
-    border-radius: 3px;
-    z-index: 10; /* Aumentado para evitar sobreposição */
-    top: -35px; /* Ajustado para melhor posicionamento */
-    left: 50%; /* Centraliza horizontalmente */
-    transform: translateX(-50%); /* Ajusta a posição para o centro */
     font-size: 0.8em;
-}
-
-/* Adicionando regra para exibir o tooltip ao passar o mouse */
-.calendar-cell:hover .tooltip {
-    visibility: visible;
-}
-
-/* Adicionando regra para feedback visual ao focar o tooltip */
-.tooltip:focus {
-    visibility: visible;
-    outline: 2px solid #C8102E;
+    min-height: 40px;
+  }
 }
