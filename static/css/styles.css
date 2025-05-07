@@ -1,44 +1,132 @@
-body {
-  font-family: Arial, sans-serif;
+/* Estilos compartilhados para alocacao.html e login.html */
+* {
   margin: 0;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.calendar-container {
-  max-width: 600px;
+body {
+  background-color: #f5f5f5; /* Fundo branco claro */
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Estilos para o cabeçalho (alocacao.html) */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.logo img {
+  height: 40px; /* Tamanho do logotipo */
+  max-width: 100%;
+}
+
+.filters-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px; /* Ajustado para 3 filtros por linha */
+}
+
+.filter-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.filters select,
+.filters input[type="date"],
+.filters input[type="number"] {
+  padding: 8px;
+  border: 1px solid #800020; /* Borda vermelho bordeaux */
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #fff;
+  cursor: pointer;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filters input[type="date"],
+.filters input[type="number"] {
+  cursor: text;
+}
+
+.periodo {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.filters button {
+  padding: 8px 20px;
+  background-color: #800020; /* Vermelho bordeaux */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 86px; /* Altura para cobrir as duas linhas (2 inputs de 40px + margem) */
+  align-self: stretch;
+}
+
+.filters button:hover {
+  background-color: #5a0015; /* Tom mais escuro de vermelho bordeaux */
 }
 
 .calendar-title {
   text-align: center;
-  font-size: 1.5em;
-  margin-bottom: 10px;
-  text-transform: uppercase;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #800020; /* Vermelho bordeaux */
 }
 
-/* Estilizar o calendário */
 .calendar {
-  border: 1px solid #ccc;
-  background-color: #fff;
+  width: 100%;
+  background-color: #fff; /* Fundo branco puro */
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #800020; /* Borda vermelho bordeaux */
 }
 
-/* Cabeçalho: Dias da semana */
 .calendar-header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background-color: #f0f0f0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .calendar-header .day {
   text-align: center;
-  padding: 10px;
+  padding: 15px;
   font-weight: bold;
-  font-size: 0.9em;
+  color: #333;
+  border-right: 1px solid #ddd;
 }
 
-/* Dias do mês */
+.calendar-header .day:last-child {
+  border-right: none;
+}
+
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -48,29 +136,277 @@ body {
 
 .calendar-days .day {
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
   text-align: center;
-  font-size: 0.9em;
-  min-height: 50px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .calendar-days .day.empty {
   background-color: #f5f5f5;
+  cursor: default;
 }
 
-/* Destacar os dias 1 a 5 (como na imagem) */
 .calendar-days .day.highlighted {
-  background-color: #ffe6e6;
+  background-color: #ffe6e6; /* Rosa claro para destaque */
+}
+
+.calendar-days .day.selected {
+  background-color: #800020; /* Vermelho bordeaux para células selecionadas */
+  color: #fff;
+}
+
+.calendar-days .day:hover:not(.empty) {
+  background-color: #f0f0f0;
+}
+
+/* Navegação do calendário */
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-nav button {
+  background-color: #800020; /* Vermelho bordeaux */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.calendar-nav button:hover {
+  background-color: #5a0015; /* Tom mais escuro de vermelho bordeaux */
+}
+
+/* Barra inferior com contador */
+.footer-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.counter {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+}
+
+.add-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #800020; /* Vermelho bordeaux */
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #5a0015; /* Tom mais escuro de vermelho bordeaux */
+}
+
+/* Estilos para login.html */
+.login-container {
+  background-color: #fff; /* Fundo branco puro para o contêiner */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #800020; /* Borda vermelho bordeaux */
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #800020; /* Título em vermelho bordeaux */
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.login-container select,
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.login-container select {
+  background-color: #fff;
+  cursor: pointer;
+  border-color: #800020; /* Borda vermelho bordeaux no dropdown */
+}
+
+.login-container input {
+  border-color: #800020; /* Borda vermelho bordeaux nos inputs */
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #800020; /* Botão em vermelho bordeaux */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+  background-color: #5a0015; /* Tom mais escuro de vermelho bordeaux no hover */
 }
 
 /* Responsividade */
-@media (max-width: 600px) {
-  .calendar-header .day,
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filters-container {
+    width: 100%;
+  }
+
+  .filters {
+    max-width: 100%;
+  }
+
+  .filter-row {
+    flex-direction: column;
+  }
+
+  .filters select,
+  .filters .periodo,
+  .filters input[type="date"],
+  .filters input[type="number"] {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .filters button {
+    width: 100%;
+    padding: 8px;
+    height: auto;
+  }
+
+  .calendar-title {
+    font-size: 1.4em;
+  }
+
+  .calendar-header .day {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
   .calendar-days .day {
-    padding: 5px;
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  .calendar-nav button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    align-items: center;
+  }
+
+  .logo img {
+    height: 30px; /* Reduzir o tamanho do logotipo */
+  }
+
+  .filters {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .filters select,
+  .filters .periodo,
+  .filters input[type="date"],
+  .filters input[type="number"],
+  .filters button {
+    width: 100%;
+  }
+
+  .periodo {
+    flex-direction: column;
+  }
+
+  .calendar-title {
+    font-size: 1.2em;
+  }
+
+  .calendar-header .day {
+    padding: 8px;
     font-size: 0.8em;
-    min-height: 40px;
+  }
+
+  .calendar-days .day {
+    padding: 10px;
+    font-size: 0.8em;
+  }
+
+  .calendar-nav button {
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+
+  .footer-bar {
+    padding: 8px;
+  }
+
+  .counter {
+    font-size: 1em;
+  }
+
+  .add-btn {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9em;
+  }
+
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-container h2 {
+    font-size: 1.5em;
+  }
+
+  .login-container select,
+  .login-container input,
+  .login-container button {
+    padding: 10px;
+    font-size: 0.9em;
   }
 }
