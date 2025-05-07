@@ -1,3 +1,4 @@
+/* Atualizando estilos do body (originalmente em styles.css:1) */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -11,6 +12,7 @@ body {
     padding-top: 20px; /* Espaço no topo */
 }
 
+/* Atualizando estilos da .calendar-cell (originalmente em styles.css:311) */
 .calendar-cell {
     height: 40px;
     min-width: 40px; /* Largura mínima para responsividade */
@@ -26,6 +28,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Atualizando estilos do .tooltip (originalmente em styles.css:339) */
 .tooltip {
     visibility: hidden;
     position: absolute;
@@ -40,11 +43,13 @@ body {
     font-size: 0.8em;
 }
 
+/* Adicionando regra para exibir o tooltip ao passar o mouse */
 .calendar-cell:hover .tooltip {
-    visibility: visible; /* Exibe o tooltip ao passar o mouse */
+    visibility: visible;
 }
 
+/* Adicionando regra para feedback visual ao focar o tooltip */
 .tooltip:focus {
-    visibility: visible; /* Exibe o tooltip ao focar */
-    outline: 2px solid #C8102E; /* Feedback visual ao focar */
+    visibility: visible;
+    outline: 2px solid #C8102E;
 }
