@@ -13,44 +13,31 @@
       <div class="logo">
         <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
       </div>
-      <div class="user-info" id="user-info">Usuário: {{ username }}</div>
     </div>
 
     <!-- Filtros -->
     <div class="filters-container">
-      <div class="filters-left">
+      <div class="filters-top">
         <div class="filter-row">
           <select id="tipo-projeto-atividade">
             <option>Tipo Projeto/Atividade</option>
             <option>Projeto</option>
             <option>Atividade</option>
           </select>
-          <select id="projeto">
-            <option>Projeto</option>
-            <option>Projeto A</option>
-            <option>Projeto B</option>
-          </select>
-          <select id="atividade">
-            <option>Atividade</option>
-            <option>Atividade 1</option>
-            <option>Atividade 2</option>
-          </select>
-        </div>
-      </div>
-      <div class="filters-right">
-        <div class="filter-row">
+          <select id="projeto"></select>
+          <select id="atividade"></select>
           <input type="date" id="data-inicio" placeholder="Data Início">
           <input type="date" id="data-fim" placeholder="Data Fim">
         </div>
       </div>
-    </div>
-    <div class="filters-bottom">
-      <input type="number" id="quantidade" placeholder="QTDE" min="0">
-      <select id="metrica">
-        <option value="horas/mês">horas/mês</option>
-        <option value="percentual/mês">%</option>
-      </select>
-      <button onclick="alocar()">Alocar</button>
+      <div class="filters-bottom">
+        <input type="number" id="quantidade" placeholder="QTDE" min="0" maxlength="5">
+        <select id="metrica">
+          <option value="horas/mês">horas/mês</option>
+          <option value="percentual/mês">%</option>
+        </select>
+        <button onclick="alocar()">Alocar</button>
+      </div>
     </div>
 
     <!-- Navegação e título do calendário -->
@@ -68,8 +55,7 @@
 
     <!-- Rodapé -->
     <div class="footer">
-      <div class="footer-logo">
-        <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
+      <div class="footer-user">
         <span id="footer-user-info">Usuário: {{ username }}</span>
       </div>
       <div class="legend">

@@ -2,13 +2,34 @@ let currentDate = new Date();
 let allocations = {};
 let selectedDaysByMonth = {};
 
+fetch('/static/usuarios.json')
+  .then(response => response.json())
+  .then(data => {
+    const projetosSelect = document.getElementById('projeto');
+    const atividadesSelect = document.getElementById('atividade');
+    projetosSelect.innerHTML = '<option>Projeto</option>';
+    atividadesSelect.innerHTML = '<option>Atividade</option>';
+    data.Projetos.forEach(projeto => {
+      const option = document.createElement('option');
+      option.value = projeto;
+      option.textContent = projeto;
+      projetosSelect.appendChild(option);
+    });
+    data.Atividades.forEach(atividade => {
+      const option = document.createElement('option');
+      option.value = atividade;
+      option.textContent = atividade;
+      atividadesSelect.appendChild(option);
+    });
+  })
+  .catch(error => console.error('Erro ao carregar usuarios.json:', error));
+
 function renderCalendar() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
   document.getElementById('calendar-title').textContent = `${monthNames[month]} de ${year}`;
 
-  // Renderizar cabeçalho
   const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const header = document.getElementById('calendar-header');
   header.innerHTML = '';
@@ -19,13 +40,11 @@ function renderCalendar() {
     header.appendChild(div);
   });
 
-  // Renderizar dias
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
   const daysDiv = document.getElementById('calendar-days');
   daysDiv.innerHTML = '';
 
-  // Espaços vazios antes do primeiro dia
   for (let i = 0; i < firstDay; i++) {
     const emptyDiv = document.createElement('div');
     emptyDiv.className = 'day empty';
@@ -33,7 +52,6 @@ function renderCalendar() {
     daysDiv.appendChild(emptyDiv);
   }
 
-  // Renderizar dias do mês
   const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
   const selectedDays = selectedDaysByMonth[monthKey] || new Set();
 
@@ -44,25 +62,25 @@ function renderCalendar() {
     dayDiv.dataset.date = dateStr;
     dayDiv.textContent = day;
 
-    // Verificar se o dia está selecionado
     if (selectedDays.has(dateStr)) {
       dayDiv.classList.add('selected');
     }
 
-    // Aplicar alocações existentes
     if (allocations[dateStr]) {
-      const percentage = allocations[dateStr];
-      dayDiv.dataset.percentage = percentage;
-      if (percentage === 100) {
+      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + alloc.percentage, 0);
+      dayDiv.dataset.percentage = totalPercentage;
+      if (totalPercentage === 100) {
         dayDiv.classList.add('green');
-      } else if (percentage < 100) {
+      } else if (totalPercentage < 100) {
         dayDiv.classList.add('yellow');
       } else {
         dayDiv.classList.add('red');
       }
+
+      const tooltipText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('\n');
+      dayDiv.setAttribute('title', tooltipText);
     }
 
-    // Adicionar evento de clique para seleção
     dayDiv.addEventListener('click', handleDayClick);
     daysDiv.appendChild(dayDiv);
   }
@@ -157,13 +175,11 @@ function alocar() {
   const quantidade = parseFloat(document.getElementById('quantidade').value);
   const metrica = document.getElementById('metrica').value;
 
-  // Validação
   if (!tipoProjetoAtividade || !projeto || !atividade || !dataInicio || !dataFim || isNaN(quantidade)) {
     alert('Preencha todos os campos corretamente.');
     return;
   }
 
-  // Determinar dias úteis no período
   const startDate = new Date(dataInicio);
   const endDate = new Date(dataFim);
   const businessDays = [];
@@ -171,7 +187,7 @@ function alocar() {
 
   while (current <= endDate) {
     const dayOfWeek = current.getDay();
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui sábado e domingo
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
       businessDays.push(new Date(current));
     }
     current.setDate(current.getDate() + 1);
@@ -182,23 +198,27 @@ function alocar() {
     return;
   }
 
-  // Calcular alocação por dia
   let allocationPerDay;
   if (metrica === 'horas/mês') {
-    allocationPerDay = (quantidade / businessDays.length) / 8 * 100; // Considera 8h/dia como 100%
+    allocationPerDay = (quantidade / businessDays.length) / 8 * 100;
   } else {
-    allocationPerDay = 100 / businessDays.length; // Distribui 100% entre os dias úteis
+    allocationPerDay = 100 / businessDays.length;
   }
 
-  // Aplicar alocações
-  allocations = {};
   businessDays.forEach(day => {
     const dateStr = day.toISOString().split('T')[0];
-    allocations[dateStr] = allocationPerDay;
+    if (!allocations[dateStr]) {
+      allocations[dateStr] = [];
+    }
+    allocations[dateStr].push({
+      percentage: allocationPerDay,
+      projeto: projeto,
+      atividade: atividade
+    });
   });
 
   renderCalendar();
 }
 
 // Inicializar o calendário
-renderCalendar();
+renderCalendar(); 

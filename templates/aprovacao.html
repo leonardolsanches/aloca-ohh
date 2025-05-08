@@ -1,89 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprovação - Sistema de Alocações</title>
-    <link rel="stylesheet" href="/static/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprovação - Alocação</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <img src="/static/logoclaro.png" alt="Logo Claro" class="logo">
-        <header>
-            <h2>Aprovação de Alocações</h2>
-            <span>Usuário: {{ session['username'] }}</span>
-        </header>
-        <nav>
-            <a href="/alocacao">Alocação</a>
-            <a href="/aprovacao">Aprovação</a>
-            <a href="/historico">Histórico</a>
-            <a href="/relatorios">Relatórios</a>
-            <a href="/logout">Sair</a>
-        </nav>
-        <div class="filters">
-            <div class="filter-row">
-                <select id="gestor" class="filter-input">
-                    <option value="">Todos Gestores</option>
-                    <option value="ANA LUCIA ANTUNES DE ARAUJO">ANA LUCIA ANTUNES DE ARAUJO</option>
-                </select>
-                <select id="tipo" class="filter-input">
-                    <option value="">Tipo</option>
-                    <option value="Colaborador">Colaborador</option>
-                    <option value="Terceiro">Terceiro</option>
-                    <option value="Gestor">Gestor</option>
-                </select>
-            </div>
-            <div class="filter-row">
-                <input type="text" id="colaborador" class="filter-input" list="colaboradores" placeholder="Colaborador">
-                <datalist id="colaboradores">
-                    <option value="AGOSTINHO AYRES CARDOSO DE PINHO">
-                    <option value="ANA LUCIA ANTUNES DE ARAUJO">
-                </datalist>
-                <input type="text" id="projeto" class="filter-input" list="projetos" placeholder="Projeto">
-                <datalist id="projetos">
-                    <option value="CAUSA RAIZ">
-                    <option value="PROGRAMA SOLAR">
-                </datalist>
-                <input type="text" id="atividade" class="filter-input" list="atividades" placeholder="Atividade">
-                <datalist id="atividades">
-                    <option value="FUNCIONAL">
-                    <option value="LIDERANÇA TÉCNICA">
-                </datalist>
-            </div>
-            <button id="filtrar" class="filter-full">Filtrar</button>
-        </div>
-        <div class="hierarchy">
-            <span>Agrupamento: </span>
-            <button onclick="toggleHierarchy('colaborador')">Colaborador ⬇</button>
-            <button onclick="toggleHierarchy('projeto')">Projeto ⬆⬇</button>
-            <button onclick="toggleHierarchy('atividade')">Atividade ⬆</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Colaborador</th>
-                    <th>Jan</th>
-                    <th>Fev</th>
-                    <th>Mar</th>
-                    <th>Abr</th>
-                    <th>Mai</th>
-                    <th>Jun</th>
-                    <th>Jul</th>
-                    <th>Ago</th>
-                    <th>Set</th>
-                    <th>Out</th>
-                    <th>Nov</th>
-                    <th>Dez</th>
-                </tr>
-            </thead>
-            <tbody id="aprovacao-table"></tbody>
-        </table>
-        <div class="actions">
-            <button onclick="reprovarMeses()">Reprovar Meses</button>
-            <button onclick="reprovarFiltrados()">Reprovar Filtrados</button>
-            <button onclick="salvarAprovacoes()">Salvar Aprovações</button>
-        </div>
+  <div class="container">
+    <!-- Cabeçalho -->
+    <div class="header">
+      <div class="logo">
+        <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
+      </div>
+      <div class="user-info">Usuário: {{ username }}</div>
     </div>
-    <script src="/static/js/aprovacao.js"></script>
+
+    <!-- Filtros -->
+    <div class="filters-container">
+      <div class="filters-top">
+        <div class="filter-row">
+          <select id="gestor"></select>
+          <select id="perfil">
+            <option value="Colaborador">Colaborador</option>
+            <option value="Terceiro">Terceiro</option>
+          </select>
+          <input type="text" id="busca" placeholder="Buscar (nome, projeto, atividade)">
+        </div>
+      </div>
+      <div class="filters-bottom">
+        <select id="periodo">
+          <option value="ano">Ano</option>
+          <option value="trimestre">Trimestre</option>
+        </select>
+        <button onclick="filtrar()">Filtrar</button>
+      </div>
+    </div>
+
+    <!-- Faixa de Controle de Hierarquia -->
+    <div class="hierarchy-control">
+      <span>Hierarquia:</span>
+      <span id="hierarchy-display">Colaborador ⬇ > Projeto ⬇ > Atividade</span>
+      <button onclick="moveUp(0)">↑</button>
+      <button onclick="moveDown(0)">↓</button>
+      <button onclick="moveUp(1)">↑</button>
+      <button onclick="moveDown(1)">↓</button>
+    </div>
+
+    <!-- Tabela -->
+    <table id="approval-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>JAN</th>
+          <th>FEV</th>
+          <th>MAR</th>
+          <th>ABR</th>
+          <th>MAI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGO</th>
+          <th>SET</th>
+          <th>OUT</th>
+          <th>NOV</th>
+          <th>DEZ</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="approval-table-body"></tbody>
+    </table>
+
+    <!-- Modal para Justificativa -->
+    <div id="justificativa-modal" class="modal">
+      <div class="modal-content">
+        <h3>Justificativa de Reprovação</h3>
+        <textarea id="justificativa-text" required></textarea>
+        <button onclick="submitJustificativa()">Confirmar</button>
+        <button onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/aprovacao.js') }}"></script>
 </body>
 </html>

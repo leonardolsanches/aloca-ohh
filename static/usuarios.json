@@ -1,5 +1,7 @@
 {
   "Colaborador": ["João Silva", "Maria Oliveira", "Carlos Souza"],
   "Terceiro": ["Ana Pereira", "Lucas Mendes", "Fernanda Costa"],
-  "Gestor": ["Pedro Almeida", "Juliana Santos", "Rafael Lima"]
+  "Gestor": ["Pedro Almeida", "Juliana Santos", "Rafael Lima"],
+  "Projetos": ["Projeto A", "Projeto B", "Projeto C"],
+  "Atividades": ["Atividade 1", "Atividade 2", "Atividade 3"]
 }
