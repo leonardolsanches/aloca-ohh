@@ -146,6 +146,9 @@ function handleDayClick(e) {
 
 function updateSelection() {
   const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
+  const counter = document.getElementById('counter');
+  counter.textContent = `${selectedDays.length} dias selecionados`;
+
   if (selectedDays.length > 0) {
     const dates = Array.from(selectedDays)
       .map(day => new Date(day.getAttribute('data-date')))
@@ -221,4 +224,4 @@ function alocar() {
 }
 
 // Inicializar o calendário
-renderCalendar(); 
+renderCalendar();

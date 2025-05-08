@@ -27,6 +27,11 @@ def alocacao():
     username = session.get('username', 'Convidado')
     return render_template('alocacao.html', username=username)
 
+@app.route('/aprovacao')
+def aprovacao():
+    username = session.get('username', 'Convidado')
+    return render_template('aprovacao.html', username=username)
+
 @app.route('/bypass')
 def bypass():
     session['username'] = 'Convidado'

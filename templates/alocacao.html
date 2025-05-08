@@ -15,6 +15,12 @@
       </div>
     </div>
 
+    <!-- Menu de Navegação -->
+    <nav class="nav-menu">
+      <a href="{{ url_for('alocacao') }}" class="nav-link active">Alocação</a>
+      <a href="{{ url_for('aprovacao') }}" class="nav-link">Aprovação</a>
+    </nav>
+
     <!-- Filtros -->
     <div class="filters-container">
       <div class="filters-top">
@@ -58,10 +64,13 @@
       <div class="footer-user">
         <span id="footer-user-info">Usuário: {{ username }}</span>
       </div>
-      <div class="legend">
-        <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
-        <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
-        <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
+      <div class="footer-right">
+        <span class="counter" id="counter">0 dias selecionados</span>
+        <div class="legend">
+          <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
+          <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
+          <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
+        </div>
       </div>
     </div>
   </div>
