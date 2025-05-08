@@ -5,9 +5,7 @@ function login() {
 
   // Validação simples (para teste)
   if (username === 'admin' && password === 'password' && profile) {
-    // Armazena estado de autenticação
-    localStorage.setItem('isAuthenticated', 'true');
-    // Redireciona para alocacao.html
+    // Redireciona para alocacao.html na pasta static
     window.location.href = '/static/alocacao.html';
   } else {
     alert('Credenciais inválidas. Use "admin" como usuário e senha, e selecione um perfil.');
