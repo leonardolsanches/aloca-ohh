@@ -4,34 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Alocação</title>
-  <link rel="stylesheet" href="/static/css/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
   <div class="login-container">
     <div class="logo">
-      <img src="/static/logoclaro.png" alt="Logo">
+      <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo">
     </div>
     <h2>Login</h2>
-    <div>
+    <form action="/login" method="post">
       <label for="profile">Perfil</label>
-      <select id="profile" required>
+      <select id="profile" name="profile" required>
         <option value="" disabled selected>Selecione seu perfil</option>
         <option value="colaborador">Colaborador</option>
         <option value="terceiro">Terceiro</option>
         <option value="gestor">Gestor</option>
       </select>
-    </div>
-    <div>
       <label for="username">Usuário</label>
-      <input type="text" id="username" placeholder="Digite seu usuário" required>
-    </div>
-    <div>
+      <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
       <label for="password">Senha</label>
-      <input type="password" id="password" placeholder="Digite sua senha" required>
-    </div>
-    <button onclick="login()">Entrar</button>
+      <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+      <button type="submit">Entrar</button>
+    </form>
   </div>
-
-  <script src="/static/js/login.js"></script>
 </body>
 </html>
