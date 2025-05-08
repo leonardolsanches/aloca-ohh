@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Alocação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="/static/logoclaro.png" alt="Logo Claro">
+    </div>
+    <h2>Login</h2>
+    <div>
+      <label for="profile">Perfil</label>
+      <select id="profile" required onchange="updateAutocomplete()">
+        <option value="" disabled selected>Selecione seu perfil</option>
+        <option value="Colaborador">Colaborador</option>
+        <option value="Terceiro">Terceiro</option>
+        <option value="Gestor">Gestor</option>
+      </select>
+    </div>
+    <div>
+      <label for="username">Usuário</label>
+      <input type="text" id="username" placeholder="Digite seu usuário" list="username-list" required>
+      <datalist id="username-list"></datalist>
+    </div>
+    <div>
+      <label for="password">Senha</label>
+      <input type="password" id="password" placeholder="Digite sua senha" required>
+    </div>
+    <button onclick="login()">Entrar</button>
+  </div>
+
+  <script src="/static/js/login.js"></script>
+</body>
+</html>
