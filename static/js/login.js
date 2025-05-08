@@ -37,6 +37,13 @@ function login() {
   // Armazena o nome do usuário logado
   localStorage.setItem('isAuthenticated', 'true');
   localStorage.setItem('username', username);
-  // Redireciona para dashboard.html
-  window.location.href = '/static/dashboard.html';
+  // Redireciona para alocao.html
+  window.location.href = '/templates/alocao.html';
+}
+
+function bypassLogin() {
+  // Redireciona para alocao.html sem autenticação
+  localStorage.setItem('isAuthenticated', 'true');
+  localStorage.setItem('username', 'Convidado');
+  window.location.href = '/templates/alocao.html';
 }
