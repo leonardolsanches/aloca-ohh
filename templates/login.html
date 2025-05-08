@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Alocação</title>
-  <link rel="stylesheet" href="./static/css/styles.css">
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
   <div class="login-container">
     <div class="logo">
-      <img src="./static/logoclaro.png" alt="Logo">
+      <img src="/static/logoclaro.png" alt="Logo">
     </div>
     <h2>Login</h2>
     <div>
@@ -32,19 +32,6 @@
     <button onclick="login()">Entrar</button>
   </div>
 
-  <script>
-    function login() {
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const profile = document.getElementById('profile').value;
-
-      // Validação simples (para teste)
-      if (username === 'admin' && password === 'password' && profile) {
-        window.location.href = 'alocacao.html';
-      } else {
-        alert('Credenciais inválidas. Use "admin" como usuário e senha, e selecione um perfil.');
-      }
-    }
-  </script>
+  <script src="/static/js/login.js"></script>
 </body>
 </html>
