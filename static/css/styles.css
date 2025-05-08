@@ -96,10 +96,10 @@ body {
   background-color: #5a0015;
 }
 
-/* Estilos para alocacao.html */
+/* Estilos para alocacao.html e aprovacao.html */
 .header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
   flex-wrap: wrap;
@@ -113,24 +113,25 @@ body {
 .nav-menu {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  align-items: center;
 }
 
 .nav-link {
   padding: 8px 16px;
-  background-color: #800020;
-  color: #fff;
+  background-color: #ddd;
+  color: #666;
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+  font-size: 0.9em;
 }
 
 .nav-link:hover {
-  background-color: #5a0015;
+  background-color: #ccc;
 }
 
 .nav-link.active {
-  background-color: #5a0015;
+  background-color: #bbb;
   font-weight: bold;
 }
 
@@ -145,12 +146,14 @@ body {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filters-bottom {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .filters-top select:first-child {
@@ -158,7 +161,8 @@ body {
 }
 
 .filters-top select,
-.filters-top input[type="date"] {
+.filters-top input[type="date"],
+.filters-top input[type="text"] {
   padding: 8px;
   border: 1px solid #800020;
   border-radius: 5px;
@@ -166,15 +170,18 @@ body {
   background-color: #fff;
   cursor: pointer;
   flex: 1;
-  min-width: 150px;
+  min-width: 75px;
+  max-width: 150px;
+  height: 36px;
 }
 
-.filters-top input[type="date"] {
+.filters-top input[type="date"],
+.filters-top input[type="text"] {
   cursor: text;
 }
 
-.filters-bottom input[type="number"],
-.filters-bottom select {
+.filters-bottom select,
+.filters-bottom input[type="number"] {
   padding: 8px;
   border: 1px solid #800020;
   border-radius: 5px;
@@ -182,8 +189,9 @@ body {
   background-color: #fff;
   cursor: pointer;
   flex: 1;
-  min-width: 150px;
+  min-width: 75px;
   max-width: 100px;
+  height: 36px;
 }
 
 .filters-bottom button {
@@ -195,6 +203,7 @@ body {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s;
+  height: 36px;
 }
 
 .filters-bottom button:hover {
@@ -265,12 +274,16 @@ body {
 
 .calendar-days .day {
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   text-align: center;
   border: 1px solid #ddd;
   cursor: pointer;
   transition: background-color 0.3s;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
 }
 
 .calendar-days .day.empty {
@@ -300,6 +313,19 @@ body {
 
 .calendar-days .day:hover:not(.empty) {
   background-color: #f0f0f0;
+}
+
+.day-number {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.allocation-summary {
+  font-size: 0.7em;
+  color: #333;
+  line-height: 1.2;
+  margin-top: 5px;
+  word-wrap: break-word;
 }
 
 .footer {
@@ -398,7 +424,7 @@ body {
 }
 
 .expand-btn {
-  background-color: #800020;
+  background-color: #666;
   color: #fff;
   border: none;
   padding: 2px 6px;
@@ -407,7 +433,7 @@ body {
 }
 
 .expand-btn:hover {
-  background-color: #5a0015;
+  background-color: #555;
 }
 
 .action-btn {
@@ -462,7 +488,7 @@ body {
 
 .hierarchy-control button {
   padding: 2px 6px;
-  background-color: #800020;
+  background-color: #666;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -470,7 +496,12 @@ body {
 }
 
 .hierarchy-control button:hover {
-  background-color: #5a0015;
+  background-color: #555;
+}
+
+.hierarchy-control button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
 }
 
 .modal {
@@ -565,7 +596,8 @@ body {
   }
 
   .filters-top select,
-  .filters-top input[type="date"] {
+  .filters-top input[type="date"],
+  .filters-top input[type="text"] {
     min-width: 120px;
   }
 
@@ -589,8 +621,9 @@ body {
   }
 
   .calendar-days .day {
-    padding: 15px;
-    font-size: 0.9em;
+    padding: 8px;
+    font-size: 0.8em;
+    min-height: 60px;
   }
 
   .calendar-nav button {
@@ -650,7 +683,8 @@ body {
   }
 
   .filters-top select,
-  .filters-top input[type="date"] {
+  .filters-top input[type="date"],
+  .filters-top input[type="text"] {
     width: 100%;
   }
 
@@ -658,18 +692,4 @@ body {
     font-size: 1.2em;
   }
 
-  .calendar-header .day {
-    padding: 8px;
-    font-size: 0.8em;
-  }
-
-  .calendar-days .day {
-    padding: 10px;
-    font-size: 0.8em;
-  }
-
-  .calendar-nav button {
-    padding: 6px 12px;
-    font-size: 0.8em;
-  }
-}
+  .calendar

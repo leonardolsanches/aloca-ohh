@@ -2,6 +2,20 @@ let currentDate = new Date();
 let allocations = {};
 let selectedDaysByMonth = {};
 
+// Carrega alocações do localStorage ao iniciar
+function loadAllocations() {
+  const saved = localStorage.getItem('allocations');
+  if (saved) {
+    allocations = JSON.parse(saved);
+  }
+}
+
+// Salva alocações no localStorage
+function saveAllocations() {
+  localStorage.setItem('allocations', JSON.stringify(allocations));
+}
+
+// Carrega dados de projetos e atividades
 fetch('/static/usuarios.json')
   .then(response => response.json())
   .then(data => {
@@ -21,6 +35,8 @@ fetch('/static/usuarios.json')
       option.textContent = atividade;
       atividadesSelect.appendChild(option);
     });
+    loadAllocations();
+    renderCalendar();
   })
   .catch(error => console.error('Erro ao carregar usuarios.json:', error));
 
@@ -60,7 +76,12 @@ function renderCalendar() {
     const dayDiv = document.createElement('div');
     dayDiv.className = 'day';
     dayDiv.dataset.date = dateStr;
-    dayDiv.textContent = day;
+
+    // Adiciona o número do dia
+    const dayNumber = document.createElement('span');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = day;
+    dayDiv.appendChild(dayNumber);
 
     if (selectedDays.has(dateStr)) {
       dayDiv.classList.add('selected');
@@ -77,6 +98,14 @@ function renderCalendar() {
         dayDiv.classList.add('red');
       }
 
+      // Texto resumido dentro da célula
+      const summaryText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}`).join('<br>');
+      const summary = document.createElement('span');
+      summary.className = 'allocation-summary';
+      summary.innerHTML = summaryText;
+      dayDiv.appendChild(summary);
+
+      // Tooltip com detalhes completos
       const tooltipText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('\n');
       dayDiv.setAttribute('title', tooltipText);
     }
@@ -220,8 +249,6 @@ function alocar() {
     });
   });
 
+  saveAllocations();
   renderCalendar();
 }
-
-// Inicializar o calendário
-renderCalendar();

@@ -10,18 +10,26 @@ const mockData = [
     Projeto: "Projeto A",
     Atividade: "Atividade 1",
     alocacoes: {
-      '2025-01': { percentage: 92, status: 'pendente', justificativa: '' },
-      '2025-02': { percentage: 85, status: 'pendente', justificativa: '' },
-      '2025-03': { percentage: 110, status: 'pendente', justificativa: '' },
-      '2025-04': { percentage: 70, status: 'pendente', justificativa: '' },
-      '2025-05': { percentage: 100, status: 'pendente', justificativa: '' },
-      '2025-06': { percentage: 95, status: 'pendente', justificativa: '' },
-      '2025-07': { percentage: 80, status: 'pendente', justificativa: '' },
-      '2025-08': { percentage: 120, status: 'pendente', justificativa: '' },
-      '2025-09': { percentage: 60, status: 'pendente', justificativa: '' },
-      '2025-10': { percentage: 90, status: 'pendente', justificativa: '' },
-      '2025-11': { percentage: 105, status: 'pendente', justificativa: '' },
-      '2025-12': { percentage: 88, status: 'pendente', justificativa: '' }
+      '2025-01': [
+        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
+        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-02': [
+        { percentage: 48, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
+        { percentage: 50, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [{ percentage: 70, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-05': [{ percentage: 100, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-06': [{ percentage: 95, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-07': [{ percentage: 80, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-08': [{ percentage: 120, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-09': [{ percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-10': [{ percentage: 90, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-11': [{ percentage: 105, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
+      '2025-12': [{ percentage: 88, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }]
     }
   },
   {
@@ -29,18 +37,18 @@ const mockData = [
     Projeto: "Projeto B",
     Atividade: "Atividade 2",
     alocacoes: {
-      '2025-01': { percentage: 80, status: 'pendente', justificativa: '' },
-      '2025-02': { percentage: 90, status: 'pendente', justificativa: '' },
-      '2025-03': { percentage: 100, status: 'pendente', justificativa: '' },
-      '2025-04': { percentage: 95, status: 'pendente', justificativa: '' },
-      '2025-05': { percentage: 85, status: 'pendente', justificativa: '' },
-      '2025-06': { percentage: 110, status: 'pendente', justificativa: '' },
-      '2025-07': { percentage: 70, status: 'pendente', justificativa: '' },
-      '2025-08': { percentage: 120, status: 'pendente', justificativa: '' },
-      '2025-09': { percentage: 65, status: 'pendente', justificativa: '' },
-      '2025-10': { percentage: 90, status: 'pendente', justificativa: '' },
-      '2025-11': { percentage: 100, status: 'pendente', justificativa: '' },
-      '2025-12': { percentage: 88, status: 'pendente', justificativa: '' }
+      '2025-01': [{ percentage: 80, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-02': [{ percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-03': [{ percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-04': [{ percentage: 95, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-05': [{ percentage: 85, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-06': [{ percentage: 110, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-07': [{ percentage: 70, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-08': [{ percentage: 120, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-09': [{ percentage: 65, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-10': [{ percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-11': [{ percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
+      '2025-12': [{ percentage: 88, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }]
     }
   }
 ];
@@ -60,6 +68,7 @@ fetch('/static/usuarios.json')
     });
     data = mockData;
     renderTable();
+    updateButtonStates();
   })
   .catch(error => console.error('Erro ao carregar usuarios.json:', error));
 
@@ -70,11 +79,13 @@ function loadApprovals() {
     const approvals = JSON.parse(saved);
     data.forEach(item => {
       Object.keys(item.alocacoes).forEach(month => {
-        const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}`;
-        if (approvals[key]) {
-          item.alocacoes[month].status = approvals[key].status;
-          item.alocacoes[month].justificativa = approvals[key].justificativa;
-        }
+        item.alocacoes[month].forEach((alloc, index) => {
+          const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+          if (approvals[key]) {
+            alloc.status = approvals[key].status;
+            alloc.justificativa = approvals[key].justificativa;
+          }
+        });
       });
     });
   }
@@ -84,11 +95,13 @@ function saveApprovals() {
   const approvals = {};
   data.forEach(item => {
     Object.keys(item.alocacoes).forEach(month => {
-      const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}`;
-      approvals[key] = {
-        status: item.alocacoes[month].status,
-        justificativa: item.alocacoes[month].justificativa
-      };
+      item.alocacoes[month].forEach((alloc, index) => {
+        const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+        approvals[key] = {
+          status: alloc.status,
+          justificativa: alloc.justificativa
+        };
+      });
     });
   });
   localStorage.setItem('approvals', JSON.stringify(approvals));
@@ -108,11 +121,13 @@ function renderTable() {
       row.dataset.key = key;
 
       const expandCell = document.createElement('td');
-      const expandBtn = document.createElement('button');
-      expandBtn.className = 'expand-btn';
-      expandBtn.textContent = '+';
-      expandBtn.onclick = () => toggleExpand(key);
-      expandCell.appendChild(expandBtn);
+      if (item.children) {
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'expand-btn';
+        expandBtn.textContent = '+';
+        expandBtn.onclick = () => toggleExpand(key);
+        expandCell.appendChild(expandBtn);
+      }
       row.appendChild(expandCell);
 
       const itemCell = document.createElement('td');
@@ -124,21 +139,34 @@ function renderTable() {
         const monthKey = `2025-${String(month).padStart(2, '0')}`;
         const cell = document.createElement('td');
         if (item.alocacoes && item.alocacoes[monthKey]) {
-          const alloc = item.alocacoes[monthKey];
-          const statusClass = alloc.status === 'aprovado' ? 'approved' : alloc.status === 'reprovado' ? 'rejected' : 'pending';
+          const alocs = item.alocacoes[monthKey];
+          const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+          const status = alocs[0].status; // Assume que todas as alocações no mês têm o mesmo status
+          const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
           cell.className = statusClass;
-          cell.innerHTML = `${alloc.percentage}% <br>`;
+          
+          // Texto resumido dentro da célula
+          const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
+          const summary = document.createElement('span');
+          summary.className = 'allocation-summary';
+          summary.innerHTML = summaryText;
+          cell.appendChild(summary);
+          
+          cell.appendChild(document.createElement('br'));
+
           const approveBtn = document.createElement('button');
           approveBtn.className = 'action-btn approve';
           approveBtn.textContent = '✅';
           approveBtn.onclick = () => approve(item, monthKey);
           cell.appendChild(approveBtn);
+          
           const rejectBtn = document.createElement('button');
           rejectBtn.className = 'action-btn reject';
           rejectBtn.textContent = '❌';
           rejectBtn.onclick = () => openJustificativaModal(item, monthKey);
           cell.appendChild(rejectBtn);
-          if (alloc.justificativa) {
+          
+          if (alocs.some(alloc => alloc.justificativa)) {
             const editBtn = document.createElement('button');
             editBtn.className = 'action-btn edit';
             editBtn.textContent = '✎';
@@ -150,11 +178,15 @@ function renderTable() {
       }
 
       const actionsCell = document.createElement('td');
-      const rejectAllBtn = document.createElement('button');
-      rejectAllBtn.className = 'action-btn reject-all';
-      rejectAllBtn.textContent = 'Reprovar Todos';
-      rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
-      actionsCell.appendChild(rejectAllBtn);
+      if (!item.children) { // Só exibe "Reprovar Todos" no nível mais baixo (Atividade)
+        const rejectAllBtn = document.createElement('button');
+        rejectAllBtn.className = 'action-btn reject-all';
+        rejectAllBtn.textContent = 'Reprovar Todos';
+        rejectAllBtn.style.display = 'none'; // Escondido por padrão
+        rejectAllBtn.dataset.key = key;
+        rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
+        actionsCell.appendChild(rejectAllBtn);
+      }
       row.appendChild(actionsCell);
 
       tbody.appendChild(row);
@@ -204,24 +236,35 @@ function groupData(data) {
 function toggleExpand(key) {
   const childrenRow = document.getElementById(`children-${key}`);
   const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
+  const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
   if (childrenRow.style.display === 'none') {
     childrenRow.style.display = 'table-row';
     btn.textContent = '-';
+    if (rejectAllBtn) {
+      rejectAllBtn.style.display = 'inline-block';
+    }
   } else {
     childrenRow.style.display = 'none';
     btn.textContent = '+';
+    if (rejectAllBtn) {
+      rejectAllBtn.style.display = 'none';
+    }
   }
 }
 
 function approve(item, monthKey) {
   if (monthKey === 'all') {
     Object.keys(item.alocacoes).forEach(key => {
-      item.alocacoes[key].status = 'aprovado';
-      item.alocacoes[key].justificativa = '';
+      item.alocacoes[key].forEach(alloc => {
+        alloc.status = 'aprovado';
+        alloc.justificativa = '';
+      });
     });
   } else {
-    item.alocacoes[monthKey].status = 'aprovado';
-    item.alocacoes[monthKey].justificativa = '';
+    item.alocacoes[monthKey].forEach(alloc => {
+      alloc.status = 'aprovado';
+      alloc.justificativa = '';
+    });
   }
   saveApprovals();
   renderTable();
@@ -231,7 +274,7 @@ function openJustificativaModal(item, monthKey) {
   currentJustificativaTarget = { item, monthKey };
   const modal = document.getElementById('justificativa-modal');
   const textArea = document.getElementById('justificativa-text');
-  textArea.value = monthKey !== 'all' && item.alocacoes[monthKey].justificativa ? item.alocacoes[monthKey].justificativa : '';
+  textArea.value = monthKey !== 'all' && item.alocacoes[monthKey][0].justificativa ? item.alocacoes[monthKey][0].justificativa : '';
   modal.style.display = 'block';
 }
 
@@ -250,12 +293,16 @@ function submitJustificativa() {
   const { item, monthKey } = currentJustificativaTarget;
   if (monthKey === 'all') {
     Object.keys(item.alocacoes).forEach(key => {
-      item.alocacoes[key].status = 'reprovado';
-      item.alocacoes[key].justificativa = justificativa;
+      item.alocacoes[key].forEach(alloc => {
+        alloc.status = 'reprovado';
+        alloc.justificativa = justificativa;
+      });
     });
   } else {
-    item.alocacoes[monthKey].status = 'reprovado';
-    item.alocacoes[monthKey].justificativa = justificativa;
+    item.alocacoes[monthKey].forEach(alloc => {
+      alloc.status = 'reprovado';
+      alloc.justificativa = justificativa;
+    });
   }
   saveApprovals();
   closeModal();
@@ -273,6 +320,7 @@ function moveUp(index) {
     [hierarchy[index - 1], hierarchy[index]] = [hierarchy[index], hierarchy[index - 1]];
     updateHierarchyDisplay();
     renderTable();
+    updateButtonStates();
   }
 }
 
@@ -281,12 +329,31 @@ function moveDown(index) {
     [hierarchy[index], hierarchy[index + 1]] = [hierarchy[index + 1], hierarchy[index]];
     updateHierarchyDisplay();
     renderTable();
+    updateButtonStates();
   }
 }
 
 function updateHierarchyDisplay() {
   const display = document.getElementById('hierarchy-display');
   display.textContent = hierarchy.join(' ⬇ > ');
+}
+
+function updateButtonStates() {
+  document.getElementById('down-0').disabled = false;
+  document.getElementById('up-1').disabled = false;
+  document.getElementById('down-1').disabled = false;
+  document.getElementById('up-2').disabled = false;
+
+  if (hierarchy[0] === hierarchy[0]) {
+    document.getElementById('down-0').disabled = false;
+  }
+  if (hierarchy[1] === hierarchy[1]) {
+    document.getElementById('up-1').disabled = false;
+    document.getElementById('down-1').disabled = false;
+  }
+  if (hierarchy[2] === hierarchy[2]) {
+    document.getElementById('up-2').disabled = false;
+  }
 }
 
 function filtrar() {
@@ -305,11 +372,10 @@ function filtrar() {
     return matchesGestor && matchesPerfil && matchesBusca;
   });
 
-  // Filtrar por período (simulado para ano ou trimestre)
   if (periodo === 'trimestre') {
     filteredData = filteredData.map(item => {
       const newItem = { ...item, alocacoes: {} };
-      const startMonth = 1; // Primeiro trimestre (JAN-MAR)
+      const startMonth = 1;
       const endMonth = 3;
       Object.keys(item.alocacoes).forEach(month => {
         const monthNum = parseInt(month.split('-')[1]);

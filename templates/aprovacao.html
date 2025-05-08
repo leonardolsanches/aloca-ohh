@@ -13,7 +13,10 @@
       <div class="logo">
         <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
       </div>
-      <div class="user-info">Usuário: {{ username }}</div>
+      <nav class="nav-menu">
+        <a href="{{ url_for('alocacao') }}" class="nav-link">Alocação</a>
+        <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
+      </nav>
     </div>
 
     <!-- Filtros -->
@@ -41,10 +44,10 @@
     <div class="hierarchy-control">
       <span>Hierarquia:</span>
       <span id="hierarchy-display">Colaborador ⬇ > Projeto ⬇ > Atividade</span>
-      <button onclick="moveUp(0)">↑</button>
-      <button onclick="moveDown(0)">↓</button>
-      <button onclick="moveUp(1)">↑</button>
-      <button onclick="moveDown(1)">↓</button>
+      <button onclick="moveDown(0)" id="down-0" title="Descer">⬇</button>
+      <button onclick="moveUp(1)" id="up-1" title="Subir">⬆</button>
+      <button onclick="moveDown(1)" id="down-1" title="Descer">⬇</button>
+      <button onclick="moveUp(2)" id="up-2" title="Subir">⬆</button>
     </div>
 
     <!-- Tabela -->
@@ -70,6 +73,13 @@
       </thead>
       <tbody id="approval-table-body"></tbody>
     </table>
+
+    <!-- Rodapé -->
+    <div class="footer">
+      <div class="footer-user">
+        <span id="footer-user-info">Usuário: {{ username }}</span>
+      </div>
+    </div>
 
     <!-- Modal para Justificativa -->
     <div id="justificativa-modal" class="modal">
