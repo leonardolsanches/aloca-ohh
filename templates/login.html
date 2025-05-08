@@ -12,7 +12,7 @@
       <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo">
     </div>
     <h2>Login</h2>
-    <form action="/login" method="post">
+    <form action="{{ url_for('login') }}" method="post">
       <label for="profile">Perfil</label>
       <select id="profile" name="profile" required>
         <option value="" disabled selected>Selecione seu perfil</option>
