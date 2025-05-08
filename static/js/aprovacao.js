@@ -271,9 +271,11 @@ function toggleExpand(key) {
   const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
 
   if (childrenRow.style.display === 'none') {
-    // Renderizar subníveis apenas quando expandir
+    // Limpar o conteúdo anterior
     childTbody.innerHTML = '';
     const item = findItemByKey(data, key.split('-').map(Number));
+    
+    // Verificar se há subníveis antes de renderizar
     if (item && item.children && item.children.length > 0) {
       renderSubRows(item.children, childTbody, key);
       childrenRow.style.display = 'table-row';
@@ -615,4 +617,4 @@ function filtrar() {
 
 // Atualiza o autocomplete ao mudar o gestor ou perfil
 document.getElementById('gestor').addEventListener('change', updateAutocomplete);
-document.getElementById('perfil').addEventListener('change', updateAutocomplete); 
+document.getElementById('perfil').addEventListener('change', updateAutocomplete);
