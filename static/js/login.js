@@ -23,27 +23,7 @@ function updateAutocomplete() {
   }
 }
 
-function login() {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const profile = document.getElementById('profile').value;
-
-  // Validação
-  if (!profile || !username || password !== 'Leonardo Lima Sanches') {
-    alert('Credenciais inválidas. A senha padrão é "Leonardo Lima Sanches".');
-    return;
-  }
-
-  // Armazena o nome do usuário logado
-  localStorage.setItem('isAuthenticated', 'true');
-  localStorage.setItem('username', username);
-  // Redireciona para alocao.html
-  window.location.href = '/templates/alocao.html';
-}
-
 function bypassLogin() {
-  // Redireciona para alocao.html sem autenticação
-  localStorage.setItem('isAuthenticated', 'true');
-  localStorage.setItem('username', 'Convidado');
-  window.location.href = '/templates/alocao.html';
+  // Redireciona para alocacao.html sem autenticação
+  window.location.href = '/alocacao';
 }
