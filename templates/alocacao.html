@@ -22,26 +22,22 @@
 
     <!-- Filtros -->
     <div class="filters-container">
-      <div class="filters-top">
-        <div class="filter-row">
-          <select id="tipo-projeto-atividade">
-            <option>Tipo Projeto/Atividade</option>
-            <option>Projeto</option>
-            <option>Atividade</option>
-          </select>
-          <select id="projeto"></select>
-          <select id="atividade"></select>
-          <input type="date" id="data-inicio" placeholder="Data Início">
-          <input type="date" id="data-fim" placeholder="Data Fim">
-        </div>
-      </div>
-      <div class="filters-bottom">
+      <div class="filter-row">
+        <select id="tipo-projeto-atividade">
+          <option>Tipo Projeto/Atividade</option>
+          <option>Projeto</option>
+          <option>Atividade</option>
+        </select>
+        <select id="projeto"></select>
+        <select id="atividade"></select>
+        <input type="date" id="data-inicio" placeholder="Data Início">
+        <input type="date" id="data-fim" placeholder="Data Fim">
         <input type="number" id="quantidade" placeholder="QTDE" min="0" maxlength="5">
         <select id="metrica">
           <option value="horas/mês">horas/mês</option>
           <option value="percentual/mês">%</option>
         </select>
-        <button onclick="alocar()">Alocar</button>
+        <button onclick="alocar()" class="action-btn">Alocar</button>
       </div>
     </div>
 

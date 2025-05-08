@@ -15,6 +15,7 @@
       </div>
       <nav class="nav-menu">
         <a href="{{ url_for('alocacao') }}" class="nav-link">Alocação</a>
+        <a href="{{ url_for('aprovacao') }}" class="nav-link active">Aprovação</a>
         <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
       </nav>
     </div>
@@ -22,6 +23,20 @@
     <!-- Filtros -->
     <div class="filters-container">
       <div class="filter-row">
+        <div class="hierarchy-control">
+          <span>Hierarquia:</span>
+          <span id="hierarchy-display">
+            <span class="hierarchy-level">Colaborador</span>
+            <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
+            <span> ⬇ > </span>
+            <span class="hierarchy-level">Projeto</span>
+            <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
+            <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
+            <span> ⬇ > </span>
+            <span class="hierarchy-level">Atividade</span>
+            <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
+          </span>
+        </div>
         <select id="gestor"></select>
         <select id="perfil">
           <option value="Colaborador">Colaborador</option>
@@ -33,18 +48,8 @@
           <option value="ano">Ano</option>
           <option value="trimestre">Trimestre</option>
         </select>
-        <button onclick="filtrar()">Filtrar</button>
+        <button onclick="filtrar()" class="action-btn">Filtrar</button>
       </div>
-    </div>
-
-    <!-- Faixa de Controle de Hierarquia -->
-    <div class="hierarchy-control">
-      <span>Hierarquia:</span>
-      <span id="hierarchy-display">Colaborador ⬇ > Projeto ⬇ > Atividade</span>
-      <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
-      <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
-      <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
-      <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
     </div>
 
     <!-- Tabela -->

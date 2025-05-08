@@ -7,13 +7,13 @@
 
 body {
   background-color: #f5f5f5;
-  padding: 20px;
+  padding: 10px;
 }
 
 .container {
-  max-width: 1200px;
+  width: 100vw;
   margin: 0 auto;
-  transform: scale(0.9);
+  transform: scale(0.95);
   transform-origin: top left;
 }
 
@@ -114,7 +114,7 @@ body {
 
 .nav-menu {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -133,7 +133,8 @@ body {
 }
 
 .nav-link.active {
-  background-color: #bbb;
+  background-color: #F44336;
+  color: #fff;
   font-weight: bold;
 }
 
@@ -151,15 +152,21 @@ body {
   gap: 10px;
   flex-wrap: wrap;
   align-items: center;
+  width: 100%;
 }
 
-.filters-top select:first-child {
-  width: 300px;
+.filters-container select:first-child {
+  max-width: 200px;
 }
 
-.filters-top select,
-.filters-top input[type="date"],
-.filters-top input[type="text"] {
+.filters-container select#projeto,
+.filters-container select#atividade {
+  max-width: 200px;
+}
+
+.filters-container select,
+.filters-container input[type="date"],
+.filters-container input[type="text"] {
   padding: 8px;
   border: 1px solid #800020;
   border-radius: 5px;
@@ -172,18 +179,18 @@ body {
   height: 36px;
 }
 
-.filters-top select#gestor,
-.filters-top select#perfil {
+.filters-container select#gestor,
+.filters-container select#perfil {
   max-width: 150px;
 }
 
-.filters-top input[type="date"],
-.filters-top input[type="text"] {
+.filters-container input[type="date"],
+.filters-container input[type="text"] {
   cursor: text;
 }
 
-.filters-bottom select,
-.filters-bottom input[type="number"] {
+.filters-container select#metrica,
+.filters-container input[type="number"] {
   padding: 8px;
   border: 1px solid #800020;
   border-radius: 5px;
@@ -196,7 +203,7 @@ body {
   height: 36px;
 }
 
-.filters-bottom button {
+.filters-container button.action-btn {
   padding: 8px 20px;
   background-color: #800020;
   color: #fff;
@@ -206,9 +213,10 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   height: 36px;
+  margin-left: auto;
 }
 
-.filters-bottom button:hover {
+.filters-container button.action-btn:hover {
   background-color: #5a0015;
 }
 
@@ -413,6 +421,10 @@ body {
   font-weight: bold;
 }
 
+#approval-table th:nth-child(n+3):nth-child(-n+14) {
+  width: 7%;
+}
+
 #approval-table .level-0 td {
   background-color: #f9f9f9;
 }
@@ -490,6 +502,13 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  flex-wrap: wrap;
+}
+
+.hierarchy-control span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .hierarchy-control button {
@@ -499,6 +518,7 @@ body {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  font-size: 0.9em;
 }
 
 .hierarchy-control button:hover {
@@ -601,20 +621,15 @@ body {
     flex-direction: column;
   }
 
-  .filters-top select,
-  .filters-top input[type="date"],
-  .filters-top input[type="text"] {
+  .filters-container select,
+  .filters-container input[type="date"],
+  .filters-container input[type="text"] {
     min-width: 120px;
   }
 
-  .filters-bottom {
-    flex-direction: column;
-  }
-
-  .filters-bottom input[type="number"],
-  .filters-bottom select,
-  .filters-bottom button {
+  .filters-container button.action-btn {
     width: 100%;
+    margin-left: 0;
   }
 
   .calendar-title {
@@ -688,9 +703,9 @@ body {
     height: 40px;
   }
 
-  .filters-top select,
-  .filters-top input[type="date"],
-  .filters-top input[type="text"] {
+  .filters-container select,
+  .filters-container input[type="date"],
+  .filters-container input[type="text"] {
     width: 100%;
   }
 
@@ -717,4 +732,4 @@ body {
     padding: 6px 12px;
     font-size: 0.8em;
   }
-} 
+}
