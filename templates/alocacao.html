@@ -3,113 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alocação - Janeiro 2025</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <title>Alocação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
   <div class="container">
-    <!-- Cabeçalho com logotipo e filtros -->
+    <!-- Cabeçalho -->
     <div class="header">
       <div class="logo">
-        <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
       </div>
-      <div class="filters-container">
-        <div class="filters">
-          <div class="filter-row">
-            <select id="tipo-projeto-atividade">
-              <option>Tipo Projeto/Atividade</option>
-              <option>Projeto</option>
-              <option>Atividade</option>
-            </select>
-            <select id="projeto">
-              <option>Projeto</option>
-              <option>Projeto A</option>
-              <option>Projeto B</option>
-            </select>
-            <select id="atividade">
-              <option>Atividade</option>
-              <option>Atividade 1</option>
-              <option>Atividade 2</option>
-            </select>
-          </div>
-          <div class="filter-row">
-            <div class="periodo">
-              <input type="date" id="data-inicio" placeholder="Data Início">
-              <input type="date" id="data-fim" placeholder="Data Fim">
-            </div>
-            <input type="number" id="qtd-horas" placeholder="Qtd Horas" min="0">
-          </div>
+      <div class="user-info" id="user-info">Usuário: </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-container">
+      <div class="filters-left">
+        <div class="filter-row">
+          <select id="tipo-projeto-atividade">
+            <option>Tipo Projeto/Atividade</option>
+            <option>Projeto</option>
+            <option>Atividade</option>
+          </select>
+          <select id="projeto">
+            <option>Projeto</option>
+            <option>Projeto A</option>
+            <option>Projeto B</option>
+          </select>
+          <select id="atividade">
+            <option>Atividade</option>
+            <option>Atividade 1</option>
+            <option>Atividade 2</option>
+          </select>
         </div>
-        <button onclick="alocar()">Alocar</button>
       </div>
+      <div class="filters-right">
+        <div class="filter-row">
+          <input type="date" id="data-inicio" placeholder="Data Início">
+          <input type="date" id="data-fim" placeholder="Data Fim">
+        </div>
+      </div>
+    </div>
+    <div class="filters-bottom">
+      <input type="number" id="quantidade" placeholder="QTDE" min="0">
+      <select id="metrica">
+        <option value="horas/mês">horas/mês</option>
+        <option value="percentual/mês">%</option>
+      </select>
+      <button onclick="alocar()">Alocar</button>
     </div>
 
     <!-- Navegação e título do calendário -->
     <div class="calendar-nav">
       <button onclick="previousMonth()">← Anterior</button>
-      <h1 class="calendar-title">JANEIRO de 2025</h1>
+      <h1 class="calendar-title" id="calendar-title"></h1>
       <button onclick="nextMonth()">Próximo →</button>
     </div>
 
     <!-- Calendário -->
-    <div class="calendar">
-      <div class="calendar-header">
-        <div class="day">Dom</div>
-        <div class="day">Seg</div>
-        <div class="day">Ter</div>
-        <div class="day">Qua</div>
-        <div class="day">Qui</div>
-        <div class="day">Sex</div>
-        <div class="day">Sáb</div>
-      </div>
-
-      <div class="calendar-days">
-        <!-- 1º de janeiro de 2025 é quarta-feira, então 3 células vazias -->
-        <div class="day empty" data-date=""></div>
-        <div class="day empty" data-date=""></div>
-        <div class="day empty" data-date=""></div>
-        <!-- Dias do mês -->
-        <div class="day highlighted" data-date="2025-01-01">1</div>
-        <div class="day highlighted" data-date="2025-01-02">2</div>
-        <div class="day highlighted" data-date="2025-01-03">3</div>
-        <div class="day highlighted" data-date="2025-01-04">4</div>
-        <div class="day highlighted" data-date="2025-01-05">5</div>
-        <div class="day" data-date="2025-01-06">6</div>
-        <div class="day" data-date="2025-01-07">7</div>
-        <div class="day" data-date="2025-01-08">8</div>
-        <div class="day" data-date="2025-01-09">9</div>
-        <div class="day" data-date="2025-01-10">10</div>
-        <div class="day" data-date="2025-01-11">11</div>
-        <div class="day" data-date="2025-01-12">12</div>
-        <div class="day" data-date="2025-01-13">13</div>
-        <div class="day" data-date="2025-01-14">14</div>
-        <div class="day" data-date="2025-01-15">15</div>
-        <div class="day" data-date="2025-01-16">16</div>
-        <div class="day" data-date="2025-01-17">17</div>
-        <div class="day" data-date="2025-01-18">18</div>
-        <div class="day" data-date="2025-01-19">19</div>
-        <div class="day" data-date="2025-01-20">20</div>
-        <div class="day" data-date="2025-01-21">21</div>
-        <div class="day" data-date="2025-01-22">22</div>
-        <div class="day" data-date="2025-01-23">23</div>
-        <div class="day" data-date="2025-01-24">24</div>
-        <div class="day" data-date="2025-01-25">25</div>
-        <div class="day" data-date="2025-01-26">26</div>
-        <div class="day" data-date="2025-01-27">27</div>
-        <div class="day" data-date="2025-01-28">28</div>
-        <div class="day" data-date="2025-01-29">29</div>
-        <div class="day" data-date="2025-01-30">30</div>
-        <div class="day" data-date="2025-01-31">31</div>
-      </div>
+    <div class="calendar" id="calendar">
+      <div class="calendar-header" id="calendar-header"></div>
+      <div class="calendar-days" id="calendar-days"></div>
     </div>
 
-    <!-- Barra inferior com contador -->
-    <div class="footer-bar">
-      <button class="add-btn">+</button>
-      <span class="counter">45</span>
+    <!-- Rodapé -->
+    <div class="footer">
+      <div class="footer-logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
+        <span id="footer-user-info">Usuário: </span>
+      </div>
+      <div class="legend">
+        <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
+        <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
+        <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
+      </div>
     </div>
   </div>
 
-  <script src="{{ url_for('static', filename='js/alocacao.js') }}"></script>
+  <script src="/static/js/alocacao.js"></script>
+  <script>
+    // Verificação de autenticação
+    if (!localStorage.getItem('isAuthenticated')) {
+      alert('Você precisa fazer login para acessar esta página.');
+      window.location.href = '/static/login.html';
+    } else {
+      const username = localStorage.getItem('username') || 'Convidado';
+      document.getElementById('user-info').textContent = 'Usuário: ' + username;
+      document.getElementById('footer-user-info').textContent = 'Usuário: ' + username;
+    }
+  </script>
 </body>
 </html>
