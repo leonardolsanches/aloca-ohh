@@ -2,6 +2,7 @@ let gestores = [];
 let data = [];
 let hierarchy = ['Colaborador', 'Projeto', 'Atividade'];
 let currentJustificativaTarget = null;
+let usuarios = {};
 
 // Dados simulados (mock)
 const mockData = [
@@ -53,11 +54,12 @@ const mockData = [
   }
 ];
 
-// Carrega dados de gestores
+// Carrega dados de gestores e usuários
 fetch('/static/usuarios.json')
   .then(response => response.json())
   .then(json => {
     gestores = json.Gestor;
+    usuarios = json;
     const gestorSelect = document.getElementById('gestor');
     gestorSelect.innerHTML = '<option>Gestor</option>';
     gestores.forEach(gestor => {
@@ -69,8 +71,34 @@ fetch('/static/usuarios.json')
     data = mockData;
     renderTable();
     updateButtonStates();
+    updateAutocomplete();
   })
   .catch(error => console.error('Erro ao carregar usuarios.json:', error));
+
+// Atualiza o autocomplete com base nos filtros
+function updateAutocomplete() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const buscaList = document.getElementById('busca-list');
+  buscaList.innerHTML = '';
+
+  let filteredUsers = [];
+  if (gestor !== 'Gestor' && perfil) {
+    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].includes(item.Colaborador)).map(item => item.Colaborador);
+  } else if (perfil) {
+    filteredUsers = usuarios[perfil];
+  } else if (gestor !== 'Gestor') {
+    filteredUsers = data.filter(item => item.Colaborador === gestor).map(item => item.Colaborador);
+  } else {
+    filteredUsers = [...new Set(data.map(item => item.Colaborador))];
+  }
+
+  filteredUsers.forEach(user => {
+    const option = document.createElement('option');
+    option.value = user;
+    buscaList.appendChild(option);
+  });
+}
 
 // Carrega aprovações salvas do localStorage
 function loadApprovals() {
@@ -198,6 +226,11 @@ function renderTable() {
         childRow.style.display = 'none';
         const childCell = document.createElement('td');
         childCell.colSpan = 15;
+        const childTable = document.createElement('table');
+        childTable.className = 'sub-table';
+        const childTbody = document.createElement('tbody');
+        childTable.appendChild(childTbody);
+        childCell.appendChild(childTable);
         childRow.appendChild(childCell);
         tbody.appendChild(childRow);
         renderRows(item.children, level + 1, key);
@@ -344,14 +377,14 @@ function updateButtonStates() {
   document.getElementById('down-1').disabled = false;
   document.getElementById('up-2').disabled = false;
 
-  if (hierarchy[0] === hierarchy[0]) {
+  if (hierarchy[0] === 'Colaborador') {
     document.getElementById('down-0').disabled = false;
   }
-  if (hierarchy[1] === hierarchy[1]) {
+  if (hierarchy[1] === 'Projeto') {
     document.getElementById('up-1').disabled = false;
     document.getElementById('down-1').disabled = false;
   }
-  if (hierarchy[2] === hierarchy[2]) {
+  if (hierarchy[2] === 'Atividade') {
     document.getElementById('up-2').disabled = false;
   }
 }
@@ -363,9 +396,9 @@ function filtrar() {
   const periodo = document.getElementById('periodo').value;
 
   let filteredData = mockData.filter(item => {
-    const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor || gestores.includes(item.Colaborador);
-    const matchesPerfil = !perfil || item.Colaborador in usuarios[perfil];
-    const matchesBusca = !busca || 
+    const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
+    const matchesPerfil = perfil === '' || usuarios[perfil].includes(item.Colaborador);
+    const matchesBusca = busca === '' || 
       item.Colaborador.toLowerCase().includes(busca) || 
       item.Projeto.toLowerCase().includes(busca) || 
       item.Atividade.toLowerCase().includes(busca);
@@ -389,4 +422,9 @@ function filtrar() {
 
   data = filteredData;
   renderTable();
+  updateAutocomplete();
 }
+
+// Atualiza o autocomplete ao mudar o gestor ou perfil
+document.getElementById('gestor').addEventListener('change', updateAutocomplete);
+document.getElementById('perfil').addEventListener('change', updateAutocomplete); 

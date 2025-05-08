@@ -21,17 +21,14 @@
 
     <!-- Filtros -->
     <div class="filters-container">
-      <div class="filters-top">
-        <div class="filter-row">
-          <select id="gestor"></select>
-          <select id="perfil">
-            <option value="Colaborador">Colaborador</option>
-            <option value="Terceiro">Terceiro</option>
-          </select>
-          <input type="text" id="busca" placeholder="Buscar (nome, projeto, atividade)">
-        </div>
-      </div>
-      <div class="filters-bottom">
+      <div class="filter-row">
+        <select id="gestor"></select>
+        <select id="perfil">
+          <option value="Colaborador">Colaborador</option>
+          <option value="Terceiro">Terceiro</option>
+        </select>
+        <input type="text" id="busca" placeholder="Buscar (nome, projeto, atividade)" list="busca-list">
+        <datalist id="busca-list"></datalist>
         <select id="periodo">
           <option value="ano">Ano</option>
           <option value="trimestre">Trimestre</option>
@@ -44,10 +41,10 @@
     <div class="hierarchy-control">
       <span>Hierarquia:</span>
       <span id="hierarchy-display">Colaborador ⬇ > Projeto ⬇ > Atividade</span>
-      <button onclick="moveDown(0)" id="down-0" title="Descer">⬇</button>
-      <button onclick="moveUp(1)" id="up-1" title="Subir">⬆</button>
-      <button onclick="moveDown(1)" id="down-1" title="Descer">⬇</button>
-      <button onclick="moveUp(2)" id="up-2" title="Subir">⬆</button>
+      <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
+      <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
+      <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
+      <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
     </div>
 
     <!-- Tabela -->

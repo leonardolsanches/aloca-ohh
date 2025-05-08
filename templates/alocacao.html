@@ -13,13 +13,12 @@
       <div class="logo">
         <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
       </div>
+      <nav class="nav-menu">
+        <a href="{{ url_for('alocacao') }}" class="nav-link active">Alocação</a>
+        <a href="{{ url_for('aprovacao') }}" class="nav-link">Aprovação</a>
+        <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
+      </nav>
     </div>
-
-    <!-- Menu de Navegação -->
-    <nav class="nav-menu">
-      <a href="{{ url_for('alocacao') }}" class="nav-link active">Alocação</a>
-      <a href="{{ url_for('aprovacao') }}" class="nav-link">Aprovação</a>
-    </nav>
 
     <!-- Filtros -->
     <div class="filters-container">
