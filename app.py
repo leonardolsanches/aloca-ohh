@@ -1,41 +1,33 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
+import logging
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
-app.secret_key = 'seu-segredo'
+# Configurar logging para depuração
+logging.basicConfig(level=logging.DEBUG)
 
+app = Flask(__name__)
+
+# Rota para a página de login
 @app.route('/')
-def login_page():
-    return redirect(url_for('login'))
-
-@app.route('/login', methods=['GET'])
+@app.route('/login')
 def login():
+    logging.debug("Acessando a rota /login")
     return render_template('login.html')
 
-@app.route('/login', methods=['POST'])
-def login_post():
-    username = request.form['username']
-    password = request.form['password']
-    profile = request.form['profile']
-
-    if password == 'Leonardo Lima Sanches':
-        session['username'] = username
-        return redirect(url_for('alocacao'))
-    return 'Credenciais inválidas', 401
-
+# Rota para a página de alocação
 @app.route('/alocacao')
 def alocacao():
-    username = session.get('username', 'Convidado')
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /alocacao com username: {username}")
     return render_template('alocacao.html', username=username)
 
+# Rota para a página de aprovação
 @app.route('/aprovacao')
 def aprovacao():
-    username = session.get('username', 'Convidado')
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /aprovacao com username: {username}")
     return render_template('aprovacao.html', username=username)
 
-@app.route('/bypass')
-def bypass():
-    session['username'] = 'Convidado'
-    return redirect(url_for('alocacao'))
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Iniciar o servidor Flask
+    logging.info("Iniciando o servidor Flask na porta 5000...")
+    app.run(debug=True, host='0.0.0.0', port=5000)

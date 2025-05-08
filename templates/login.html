@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Alocação</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1">
 </head>
 <body>
   <div class="login-container">
@@ -12,32 +12,30 @@
       <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
     </div>
     <h2>Login</h2>
-    <form action="/login" method="post">
-      <div>
-        <label for="profile">Perfil</label>
-        <select id="profile" name="profile" required onchange="updateAutocomplete()">
-          <option value="" disabled selected>Selecione seu perfil</option>
-          <option value="Colaborador">Colaborador</option>
-          <option value="Terceiro">Terceiro</option>
-          <option value="Gestor">Gestor</option>
-        </select>
-      </div>
-      <div>
-        <label for="username">Usuário</label>
-        <input type="text" id="username" name="username" placeholder="Digite seu usuário" list="username-list" required>
-        <datalist id="username-list"></datalist>
-      </div>
-      <div>
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
-      </div>
+    <form id="login-form">
+      <label for="user-type">Tipo de Usuário:</label>
+      <select id="user-type" name="user-type">
+        <option value="">Selecione</option>
+        <option value="Gestor">Gestor</option>
+        <option value="Colaborador">Colaborador</option>
+        <option value="Terceiro">Terceiro</option>
+      </select>
+
+      <label for="username">Usuário:</label>
+      <select id="username" name="username">
+        <option value="">Selecione</option>
+      </select>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password">
+
       <div class="login-buttons">
         <button type="submit">Entrar</button>
-        <button type="button" onclick="bypassLogin()" class="bypass-btn">Seguir sem Login</button>
+        <button type="button" id="bypass-login" class="bypass-btn">Seguir sem Login</button>
       </div>
     </form>
   </div>
 
   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
-</html>
+</html> 

@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (user) {
           console.log('Usuário encontrado:', user);
           // Simulação de verificação de senha (senha padrão: "senha123")
-          if (password === 'senha123') {
+          if (password.toLowerCase() === 'senha123') { // Comparação case-insensitive para a senha
             console.log('Senha correta. Redirecionando para a tela de alocação...');
             try {
               window.location.href = '/alocacao?username=' + encodeURIComponent(username);
@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Evento do botão "Seguir sem Login"
-  bypassButton.addEventListener('click', function() {
+  bypassButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Impedir comportamento padrão
     console.log('Botão "Seguir sem Login" clicado. Redirecionando como Convidado...');
     try {
       window.location.href = '/alocacao?username=Convidado';
