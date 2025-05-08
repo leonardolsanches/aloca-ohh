@@ -274,7 +274,7 @@ function toggleExpand(key) {
     // Limpar o conteúdo anterior
     childTbody.innerHTML = '';
     const item = findItemByKey(data, key.split('-').map(Number));
-    
+
     // Verificar se há subníveis antes de renderizar
     if (item && item.children && item.children.length > 0) {
       renderSubRows(item.children, childTbody, key);
@@ -283,8 +283,12 @@ function toggleExpand(key) {
       if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
       if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
     } else {
-      // Não exibir a linha se não houver subníveis
-      childrenRow.style.display = 'none';
+      // Exibir mensagem se não houver subníveis
+      childTbody.innerHTML = '<tr><td colspan="15">Sem registros no período selecionado.</td></tr>';
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+      if (approveAllBtn) approveAllBtn.style.display = 'none';
+      if (rejectAllBtn) rejectAllBtn.style.display = 'none';
     }
   } else {
     childrenRow.style.display = 'none';
@@ -434,6 +438,10 @@ function handleCellClick(e, key, monthKey) {
 
 function approveSelected() {
   const selectedCells = document.querySelectorAll('.select-cell:checked');
+  if (selectedCells.length === 0) {
+    alert('Nenhuma célula selecionada para aprovar.');
+    return;
+  }
   selectedCells.forEach(checkbox => {
     const [key, monthKey] = checkbox.dataset.key.split('-2025-');
     const item = findItemByKey(data, key.split('-').map(Number));
@@ -450,7 +458,10 @@ function approveSelected() {
 
 function rejectSelected() {
   const selectedCells = document.querySelectorAll('.select-cell:checked');
-  if (selectedCells.length === 0) return;
+  if (selectedCells.length === 0) {
+    alert('Nenhuma célula selecionada para reprovar.');
+    return;
+  }
 
   currentJustificativaTarget = { cells: Array.from(selectedCells).map(cb => cb.dataset.key) };
   const modal = document.getElementById('justificativa-modal');
@@ -460,21 +471,23 @@ function rejectSelected() {
 }
 
 function approveAll(item) {
-  Object.keys(item.alocacoes).forEach(monthKey => {
-    item.alocacoes[monthKey].forEach(alloc => {
-      alloc.status = 'aprovado';
-      alloc.justificativa = '';
+  if (item.alocacoes) {
+    Object.keys(item.alocacoes).forEach(monthKey => {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = 'aprovado';
+        alloc.justificativa = '';
+      });
     });
-  });
-  saveApprovals();
-  renderTable();
+    saveApprovals();
+    renderTable();
+  }
 }
 
 function openJustificativaModal(item, monthKey) {
   currentJustificativaTarget = { item, monthKey };
   const modal = document.getElementById('justificativa-modal');
   const textArea = document.getElementById('justificativa-text');
-  textArea.value = monthKey !== 'all' && item.alocacoes[monthKey][0].justificativa ? item.alocacoes[monthKey][0].justificativa : '';
+  textArea.value = monthKey !== 'all' && item.alocacoes[monthKey] && item.alocacoes[monthKey][0].justificativa ? item.alocacoes[monthKey][0].justificativa : '';
   modal.style.display = 'block';
 }
 
