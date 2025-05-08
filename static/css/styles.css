@@ -133,7 +133,7 @@ body {
 }
 
 .nav-link.active {
-  background-color: #F44336;
+  background-color: #800020;
   color: #fff;
   font-weight: bold;
 }
@@ -220,8 +220,18 @@ body {
   margin-left: 0;
 }
 
+.filters-container button.approve-selected {
+  background-color: #4CAF50;
+}
+
+.filters-container button.reject-selected {
+  background-color: #F44336;
+}
+
 .filters-container button.action-btn:hover,
-.filters-container button.desalocar-btn:hover {
+.filters-container button.desalocar-btn:hover,
+.filters-container button.approve-selected:hover,
+.filters-container button.reject-selected:hover {
   background-color: #5a0015;
 }
 
@@ -457,6 +467,10 @@ body {
 
 .expand-btn:hover {
   background-color: #555;
+}
+
+.select-cell {
+  margin-right: 5px;
 }
 
 .action-btn {

@@ -3,6 +3,7 @@ let data = [];
 let hierarchy = ['Colaborador', 'Projeto', 'Atividade'];
 let currentJustificativaTarget = null;
 let usuarios = {};
+let lastSelectedCell = null;
 
 // Dados simulados (mock)
 const mockData = [
@@ -149,7 +150,7 @@ function renderTable() {
       row.dataset.key = key;
 
       const expandCell = document.createElement('td');
-      if (item.children) {
+      if (item.children && item.children.length > 0) {
         const expandBtn = document.createElement('button');
         expandBtn.className = 'expand-btn';
         expandBtn.textContent = '+';
@@ -169,31 +170,27 @@ function renderTable() {
         if (item.alocacoes && item.alocacoes[monthKey]) {
           const alocs = item.alocacoes[monthKey];
           const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
-          const status = alocs[0].status; // Assume que todas as alocações no mês têm o mesmo status
+          const status = alocs[0].status;
           const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
           cell.className = statusClass;
-          
+
+          // Checkbox para seleção
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'select-cell';
+          checkbox.dataset.key = `${key}-${monthKey}`;
+          checkbox.onclick = (e) => handleCellClick(e, key, monthKey);
+          cell.appendChild(checkbox);
+
           // Texto resumido dentro da célula
           const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
           const summary = document.createElement('span');
           summary.className = 'allocation-summary';
           summary.innerHTML = summaryText;
           cell.appendChild(summary);
-          
+
           cell.appendChild(document.createElement('br'));
 
-          const approveBtn = document.createElement('button');
-          approveBtn.className = 'action-btn approve';
-          approveBtn.textContent = '✅';
-          approveBtn.onclick = () => approve(item, monthKey);
-          cell.appendChild(approveBtn);
-          
-          const rejectBtn = document.createElement('button');
-          rejectBtn.className = 'action-btn reject';
-          rejectBtn.textContent = '❌';
-          rejectBtn.onclick = () => openJustificativaModal(item, monthKey);
-          cell.appendChild(rejectBtn);
-          
           if (alocs.some(alloc => alloc.justificativa)) {
             const editBtn = document.createElement('button');
             editBtn.className = 'action-btn edit';
@@ -206,35 +203,30 @@ function renderTable() {
       }
 
       const actionsCell = document.createElement('td');
-      if (!item.children) { // Só exibe "Reprovar Todos" no nível mais baixo (Atividade)
-        const rejectAllBtn = document.createElement('button');
-        rejectAllBtn.className = 'action-btn reject-all';
-        rejectAllBtn.textContent = 'Reprovar Todos';
-        rejectAllBtn.style.display = 'none'; // Escondido por padrão
-        rejectAllBtn.dataset.key = key;
-        rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
-        actionsCell.appendChild(rejectAllBtn);
-      }
+      const rejectAllBtn = document.createElement('button');
+      rejectAllBtn.className = 'action-btn reject-all';
+      rejectAllBtn.textContent = 'Reprovar Todos';
+      rejectAllBtn.dataset.key = key;
+      rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
+      actionsCell.appendChild(rejectAllBtn);
       row.appendChild(actionsCell);
 
       tbody.appendChild(row);
 
-      if (item.children) {
-        const childRow = document.createElement('tr');
-        childRow.className = `children level-${level + 1}`;
-        childRow.id = `children-${key}`;
-        childRow.style.display = 'none';
-        const childCell = document.createElement('td');
-        childCell.colSpan = 15;
-        const childTable = document.createElement('table');
-        childTable.className = 'sub-table';
-        const childTbody = document.createElement('tbody');
-        childTable.appendChild(childTbody);
-        childCell.appendChild(childTable);
-        childRow.appendChild(childCell);
-        tbody.appendChild(childRow);
-        renderRows(item.children, level + 1, key);
-      }
+      // Inicialmente, não renderizar subníveis até que sejam expandidos
+      const childRow = document.createElement('tr');
+      childRow.className = `children level-${level + 1}`;
+      childRow.id = `children-${key}`;
+      childRow.style.display = 'none';
+      const childCell = document.createElement('td');
+      childCell.colSpan = 15;
+      const childTable = document.createElement('table');
+      childTable.className = 'sub-table';
+      const childTbody = document.createElement('tbody');
+      childTable.appendChild(childTbody);
+      childCell.appendChild(childTable);
+      childRow.appendChild(childCell);
+      tbody.appendChild(childRow);
     });
   }
 
@@ -268,9 +260,17 @@ function groupData(data) {
 
 function toggleExpand(key) {
   const childrenRow = document.getElementById(`children-${key}`);
+  const childTbody = childrenRow.querySelector('tbody');
   const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
   const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
+
   if (childrenRow.style.display === 'none') {
+    // Renderizar subníveis apenas quando expandir
+    childTbody.innerHTML = '';
+    const item = findItemByKey(data, key.split('-').map(Number));
+    if (item && item.children) {
+      renderSubRows(item.children, childTbody, key);
+    }
     childrenRow.style.display = 'table-row';
     btn.textContent = '-';
     if (rejectAllBtn) {
@@ -285,22 +285,159 @@ function toggleExpand(key) {
   }
 }
 
-function approve(item, monthKey) {
-  if (monthKey === 'all') {
-    Object.keys(item.alocacoes).forEach(key => {
-      item.alocacoes[key].forEach(alloc => {
+function findItemByKey(items, indices) {
+  let current = items;
+  for (let i = 0; i < indices.length; i++) {
+    current = current[indices[i]];
+    if (i < indices.length - 1) {
+      current = current.children;
+    }
+  }
+  return current;
+}
+
+function renderSubRows(items, tbody, parentKey) {
+  items.forEach((item, index) => {
+    const key = `${parentKey}-${index}`;
+    const level = parentKey.split('-').length;
+    const row = document.createElement('tr');
+    row.className = `level-${level}`;
+    row.dataset.key = key;
+
+    const expandCell = document.createElement('td');
+    if (item.children && item.children.length > 0) {
+      const expandBtn = document.createElement('button');
+      expandBtn.className = 'expand-btn';
+      expandBtn.textContent = '+';
+      expandBtn.onclick = () => toggleExpand(key);
+      expandCell.appendChild(expandBtn);
+    }
+    row.appendChild(expandCell);
+
+    const itemCell = document.createElement('td');
+    itemCell.textContent = item.name;
+    row.appendChild(itemCell);
+
+    for (let month = 1; month <= 12; month++) {
+      const monthKey = `2025-${String(month).padStart(2, '0')}`;
+      const cell = document.createElement('td');
+      if (item.alocacoes && item.alocacoes[monthKey]) {
+        const alocs = item.alocacoes[monthKey];
+        const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+        const status = alocs[0].status;
+        const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
+        cell.className = statusClass;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'select-cell';
+        checkbox.dataset.key = `${key}-${monthKey}`;
+        checkbox.onclick = (e) => handleCellClick(e, key, monthKey);
+        cell.appendChild(checkbox);
+
+        const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
+        const summary = document.createElement('span');
+        summary.className = 'allocation-summary';
+        summary.innerHTML = summaryText;
+        cell.appendChild(summary);
+
+        cell.appendChild(document.createElement('br'));
+
+        if (alocs.some(alloc => alloc.justificativa)) {
+          const editBtn = document.createElement('button');
+          editBtn.className = 'action-btn edit';
+          editBtn.textContent = '✎';
+          editBtn.onclick = () => editJustificativa(item, monthKey);
+          cell.appendChild(editBtn);
+        }
+      }
+      row.appendChild(cell);
+    }
+
+    const actionsCell = document.createElement('td');
+    const rejectAllBtn = document.createElement('button');
+    rejectAllBtn.className = 'action-btn reject-all';
+    rejectAllBtn.textContent = 'Reprovar Todos';
+    rejectAllBtn.dataset.key = key;
+    rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
+    actionsCell.appendChild(rejectAllBtn);
+    row.appendChild(actionsCell);
+
+    tbody.appendChild(row);
+
+    const childRow = document.createElement('tr');
+    childRow.className = `children level-${level + 1}`;
+    childRow.id = `children-${key}`;
+    childRow.style.display = 'none';
+    const childCell = document.createElement('td');
+    childCell.colSpan = 15;
+    const childTable = document.createElement('table');
+    childTable.className = 'sub-table';
+    const childTbody = document.createElement('tbody');
+    childTable.appendChild(childTbody);
+    childCell.appendChild(childTable);
+    childRow.appendChild(childCell);
+    tbody.appendChild(childRow);
+  });
+}
+
+function handleCellClick(e, key, monthKey) {
+  const isShiftPressed = e.shiftKey;
+  const isCtrlPressed = e.ctrlKey;
+  const checkbox = e.target;
+
+  if (!isShiftPressed && !isCtrlPressed) {
+    // Desmarcar todas as outras células
+    document.querySelectorAll('.select-cell').forEach(cb => {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
+    checkbox.checked = true;
+    lastSelectedCell = checkbox;
+  } else if (isCtrlPressed) {
+    // Alternar a seleção da célula clicada
+    checkbox.checked = !checkbox.checked;
+    lastSelectedCell = checkbox;
+  } else if (isShiftPressed && lastSelectedCell) {
+    // Selecionar um intervalo de células
+    const allCheckboxes = Array.from(document.querySelectorAll('.select-cell'));
+    const startIndex = allCheckboxes.indexOf(lastSelectedCell);
+    const endIndex = allCheckboxes.indexOf(checkbox);
+    const minIndex = Math.min(startIndex, endIndex);
+    const maxIndex = Math.max(startIndex, endIndex);
+
+    for (let i = minIndex; i <= maxIndex; i++) {
+      allCheckboxes[i].checked = true;
+    }
+  }
+}
+
+function approveSelected() {
+  const selectedCells = document.querySelectorAll('.select-cell:checked');
+  selectedCells.forEach(checkbox => {
+    const [key, monthKey] = checkbox.dataset.key.split('-2025-');
+    const item = findItemByKey(data, key.split('-').map(Number));
+    if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+      item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
         alloc.status = 'aprovado';
         alloc.justificativa = '';
       });
-    });
-  } else {
-    item.alocacoes[monthKey].forEach(alloc => {
-      alloc.status = 'aprovado';
-      alloc.justificativa = '';
-    });
-  }
+    }
+  });
   saveApprovals();
   renderTable();
+}
+
+function rejectSelected() {
+  const selectedCells = document.querySelectorAll('.select-cell:checked');
+  if (selectedCells.length === 0) return;
+
+  currentJustificativaTarget = { cells: Array.from(selectedCells).map(cb => cb.dataset.key) };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = '';
+  modal.style.display = 'block';
 }
 
 function openJustificativaModal(item, monthKey) {
@@ -323,19 +460,32 @@ function submitJustificativa() {
     return;
   }
 
-  const { item, monthKey } = currentJustificativaTarget;
-  if (monthKey === 'all') {
-    Object.keys(item.alocacoes).forEach(key => {
-      item.alocacoes[key].forEach(alloc => {
+  if (currentJustificativaTarget.cells) {
+    currentJustificativaTarget.cells.forEach(cellKey => {
+      const [key, monthKey] = cellKey.split('-2025-');
+      const item = findItemByKey(data, key.split('-').map(Number));
+      if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+        item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
+          alloc.status = 'reprovado';
+          alloc.justificativa = justificativa;
+        });
+      }
+    });
+  } else {
+    const { item, monthKey } = currentJustificativaTarget;
+    if (monthKey === 'all') {
+      Object.keys(item.alocacoes).forEach(key => {
+        item.alocacoes[key].forEach(alloc => {
+          alloc.status = 'reprovado';
+          alloc.justificativa = justificativa;
+        });
+      });
+    } else {
+      item.alocacoes[monthKey].forEach(alloc => {
         alloc.status = 'reprovado';
         alloc.justificativa = justificativa;
       });
-    });
-  } else {
-    item.alocacoes[monthKey].forEach(alloc => {
-      alloc.status = 'reprovado';
-      alloc.justificativa = justificativa;
-    });
+    }
   }
   saveApprovals();
   closeModal();
@@ -368,7 +518,17 @@ function moveDown(index) {
 
 function updateHierarchyDisplay() {
   const display = document.getElementById('hierarchy-display');
-  display.textContent = hierarchy.join(' ⬇ > ');
+  display.innerHTML = `
+    <span class="hierarchy-level">${hierarchy[0]}</span>
+    <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[1]}</span>
+    <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
+    <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[2]}</span>
+    <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
+  `;
 }
 
 function updateButtonStates() {
@@ -427,4 +587,4 @@ function filtrar() {
 
 // Atualiza o autocomplete ao mudar o gestor ou perfil
 document.getElementById('gestor').addEventListener('change', updateAutocomplete);
-document.getElementById('perfil').addEventListener('change', updateAutocomplete); 
+document.getElementById('perfil').addEventListener('change', updateAutocomplete);
