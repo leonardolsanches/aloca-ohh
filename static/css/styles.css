@@ -213,10 +213,15 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   height: 36px;
-  margin-left: auto;
 }
 
-.filters-container button.action-btn:hover {
+.filters-container button.desalocar-btn {
+  background-color: #800020;
+  margin-left: 0;
+}
+
+.filters-container button.action-btn:hover,
+.filters-container button.desalocar-btn:hover {
   background-color: #5a0015;
 }
 

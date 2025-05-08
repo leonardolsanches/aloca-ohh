@@ -252,3 +252,31 @@ function alocar() {
   saveAllocations();
   renderCalendar();
 }
+
+function desalocar() {
+  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  if (selectedDays.length > 0) {
+    // Desalocar apenas os dias selecionados
+    selectedDays.forEach(day => {
+      const dateStr = day.dataset.date;
+      if (allocations[dateStr]) {
+        delete allocations[dateStr];
+      }
+    });
+  } else {
+    // Desalocar todo o mês atual
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      if (allocations[dateStr]) {
+        delete allocations[dateStr];
+      }
+    }
+  }
+
+  saveAllocations();
+  renderCalendar();
+}
