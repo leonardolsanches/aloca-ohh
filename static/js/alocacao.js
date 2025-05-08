@@ -1,6 +1,13 @@
+// Inicialização de variáveis globais
 let currentDate = new Date();
 let allocations = {};
 let selectedDaysByMonth = {};
+let lastSelectedDay = null;
+
+// Obter o username da URL
+const urlParams = new URLSearchParams(window.location.search);
+const currentUser = urlParams.get('username') || 'Convidado';
+console.log('Usuário atual obtido da URL:', currentUser);
 
 // Carrega alocações do localStorage ao iniciar
 function loadAllocations() {
@@ -19,7 +26,7 @@ function saveAllocations() {
   localStorage.setItem('allocations', JSON.stringify(allocations));
 }
 
-// Carrega dados de projetos e atividades
+// Carrega dados de projetos e atividades do arquivo usuarios.json
 console.log('Carregando usuarios.json para popular projetos e atividades...');
 fetch('/static/usuarios.json')
   .then(response => {
@@ -56,11 +63,14 @@ fetch('/static/usuarios.json')
     alert('Erro ao carregar dados de projetos e atividades. Verifique o console.');
   });
 
+// Renderiza o calendário na tela
 function renderCalendar() {
   console.log('Iniciando renderCalendar...');
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  
+  // Atualiza o título do calendário
   const calendarTitle = document.getElementById('calendar-title');
   if (!calendarTitle) {
     console.error('Elemento "calendar-title" não encontrado no DOM.');
@@ -68,6 +78,7 @@ function renderCalendar() {
   }
   calendarTitle.textContent = `${monthNames[month]} de ${year}`;
 
+  // Renderiza os dias da semana no cabeçalho
   const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
   const header = document.getElementById('calendar-header');
   if (!header) {
@@ -82,6 +93,7 @@ function renderCalendar() {
     header.appendChild(div);
   });
 
+  // Calcula os dias do mês e o primeiro dia
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
   const daysDiv = document.getElementById('calendar-days');
@@ -91,6 +103,7 @@ function renderCalendar() {
   }
   daysDiv.innerHTML = '';
 
+  // Adiciona espaços vazios antes do primeiro dia do mês
   for (let i = 0; i < firstDay; i++) {
     const emptyDiv = document.createElement('div');
     emptyDiv.className = 'day empty';
@@ -98,9 +111,11 @@ function renderCalendar() {
     daysDiv.appendChild(emptyDiv);
   }
 
+  // Carrega dias selecionados para o mês atual
   const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
   const selectedDays = selectedDaysByMonth[monthKey] || new Set();
 
+  // Renderiza os dias do mês
   for (let day = 1; day <= daysInMonth; day++) {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     const dayDiv = document.createElement('div');
@@ -113,10 +128,12 @@ function renderCalendar() {
     dayNumber.textContent = day;
     dayDiv.appendChild(dayNumber);
 
+    // Verifica se o dia está selecionado
     if (selectedDays.has(dateStr)) {
       dayDiv.classList.add('selected');
     }
 
+    // Verifica se há alocações para o dia
     if (allocations[dateStr]) {
       const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + alloc.percentage, 0);
       dayDiv.dataset.percentage = totalPercentage;
@@ -140,6 +157,7 @@ function renderCalendar() {
       dayDiv.setAttribute('title', tooltipText);
     }
 
+    // Adiciona evento de clique ao dia
     dayDiv.addEventListener('click', handleDayClick);
     daysDiv.appendChild(dayDiv);
   }
@@ -148,6 +166,7 @@ function renderCalendar() {
   console.log('renderCalendar concluído.');
 }
 
+// Navega para o mês anterior
 function previousMonth() {
   saveSelections();
   currentDate.setMonth(currentDate.getMonth() - 1);
@@ -155,6 +174,7 @@ function previousMonth() {
   renderCalendar();
 }
 
+// Navega para o próximo mês
 function nextMonth() {
   saveSelections();
   currentDate.setMonth(currentDate.getMonth() + 1);
@@ -162,6 +182,7 @@ function nextMonth() {
   renderCalendar();
 }
 
+// Salva os dias selecionados para o mês atual
 function saveSelections() {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -173,6 +194,7 @@ function saveSelections() {
   console.log('Seleções salvas para o mês:', monthKey, selectedDates);
 }
 
+// Lida com o clique em um dia do calendário
 function handleDayClick(e) {
   const isShiftPressed = e.shiftKey;
   const isCtrlPressed = e.ctrlKey;
@@ -209,6 +231,7 @@ function handleDayClick(e) {
   updateSelection();
 }
 
+// Atualiza a seleção de dias e os campos de data
 function updateSelection() {
   const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
   const counter = document.getElementById('counter');
@@ -239,6 +262,7 @@ function updateSelection() {
   console.log('Seleção atualizada. Dias selecionados:', selectedDays.length);
 }
 
+// Realiza a alocação de horas
 function alocar() {
   const tipoProjetoAtividade = document.getElementById('tipo-projeto-atividade').value;
   const projeto = document.getElementById('projeto').value;
@@ -263,7 +287,7 @@ function alocar() {
 
   while (current <= endDate) {
     const dayOfWeek = current.getDay();
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
       businessDays.push(new Date(current));
     }
     current.setDate(current.getDate() + 1);
@@ -290,7 +314,8 @@ function alocar() {
     allocations[dateStr].push({
       percentage: allocationPerDay,
       projeto: projeto,
-      atividade: atividade
+      atividade: atividade,
+      usuario: currentUser // Adiciona o usuário atual à alocação
     });
   });
 
@@ -299,6 +324,7 @@ function alocar() {
   console.log('Alocação concluída para os dias:', businessDays);
 }
 
+// Realiza a desalocação de horas
 function desalocar() {
   const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
   const year = currentDate.getFullYear();

@@ -5,6 +5,11 @@ let currentJustificativaTarget = null;
 let usuarios = {};
 let lastSelectedCell = null;
 
+// Obter o username da URL
+const urlParams = new URLSearchParams(window.location.search);
+const currentUser = urlParams.get('username') || 'Convidado';
+console.log('Usuário atual obtido da URL:', currentUser);
+
 // Carrega alocações do localStorage
 function loadAllocationsFromLocalStorage() {
   const saved = localStorage.getItem('allocations');
@@ -17,7 +22,7 @@ function loadAllocationsFromLocalStorage() {
   Object.keys(allocations).forEach(date => {
     const entries = allocations[date];
     entries.forEach(entry => {
-      const colaborador = 'Convidado'; // Usuário fixo para este teste
+      const colaborador = entry.usuario || currentUser; // Usa o usuário da alocação ou o usuário atual
       const projeto = entry.projeto;
       const atividade = entry.atividade;
       const percentage = entry.percentage;
@@ -80,10 +85,10 @@ fetch('/static/usuarios.json')
 
     // Se não houver dados no localStorage, usar dados simulados para teste
     if (data.length === 0) {
-      console.log('Nenhuma alocação encontrada no localStorage. Usando dados simulados para "Convidado"...');
+      console.log('Nenhuma alocação encontrada no localStorage. Usando dados simulados...');
       data = [
         {
-          Colaborador: "Convidado",
+          Colaborador: currentUser,
           Projeto: "Projeto Simulado",
           Atividade: "Atividade Simulada",
           alocacoes: {
@@ -659,7 +664,7 @@ function filtrar() {
 
   let filteredData = data.filter(item => {
     const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
-    const matchesPerfil = perfil === '' || usuarios[perfil].includes(item.Colaborador);
+    const matchesPerfil = perfil === '' || usuarios[perfil]?.includes(item.Colaborador);
     const matchesBusca = busca === '' || 
       item.Colaborador.toLowerCase().includes(busca) || 
       item.Projeto.toLowerCase().includes(busca) || 
