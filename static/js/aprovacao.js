@@ -174,7 +174,6 @@ function renderTable() {
           const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
           cell.className = statusClass;
 
-          // Checkbox para seleção
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.className = 'select-cell';
@@ -182,7 +181,6 @@ function renderTable() {
           checkbox.onclick = (e) => handleCellClick(e, key, monthKey);
           cell.appendChild(checkbox);
 
-          // Texto resumido dentro da célula
           const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
           const summary = document.createElement('span');
           summary.className = 'allocation-summary';
@@ -203,6 +201,13 @@ function renderTable() {
       }
 
       const actionsCell = document.createElement('td');
+      const approveAllBtn = document.createElement('button');
+      approveAllBtn.className = 'action-btn approve-all';
+      approveAllBtn.textContent = 'Aprovar Todos';
+      approveAllBtn.dataset.key = key;
+      approveAllBtn.onclick = () => approveAll(item);
+      actionsCell.appendChild(approveAllBtn);
+
       const rejectAllBtn = document.createElement('button');
       rejectAllBtn.className = 'action-btn reject-all';
       rejectAllBtn.textContent = 'Reprovar Todos';
@@ -262,26 +267,28 @@ function toggleExpand(key) {
   const childrenRow = document.getElementById(`children-${key}`);
   const childTbody = childrenRow.querySelector('tbody');
   const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
+  const approveAllBtn = document.querySelector(`tr[data-key="${key}"] .approve-all`);
   const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
 
   if (childrenRow.style.display === 'none') {
     // Renderizar subníveis apenas quando expandir
     childTbody.innerHTML = '';
     const item = findItemByKey(data, key.split('-').map(Number));
-    if (item && item.children) {
+    if (item && item.children && item.children.length > 0) {
       renderSubRows(item.children, childTbody, key);
-    }
-    childrenRow.style.display = 'table-row';
-    btn.textContent = '-';
-    if (rejectAllBtn) {
-      rejectAllBtn.style.display = 'inline-block';
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+      if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
+      if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
+    } else {
+      // Não exibir a linha se não houver subníveis
+      childrenRow.style.display = 'none';
     }
   } else {
     childrenRow.style.display = 'none';
     btn.textContent = '+';
-    if (rejectAllBtn) {
-      rejectAllBtn.style.display = 'none';
-    }
+    if (approveAllBtn) approveAllBtn.style.display = 'none';
+    if (rejectAllBtn) rejectAllBtn.style.display = 'none';
   }
 }
 
@@ -355,6 +362,13 @@ function renderSubRows(items, tbody, parentKey) {
     }
 
     const actionsCell = document.createElement('td');
+    const approveAllBtn = document.createElement('button');
+    approveAllBtn.className = 'action-btn approve-all';
+    approveAllBtn.textContent = 'Aprovar Todos';
+    approveAllBtn.dataset.key = key;
+    approveAllBtn.onclick = () => approveAll(item);
+    actionsCell.appendChild(approveAllBtn);
+
     const rejectAllBtn = document.createElement('button');
     rejectAllBtn.className = 'action-btn reject-all';
     rejectAllBtn.textContent = 'Reprovar Todos';
@@ -386,30 +400,33 @@ function handleCellClick(e, key, monthKey) {
   const isCtrlPressed = e.ctrlKey;
   const checkbox = e.target;
 
+  const allCheckboxes = Array.from(document.querySelectorAll('.select-cell'));
+  const currentIndex = allCheckboxes.findIndex(cb => cb.dataset.key === `${key}-${monthKey}`);
+
   if (!isShiftPressed && !isCtrlPressed) {
     // Desmarcar todas as outras células
-    document.querySelectorAll('.select-cell').forEach(cb => {
+    allCheckboxes.forEach(cb => {
       if (cb !== checkbox) {
         cb.checked = false;
       }
     });
     checkbox.checked = true;
-    lastSelectedCell = checkbox;
+    lastSelectedCell = { checkbox, index: currentIndex };
   } else if (isCtrlPressed) {
     // Alternar a seleção da célula clicada
     checkbox.checked = !checkbox.checked;
-    lastSelectedCell = checkbox;
+    lastSelectedCell = { checkbox, index: currentIndex };
   } else if (isShiftPressed && lastSelectedCell) {
     // Selecionar um intervalo de células
-    const allCheckboxes = Array.from(document.querySelectorAll('.select-cell'));
-    const startIndex = allCheckboxes.indexOf(lastSelectedCell);
-    const endIndex = allCheckboxes.indexOf(checkbox);
+    const startIndex = lastSelectedCell.index;
+    const endIndex = currentIndex;
     const minIndex = Math.min(startIndex, endIndex);
     const maxIndex = Math.max(startIndex, endIndex);
 
     for (let i = minIndex; i <= maxIndex; i++) {
       allCheckboxes[i].checked = true;
     }
+    lastSelectedCell = { checkbox, index: currentIndex };
   }
 }
 
@@ -438,6 +455,17 @@ function rejectSelected() {
   const textArea = document.getElementById('justificativa-text');
   textArea.value = '';
   modal.style.display = 'block';
+}
+
+function approveAll(item) {
+  Object.keys(item.alocacoes).forEach(monthKey => {
+    item.alocacoes[monthKey].forEach(alloc => {
+      alloc.status = 'aprovado';
+      alloc.justificativa = '';
+    });
+  });
+  saveApprovals();
+  renderTable();
 }
 
 function openJustificativaModal(item, monthKey) {
@@ -587,4 +615,4 @@ function filtrar() {
 
 // Atualiza o autocomplete ao mudar o gestor ou perfil
 document.getElementById('gestor').addEventListener('change', updateAutocomplete);
-document.getElementById('perfil').addEventListener('change', updateAutocomplete);
+document.getElementById('perfil').addEventListener('change', updateAutocomplete); 
