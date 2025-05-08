@@ -1,13 +1,23 @@
-function login() {
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-  const profile = document.getElementById('profile').value;
-
-  // Validação simples (para teste)
-  if (username === 'admin' && password === 'password' && profile) {
-    // Redireciona para alocacao.html na pasta static
-    window.location.href = '/static/alocacao.html';
-  } else {
-    alert('Credenciais inválidas. Use "admin" como usuário e senha, e selecione um perfil.');
-  }
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bem-vindo - Sistema de Alocação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logoclaro.png" alt="Logo">
+      </div>
+    </div>
+    <h1 class="calendar-title">Bem-vindo ao Sistema de Alocação</h1>
+    <div style="text-align: center; margin-top: 20px;">
+      <a href="/static/login.html"><button>Login</button></a>
+      <a href="/static/alocacao.html"><button>Ir para Alocação</button></a>
+    </div>
+  </div>
+</body>
+</html>
