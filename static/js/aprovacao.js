@@ -5,59 +5,63 @@ let currentJustificativaTarget = null;
 let usuarios = {};
 let lastSelectedCell = null;
 
-// Dados simulados (mock)
-const mockData = [
-  {
-    Colaborador: "João Silva",
-    Projeto: "Projeto A",
-    Atividade: "Atividade 1",
-    alocacoes: {
-      '2025-01': [
-        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
-        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
-      ],
-      '2025-02': [
-        { percentage: 48, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
-      ],
-      '2025-03': [
-        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
-        { percentage: 50, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
-      ],
-      '2025-04': [{ percentage: 70, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-05': [{ percentage: 100, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-06': [{ percentage: 95, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-07': [{ percentage: 80, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-08': [{ percentage: 120, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-09': [{ percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-10': [{ percentage: 90, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-11': [{ percentage: 105, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }],
-      '2025-12': [{ percentage: 88, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }]
-    }
-  },
-  {
-    Colaborador: "Maria Oliveira",
-    Projeto: "Projeto B",
-    Atividade: "Atividade 2",
-    alocacoes: {
-      '2025-01': [{ percentage: 80, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-02': [{ percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-03': [{ percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-04': [{ percentage: 95, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-05': [{ percentage: 85, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-06': [{ percentage: 110, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-07': [{ percentage: 70, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-08': [{ percentage: 120, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-09': [{ percentage: 65, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-10': [{ percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-11': [{ percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }],
-      '2025-12': [{ percentage: 88, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }]
-    }
-  }
-];
+// Carrega alocações do localStorage
+function loadAllocationsFromLocalStorage() {
+  const saved = localStorage.getItem('allocations');
+  const allocations = saved ? JSON.parse(saved) : {};
+  console.log('Alocações carregadas do localStorage:', allocations);
+
+  const groupedData = [];
+
+  // Agrupar alocações por usuário, projeto e atividade
+  Object.keys(allocations).forEach(date => {
+    const entries = allocations[date];
+    entries.forEach(entry => {
+      const colaborador = 'Convidado'; // Usuário fixo para este teste
+      const projeto = entry.projeto;
+      const atividade = entry.atividade;
+      const percentage = entry.percentage;
+
+      // Encontrar ou criar entrada para o colaborador
+      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador);
+      if (!colaboradorEntry) {
+        colaboradorEntry = {
+          Colaborador: colaborador,
+          Projeto: projeto,
+          Atividade: atividade,
+          alocacoes: {}
+        };
+        groupedData.push(colaboradorEntry);
+      }
+
+      // Agrupar alocações por mês
+      const monthKey = date.slice(0, 7); // Ex.: "2025-01"
+      if (!colaboradorEntry.alocacoes[monthKey]) {
+        colaboradorEntry.alocacoes[monthKey] = [];
+      }
+      colaboradorEntry.alocacoes[monthKey].push({
+        percentage: percentage,
+        projeto: projeto,
+        atividade: atividade,
+        status: 'pendente',
+        justificativa: ''
+      });
+    });
+  });
+
+  return groupedData;
+}
 
 // Carrega dados de gestores e usuários
+console.log('Carregando usuarios.json para preencher filtros...');
 fetch('/static/usuarios.json')
-  .then(response => response.json())
+  .then(response => {
+    console.log('Resposta do fetch para usuarios.json:', response);
+    if (!response.ok) {
+      throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
+    }
+    return response.json();
+  })
   .then(json => {
     gestores = json.Gestor;
     usuarios = json;
@@ -69,12 +73,42 @@ fetch('/static/usuarios.json')
       option.textContent = gestor;
       gestorSelect.appendChild(option);
     });
-    data = mockData;
+
+    // Carregar alocações do localStorage
+    data = loadAllocationsFromLocalStorage();
+    console.log('Dados processados para a tela de aprovação:', data);
+
+    // Se não houver dados no localStorage, usar dados simulados para teste
+    if (data.length === 0) {
+      console.log('Nenhuma alocação encontrada no localStorage. Usando dados simulados para "Convidado"...');
+      data = [
+        {
+          Colaborador: "Convidado",
+          Projeto: "Projeto Simulado",
+          Atividade: "Atividade Simulada",
+          alocacoes: {
+            '2025-01': [
+              { percentage: 50, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
+            ],
+            '2025-02': [
+              { percentage: 75, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
+            ],
+            '2025-03': [
+              { percentage: 60, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
+            ]
+          }
+        }
+      ];
+    }
+
     renderTable();
     updateButtonStates();
     updateAutocomplete();
   })
-  .catch(error => console.error('Erro ao carregar usuarios.json:', error));
+  .catch(error => {
+    console.error('Erro ao carregar usuarios.json:', error);
+    alert('Erro ao carregar dados. Verifique o console.');
+  });
 
 // Atualiza o autocomplete com base nos filtros
 function updateAutocomplete() {
@@ -99,6 +133,7 @@ function updateAutocomplete() {
     option.value = user;
     buscaList.appendChild(option);
   });
+  console.log('Autocomplete atualizado:', filteredUsers);
 }
 
 // Carrega aprovações salvas do localStorage
@@ -106,6 +141,7 @@ function loadApprovals() {
   const saved = localStorage.getItem('approvals');
   if (saved) {
     const approvals = JSON.parse(saved);
+    console.log('Aprovações carregadas do localStorage:', approvals);
     data.forEach(item => {
       Object.keys(item.alocacoes).forEach(month => {
         item.alocacoes[month].forEach((alloc, index) => {
@@ -133,6 +169,7 @@ function saveApprovals() {
       });
     });
   });
+  console.log('Salvando aprovações no localStorage:', approvals);
   localStorage.setItem('approvals', JSON.stringify(approvals));
 }
 
@@ -167,18 +204,22 @@ function renderTable() {
       for (let month = 1; month <= 12; month++) {
         const monthKey = `2025-${String(month).padStart(2, '0')}`;
         const cell = document.createElement('td');
+        cell.className = 'month-cell';
         if (item.alocacoes && item.alocacoes[monthKey]) {
           const alocs = item.alocacoes[monthKey];
           const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
           const status = alocs[0].status;
           const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
-          cell.className = statusClass;
+          cell.className += ` ${statusClass}`;
 
           const checkbox = document.createElement('input');
           checkbox.type = 'checkbox';
           checkbox.className = 'select-cell';
           checkbox.dataset.key = `${key}-${monthKey}`;
-          checkbox.onclick = (e) => handleCellClick(e, key, monthKey);
+          checkbox.onclick = (e) => {
+            e.stopPropagation();
+            handleCellClick(e, key, monthKey);
+          };
           cell.appendChild(checkbox);
 
           const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
@@ -193,9 +234,17 @@ function renderTable() {
             const editBtn = document.createElement('button');
             editBtn.className = 'action-btn edit';
             editBtn.textContent = '✎';
-            editBtn.onclick = () => editJustificativa(item, monthKey);
+            editBtn.onclick = (e) => {
+              e.stopPropagation();
+              editJustificativa(item, monthKey);
+            };
             cell.appendChild(editBtn);
           }
+
+          cell.onclick = () => {
+            checkbox.checked = !checkbox.checked;
+            handleCellClick({ target: checkbox, shiftKey: false, ctrlKey: false }, key, monthKey);
+          };
         }
         row.appendChild(cell);
       }
@@ -218,7 +267,6 @@ function renderTable() {
 
       tbody.appendChild(row);
 
-      // Inicialmente, não renderizar subníveis até que sejam expandidos
       const childRow = document.createElement('tr');
       childRow.className = `children level-${level + 1}`;
       childRow.id = `children-${key}`;
@@ -271,11 +319,9 @@ function toggleExpand(key) {
   const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
 
   if (childrenRow.style.display === 'none') {
-    // Limpar o conteúdo anterior
     childTbody.innerHTML = '';
     const item = findItemByKey(data, key.split('-').map(Number));
 
-    // Verificar se há subníveis antes de renderizar
     if (item && item.children && item.children.length > 0) {
       renderSubRows(item.children, childTbody, key);
       childrenRow.style.display = 'table-row';
@@ -283,7 +329,6 @@ function toggleExpand(key) {
       if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
       if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
     } else {
-      // Exibir mensagem se não houver subníveis
       childTbody.innerHTML = '<tr><td colspan="15">Sem registros no período selecionado.</td></tr>';
       childrenRow.style.display = 'table-row';
       btn.textContent = '-';
@@ -334,18 +379,22 @@ function renderSubRows(items, tbody, parentKey) {
     for (let month = 1; month <= 12; month++) {
       const monthKey = `2025-${String(month).padStart(2, '0')}`;
       const cell = document.createElement('td');
+      cell.className = 'month-cell';
       if (item.alocacoes && item.alocacoes[monthKey]) {
         const alocs = item.alocacoes[monthKey];
         const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
         const status = alocs[0].status;
         const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
-        cell.className = statusClass;
+        cell.className += ` ${statusClass}`;
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.className = 'select-cell';
         checkbox.dataset.key = `${key}-${monthKey}`;
-        checkbox.onclick = (e) => handleCellClick(e, key, monthKey);
+        checkbox.onclick = (e) => {
+          e.stopPropagation();
+          handleCellClick(e, key, monthKey);
+        };
         cell.appendChild(checkbox);
 
         const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
@@ -360,9 +409,17 @@ function renderSubRows(items, tbody, parentKey) {
           const editBtn = document.createElement('button');
           editBtn.className = 'action-btn edit';
           editBtn.textContent = '✎';
-          editBtn.onclick = () => editJustificativa(item, monthKey);
+          editBtn.onclick = (e) => {
+            e.stopPropagation();
+            editJustificativa(item, monthKey);
+          };
           cell.appendChild(editBtn);
         }
+
+        cell.onclick = () => {
+          checkbox.checked = !checkbox.checked;
+          handleCellClick({ target: checkbox, shiftKey: false, ctrlKey: false }, key, monthKey);
+        };
       }
       row.appendChild(cell);
     }
@@ -410,7 +467,6 @@ function handleCellClick(e, key, monthKey) {
   const currentIndex = allCheckboxes.findIndex(cb => cb.dataset.key === `${key}-${monthKey}`);
 
   if (!isShiftPressed && !isCtrlPressed) {
-    // Desmarcar todas as outras células
     allCheckboxes.forEach(cb => {
       if (cb !== checkbox) {
         cb.checked = false;
@@ -419,11 +475,9 @@ function handleCellClick(e, key, monthKey) {
     checkbox.checked = true;
     lastSelectedCell = { checkbox, index: currentIndex };
   } else if (isCtrlPressed) {
-    // Alternar a seleção da célula clicada
     checkbox.checked = !checkbox.checked;
     lastSelectedCell = { checkbox, index: currentIndex };
   } else if (isShiftPressed && lastSelectedCell) {
-    // Selecionar um intervalo de células
     const startIndex = lastSelectedCell.index;
     const endIndex = currentIndex;
     const minIndex = Math.min(startIndex, endIndex);
@@ -451,7 +505,9 @@ function approveSelected() {
         alloc.justificativa = '';
       });
     }
+    checkbox.checked = false;
   });
+  lastSelectedCell = null;
   saveApprovals();
   renderTable();
 }
@@ -512,6 +568,8 @@ function submitJustificativa() {
           alloc.status = 'reprovado';
           alloc.justificativa = justificativa;
         });
+        const checkbox = document.querySelector(`.select-cell[data-key="${cellKey}"]`);
+        if (checkbox) checkbox.checked = false;
       }
     });
   } else {
@@ -530,6 +588,7 @@ function submitJustificativa() {
       });
     }
   }
+  lastSelectedCell = null;
   saveApprovals();
   closeModal();
   renderTable();
@@ -598,7 +657,7 @@ function filtrar() {
   const busca = document.getElementById('busca').value.toLowerCase();
   const periodo = document.getElementById('periodo').value;
 
-  let filteredData = mockData.filter(item => {
+  let filteredData = data.filter(item => {
     const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
     const matchesPerfil = perfil === '' || usuarios[perfil].includes(item.Colaborador);
     const matchesBusca = busca === '' || 
@@ -628,6 +687,5 @@ function filtrar() {
   updateAutocomplete();
 }
 
-// Atualiza o autocomplete ao mudar o gestor ou perfil
 document.getElementById('gestor').addEventListener('change', updateAutocomplete);
 document.getElementById('perfil').addEventListener('change', updateAutocomplete);

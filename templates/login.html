@@ -22,9 +22,8 @@
       </select>
 
       <label for="username">Usuário:</label>
-      <select id="username" name="username">
-        <option value="">Selecione</option>
-      </select>
+      <input type="text" id="username" name="username" list="username-list" placeholder="Digite ou selecione um usuário">
+      <datalist id="username-list"></datalist>
 
       <label for="password">Senha:</label>
       <input type="password" id="password" name="password">
@@ -38,4 +37,4 @@
 
   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
-</html> 
+</html>

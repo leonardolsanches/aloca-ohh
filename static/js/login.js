@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('login-form');
   const bypassButton = document.getElementById('bypass-login');
+  const userTypeSelect = document.getElementById('user-type');
+  const usernameInput = document.getElementById('username');
+  const usernameList = document.getElementById('username-list');
 
   // Verificar se os elementos existem
   if (!loginForm) {
@@ -11,14 +14,62 @@ document.addEventListener('DOMContentLoaded', function() {
     console.error('Elemento "bypass-login" não encontrado no DOM.');
     return;
   }
+  if (!userTypeSelect || !usernameInput || !usernameList) {
+    console.error('Elementos necessários para o login não encontrados:', { userTypeSelect, usernameInput, usernameList });
+    return;
+  }
+
+  // Função para preencher a lista de usuários com base no tipo de usuário
+  function populateUsers(userType) {
+    console.log('Carregando usuarios.json para preencher lista de usuários...');
+    fetch('/static/usuarios.json')
+      .then(response => {
+        console.log('Resposta do fetch para usuarios.json:', response);
+        if (!response.ok) {
+          throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados carregados de usuarios.json:', data);
+        usernameList.innerHTML = ''; // Limpar a lista existente
+
+        if (userType && data[userType]) {
+          const users = data[userType];
+          console.log(`Usuários para o tipo "${userType}":`, users);
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user;
+            option.textContent = user;
+            usernameList.appendChild(option);
+          });
+        } else {
+          console.log(`Nenhum usuário encontrado para o tipo "${userType}"`);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao carregar usuarios.json:', error);
+        alert('Erro ao carregar lista de usuários. Verifique o console.');
+      });
+  }
+
+  // Preencher a lista de usuários quando o tipo de usuário mudar
+  userTypeSelect.addEventListener('change', function() {
+    const userType = userTypeSelect.value;
+    console.log('Tipo de usuário alterado para:', userType);
+    populateUsers(userType);
+  });
+
+  // Preencher inicialmente com base no tipo de usuário padrão (se houver)
+  populateUsers(userTypeSelect.value);
 
   // Evento de submit do formulário de login
   loginForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const userType = document.getElementById('user-type').value;
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const userType = userTypeSelect.value;
+    const username = usernameInput.value.trim();
+    const password = document.getElementById('password').value.trim();
 
     console.log('Iniciando processo de login...');
     console.log('Dados do formulário:', { userType, username, password });
@@ -36,11 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Carregar o arquivo usuarios.json
-    console.log('Carregando usuarios.json...');
+    // Carregar o arquivo usuarios.json para autenticação
+    console.log('Carregando usuarios.json para autenticação...');
     fetch('/static/usuarios.json')
       .then(response => {
-        console.log('Resposta do fetch:', response);
+        console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
           throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
         }
@@ -64,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (user) {
           console.log('Usuário encontrado:', user);
           // Simulação de verificação de senha (senha padrão: "senha123")
-          if (password.toLowerCase() === 'senha123') { // Comparação case-insensitive para a senha
+          if (password.toLowerCase() === 'senha123') {
             console.log('Senha correta. Redirecionando para a tela de alocação...');
             try {
               window.location.href = '/alocacao?username=' + encodeURIComponent(username);
@@ -89,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Evento do botão "Seguir sem Login"
   bypassButton.addEventListener('click', function(event) {
-    event.preventDefault(); // Impedir comportamento padrão
+    event.preventDefault();
     console.log('Botão "Seguir sem Login" clicado. Redirecionando como Convidado...');
     try {
       window.location.href = '/alocacao?username=Convidado';
