@@ -1,33 +1,148 @@
-// Inicialização de variáveis globais
-let currentDate = new Date();
-let allocations = {};
-let selectedDaysByMonth = {};
-let lastSelectedDay = null;
+let gestores = [];
+let data = [];
+let hierarchy = ['Colaborador', 'Projeto', 'Atividade'];
+let currentJustificativaTarget = null;
+let usuarios = {};
+let lastSelectedCell = null;
 
 // Obter o username da URL
 const urlParams = new URLSearchParams(window.location.search);
 const currentUser = urlParams.get('username') || 'Convidado';
 console.log('Usuário atual obtido da URL:', currentUser);
 
-// Carrega alocações do localStorage ao iniciar
-function loadAllocations() {
-  const saved = localStorage.getItem('allocations');
-  if (saved) {
-    allocations = JSON.parse(saved);
-    console.log('Alocações carregadas do localStorage:', allocations);
-  } else {
-    console.log('Nenhuma alocação encontrada no localStorage.');
+// Dados simulados para teste (mock)
+const mockData = [
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto A",
+    Atividade: "Atividade 1",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-02': [
+        { percentage: 48, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 70, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto A",
+    Atividade: "Atividade 2",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 50, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 65, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto B",
+    Atividade: "Atividade 3",
+    alocacoes: {
+      '2025-02': [
+        { percentage: 80, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 90, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 100, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "Maria Oliveira",
+    Projeto: "Projeto C",
+    Atividade: "Atividade 4",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 45, projeto: "Projeto C", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 60, projeto: "Projeto C", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 70, projeto: "Projeto C", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "Maria Oliveira",
+    Projeto: "Projeto C",
+    Atividade: "Atividade 5",
+    alocacoes: {
+      '2025-02': [
+        { percentage: 50, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 80, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 90, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ]
+    }
   }
+];
+
+// Carrega alocações do localStorage
+function loadAllocationsFromLocalStorage() {
+  const saved = localStorage.getItem('allocations');
+  const allocations = saved ? JSON.parse(saved) : {};
+  console.log('Alocações carregadas do localStorage:', allocations);
+
+  const groupedData = [];
+
+  Object.keys(allocations).forEach(date => {
+    const entries = allocations[date];
+    entries.forEach(entry => {
+      const colaborador = entry.usuario || currentUser;
+      const projeto = entry.projeto;
+      const atividade = entry.atividade;
+      const percentage = entry.percentage;
+
+      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador && item.Projeto === projeto && item.Atividade === atividade);
+      if (!colaboradorEntry) {
+        colaboradorEntry = {
+          Colaborador: colaborador,
+          Projeto: projeto,
+          Atividade: atividade,
+          alocacoes: {}
+        };
+        groupedData.push(colaboradorEntry);
+      }
+
+      const monthKey = date.slice(0, 7);
+      if (!colaboradorEntry.alocacoes[monthKey]) {
+        colaboradorEntry.alocacoes[monthKey] = [];
+      }
+      colaboradorEntry.alocacoes[monthKey].push({
+        percentage: percentage,
+        projeto: projeto,
+        atividade: atividade,
+        status: 'pendente',
+        justificativa: ''
+      });
+    });
+  });
+
+  return groupedData;
 }
 
-// Salva alocações no localStorage
-function saveAllocations() {
-  console.log('Salvando alocações no localStorage:', allocations);
-  localStorage.setItem('allocations', JSON.stringify(allocations));
-}
-
-// Carrega dados de projetos e atividades do arquivo usuarios.json
-console.log('Carregando usuarios.json para popular projetos e atividades...');
+// Carrega dados de gestores e usuários
+console.log('Carregando usuarios.json para preencher filtros...');
 fetch('/static/usuarios.json')
   .then(response => {
     console.log('Resposta do fetch para usuarios.json:', response);
@@ -36,325 +151,650 @@ fetch('/static/usuarios.json')
     }
     return response.json();
   })
-  .then(data => {
-    console.log('Dados carregados de usuarios.json:', data);
-    const projetosSelect = document.getElementById('projeto');
-    const atividadesSelect = document.getElementById('atividade');
-    projetosSelect.innerHTML = '<option>Projeto</option>';
-    atividadesSelect.innerHTML = '<option>Atividade</option>';
-    data.Projetos.forEach(projeto => {
+  .then(json => {
+    gestores = json.Gestor;
+    usuarios = json;
+    const gestorSelect = document.getElementById('gestor');
+    gestorSelect.innerHTML = '<option>Gestor</option>';
+    gestores.forEach(gestor => {
       const option = document.createElement('option');
-      option.value = projeto;
-      option.textContent = projeto;
-      projetosSelect.appendChild(option);
+      option.value = gestor;
+      option.textContent = gestor;
+      gestorSelect.appendChild(option);
     });
-    data.Atividades.forEach(atividade => {
-      const option = document.createElement('option');
-      option.value = atividade;
-      option.textContent = atividade;
-      atividadesSelect.appendChild(option);
-    });
-    loadAllocations();
-    console.log('Chamando renderCalendar para renderizar o calendário...');
-    renderCalendar();
+
+    let localData = loadAllocationsFromLocalStorage();
+    console.log('Dados processados do localStorage:', localData);
+
+    data = [...localData, ...mockData];
+    console.log('Dados combinados para a tela de aprovação:', data);
+
+    renderTable();
+    updateButtonStates();
+    updateAutocomplete();
   })
   .catch(error => {
     console.error('Erro ao carregar usuarios.json:', error);
-    alert('Erro ao carregar dados de projetos e atividades. Verifique o console.');
+    alert('Erro ao carregar dados. Verifique o console.');
   });
 
-// Renderiza o calendário na tela
-function renderCalendar() {
-  console.log('Iniciando renderCalendar...');
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-  
-  // Atualiza o título do calendário
-  const calendarTitle = document.getElementById('calendar-title');
-  if (!calendarTitle) {
-    console.error('Elemento "calendar-title" não encontrado no DOM.');
-    return;
-  }
-  calendarTitle.textContent = `${monthNames[month]} de ${year}`;
+// Atualiza o autocomplete com base nos filtros
+function updateAutocomplete() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const buscaList = document.getElementById('busca-list');
+  buscaList.innerHTML = '';
 
-  // Renderiza os dias da semana no cabeçalho
-  const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-  const header = document.getElementById('calendar-header');
-  if (!header) {
-    console.error('Elemento "calendar-header" não encontrado no DOM.');
-    return;
+  let filteredUsers = [];
+  if (gestor !== 'Gestor' && perfil) {
+    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].includes(item.Colaborador)).map(item => item.Colaborador);
+  } else if (perfil) {
+    filteredUsers = usuarios[perfil];
+  } else if (gestor !== 'Gestor') {
+    filteredUsers = data.filter(item => item.Colaborador === gestor).map(item => item.Colaborador);
+  } else {
+    filteredUsers = [...new Set(data.map(item => item.Colaborador))];
   }
-  header.innerHTML = '';
-  daysOfWeek.forEach(day => {
-    const div = document.createElement('div');
-    div.className = 'day';
-    div.textContent = day;
-    header.appendChild(div);
+
+  filteredUsers.forEach(user => {
+    const option = document.createElement('option');
+    option.value = user;
+    buscaList.appendChild(option);
   });
+  console.log('Autocomplete atualizado:', filteredUsers);
+}
 
-  // Calcula os dias do mês e o primeiro dia
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysDiv = document.getElementById('calendar-days');
-  if (!daysDiv) {
-    console.error('Elemento "calendar-days" não encontrado no DOM.');
-    return;
+// Carrega aprovações salvas do localStorage
+function loadApprovals() {
+  const saved = localStorage.getItem('approvals');
+  if (saved) {
+    const approvals = JSON.parse(saved);
+    console.log('Aprovações carregadas do localStorage:', approvals);
+    data.forEach(item => {
+      Object.keys(item.alocacoes).forEach(month => {
+        item.alocacoes[month].forEach((alloc, index) => {
+          const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+          if (approvals[key]) {
+            alloc.status = approvals[key].status;
+            alloc.justificativa = approvals[key].justificativa;
+          }
+        });
+      });
+    });
   }
-  daysDiv.innerHTML = '';
+}
 
-  // Adiciona espaços vazios antes do primeiro dia do mês
-  for (let i = 0; i < firstDay; i++) {
-    const emptyDiv = document.createElement('div');
-    emptyDiv.className = 'day empty';
-    emptyDiv.dataset.date = '';
-    daysDiv.appendChild(emptyDiv);
-  }
+function saveApprovals() {
+  const approvals = {};
+  data.forEach(item => {
+    Object.keys(item.alocacoes).forEach(month => {
+      item.alocacoes[month].forEach((alloc, index) => {
+        const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+        approvals[key] = {
+          status: alloc.status,
+          justificativa: alloc.justificativa
+        };
+      });
+    });
+  });
+  console.log('Salvando aprovações no localStorage:', approvals);
+  localStorage.setItem('approvals', JSON.stringify(approvals));
+}
 
-  // Carrega dias selecionados para o mês atual
-  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
-  const selectedDays = selectedDaysByMonth[monthKey] || new Set();
+function renderTable() {
+  loadApprovals();
+  const tbody = document.getElementById('approval-table-body');
+  tbody.innerHTML = '';
+  const groupedData = groupData(data);
 
-  // Renderiza os dias do mês
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const dayDiv = document.createElement('div');
-    dayDiv.className = 'day';
-    dayDiv.dataset.date = dateStr;
+  function renderRows(items, level = 0, parentKey = '') {
+    items.forEach((item, index) => {
+      const key = parentKey ? `${parentKey}-${index}` : `${index}`;
+      const row = document.createElement('tr');
+      row.className = `level-${level}`;
+      row.dataset.key = key;
 
-    // Adiciona o número do dia
-    const dayNumber = document.createElement('span');
-    dayNumber.className = 'day-number';
-    dayNumber.textContent = day;
-    dayDiv.appendChild(dayNumber);
+      const expandCell = document.createElement('td');
+      if (item.children && item.children.length > 0) {
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'expand-btn';
+        expandBtn.textContent = '+';
+        expandBtn.onclick = () => toggleExpand(key);
+        expandCell.appendChild(expandBtn);
+      }
+      row.appendChild(expandCell);
 
-    // Verifica se o dia está selecionado
-    if (selectedDays.has(dateStr)) {
-      dayDiv.classList.add('selected');
-    }
+      const itemCell = document.createElement('td');
+      itemCell.textContent = item.name;
+      row.appendChild(itemCell);
 
-    // Verifica se há alocações para o dia
-    if (allocations[dateStr]) {
-      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + alloc.percentage, 0);
-      dayDiv.dataset.percentage = totalPercentage;
-      if (totalPercentage === 100) {
-        dayDiv.classList.add('green');
-      } else if (totalPercentage < 100) {
-        dayDiv.classList.add('yellow');
-      } else {
-        dayDiv.classList.add('red');
+      // Colunas dos meses
+      for (let month = 1; month <= 12; month++) {
+        const monthKey = `2025-${String(month).padStart(2, '0')}`;
+        const cell = document.createElement('td');
+        cell.className = 'month-cell';
+        if (item.alocacoes && item.alocacoes[monthKey]) {
+          const alocs = item.alocacoes[monthKey];
+          const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+          const status = alocs[0].status;
+          const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
+          cell.className += ` ${statusClass}`;
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.className = 'select-cell';
+          checkbox.dataset.key = `${key}-${monthKey}`;
+          checkbox.onclick = (e) => {
+            e.stopPropagation();
+            handleCellClick(e, key, monthKey);
+          };
+          cell.appendChild(checkbox);
+
+          const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
+          const summary = document.createElement('span');
+          summary.className = 'allocation-summary';
+          summary.innerHTML = summaryText;
+          cell.appendChild(summary);
+
+          cell.appendChild(document.createElement('br'));
+
+          if (alocs.some(alloc => alloc.justificativa)) {
+            const editBtn = document.createElement('button');
+            editBtn.className = 'action-btn edit';
+            editBtn.textContent = '✎';
+            editBtn.onclick = (e) => {
+              e.stopPropagation();
+              editJustificativa(item, monthKey);
+            };
+            cell.appendChild(editBtn);
+          }
+
+          cell.onclick = (e) => {
+            if (e.target !== checkbox) {
+              checkbox.checked = !checkbox.checked;
+              handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
+            }
+          };
+        }
+        row.appendChild(cell);
       }
 
-      // Texto resumido dentro da célula
-      const summaryText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}`).join('<br>');
-      const summary = document.createElement('span');
-      summary.className = 'allocation-summary';
-      summary.innerHTML = summaryText;
-      dayDiv.appendChild(summary);
+      const actionsCell = document.createElement('td');
+      const approveAllBtn = document.createElement('button');
+      approveAllBtn.className = 'action-btn approve-all';
+      approveAllBtn.textContent = 'Aprovar Todos';
+      approveAllBtn.dataset.key = key;
+      approveAllBtn.onclick = () => approveAll(item);
+      actionsCell.appendChild(approveAllBtn);
 
-      // Tooltip com detalhes completos
-      const tooltipText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('\n');
-      dayDiv.setAttribute('title', tooltipText);
-    }
+      const rejectAllBtn = document.createElement('button');
+      rejectAllBtn.className = 'action-btn reject-all';
+      rejectAllBtn.textContent = 'Reprovar Todos';
+      rejectAllBtn.dataset.key = key;
+      rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
+      actionsCell.appendChild(rejectAllBtn);
+      row.appendChild(actionsCell);
 
-    // Adiciona evento de clique ao dia
-    dayDiv.addEventListener('click', handleDayClick);
-    daysDiv.appendChild(dayDiv);
+      tbody.appendChild(row);
+
+      const childRow = document.createElement('tr');
+      childRow.className = `children level-${level + 1}`;
+      childRow.id = `children-${key}`;
+      childRow.style.display = 'none';
+      const childCell = document.createElement('td');
+      childCell.colSpan = 15;
+      const childTable = document.createElement('table');
+      childTable.className = 'sub-table';
+      const childTbody = document.createElement('tbody');
+      childTable.appendChild(childTbody);
+      childCell.appendChild(childTable);
+      childRow.appendChild(childCell);
+      tbody.appendChild(childRow);
+    });
   }
 
-  updateSelection();
-  console.log('renderCalendar concluído.');
+  renderRows(groupedData);
 }
 
-// Navega para o mês anterior
-function previousMonth() {
-  saveSelections();
-  currentDate.setMonth(currentDate.getMonth() - 1);
-  console.log('Navegando para o mês anterior:', currentDate);
-  renderCalendar();
+function groupData(data) {
+  const grouped = {};
+
+  data.forEach(item => {
+    let colaboradorLevel = grouped;
+    const colaboradorKey = item.Colaborador;
+    if (!colaboradorLevel[colaboradorKey]) {
+      colaboradorLevel[colaboradorKey] = { name: colaboradorKey, children: {}, alocacoes: null };
+    }
+    colaboradorLevel = colaboradorLevel[colaboradorKey].children;
+
+    const projetoKey = item.Projeto;
+    if (!colaboradorLevel[projetoKey]) {
+      colaboradorLevel[projetoKey] = { name: projetoKey, children: {}, alocacoes: null };
+    }
+    colaboradorLevel = colaboradorLevel[projetoKey].children;
+
+    const atividadeKey = item.Atividade;
+    if (!colaboradorLevel[atividadeKey]) {
+      colaboradorLevel[atividadeKey] = { name: atividadeKey, children: {}, alocacoes: item.alocacoes };
+    }
+  });
+
+  function convertToArray(obj) {
+    return Object.keys(obj).map(key => ({
+      name: key,
+      alocacoes: obj[key].alocacoes,
+      children: Object.keys(obj[key].children).length ? convertToArray(obj[key].children) : null
+    }));
+  }
+
+  return convertToArray(grouped);
 }
 
-// Navega para o próximo mês
-function nextMonth() {
-  saveSelections();
-  currentDate.setMonth(currentDate.getMonth() + 1);
-  console.log('Navegando para o próximo mês:', currentDate);
-  renderCalendar();
+function toggleExpand(key) {
+  const childrenRow = document.getElementById(`children-${key}`);
+  const childTbody = childrenRow.querySelector('tbody');
+  const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
+  const approveAllBtn = document.querySelector(`tr[data-key="${key}"] .approve-all`);
+  const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
+
+  if (childrenRow.style.display === 'none') {
+    childTbody.innerHTML = '';
+    const item = findItemByKey(data, key.split('-').map(Number));
+
+    if (item && item.children && item.children.length > 0) {
+      renderSubRows(item.children, childTbody, key);
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+      if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
+      if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
+    } else {
+      childTbody.innerHTML = '<tr><td colspan="15">Sem registros no período selecionado.</td></tr>';
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+      if (approveAllBtn) approveAllBtn.style.display = 'none';
+      if (rejectAllBtn) rejectAllBtn.style.display = 'none';
+    }
+  } else {
+    childrenRow.style.display = 'none';
+    btn.textContent = '+';
+    if (approveAllBtn) approveAllBtn.style.display = 'none';
+    if (rejectAllBtn) rejectAllBtn.style.display = 'none';
+  }
 }
 
-// Salva os dias selecionados para o mês atual
-function saveSelections() {
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const selectedDates = new Set();
-  selectedDays.forEach(day => selectedDates.add(day.dataset.date));
-  selectedDaysByMonth[monthKey] = selectedDates;
-  console.log('Seleções salvas para o mês:', monthKey, selectedDates);
+function findItemByKey(items, indices) {
+  let current = items;
+  for (let i = 0; i < indices.length; i++) {
+    current = current[indices[i]];
+    if (i < indices.length - 1) {
+      current = current.children;
+    }
+  }
+  return current;
 }
 
-// Lida com o clique em um dia do calendário
-function handleDayClick(e) {
+function renderSubRows(items, tbody, parentKey) {
+  items.forEach((item, index) => {
+    const key = `${parentKey}-${index}`;
+    const level = parentKey.split('-').length;
+    const row = document.createElement('tr');
+    row.className = `level-${level}`;
+    row.dataset.key = key;
+
+    const expandCell = document.createElement('td');
+    if (item.children && item.children.length > 0) {
+      const expandBtn = document.createElement('button');
+      expandBtn.className = 'expand-btn';
+      expandBtn.textContent = '+';
+      expandBtn.onclick = () => toggleExpand(key);
+      expandCell.appendChild(expandBtn);
+    }
+    row.appendChild(expandCell);
+
+    const itemCell = document.createElement('td');
+    itemCell.textContent = item.name;
+    row.appendChild(itemCell);
+
+    for (let month = 1; month <= 12; month++) {
+      const monthKey = `2025-${String(month).padStart(2, '0')}`;
+      const cell = document.createElement('td');
+      cell.className = 'month-cell';
+      if (item.alocacoes && item.alocacoes[monthKey]) {
+        const alocs = item.alocacoes[monthKey];
+        const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+        const status = alocs[0].status;
+        const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
+        cell.className += ` ${statusClass}`;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'select-cell';
+        checkbox.dataset.key = `${key}-${monthKey}`;
+        checkbox.onclick = (e) => {
+          e.stopPropagation();
+          handleCellClick(e, key, monthKey);
+        };
+        cell.appendChild(checkbox);
+
+        const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
+        const summary = document.createElement('span');
+        summary.className = 'allocation-summary';
+        summary.innerHTML = summaryText;
+        cell.appendChild(summary);
+
+        cell.appendChild(document.createElement('br'));
+
+        if (alocs.some(alloc => alloc.justificativa)) {
+          const editBtn = document.createElement('button');
+          editBtn.className = 'action-btn edit';
+          editBtn.textContent = '✎';
+          editBtn.onclick = (e) => {
+            e.stopPropagation();
+            editJustificativa(item, monthKey);
+          };
+          cell.appendChild(editBtn);
+        }
+
+        cell.onclick = (e) => {
+          if (e.target !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+            handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
+          }
+        };
+      }
+      row.appendChild(cell);
+    }
+
+    const actionsCell = document.createElement('td');
+    const approveAllBtn = document.createElement('button');
+    approveAllBtn.className = 'action-btn approve-all';
+    approveAllBtn.textContent = 'Aprovar Todos';
+    approveAllBtn.dataset.key = key;
+    approveAllBtn.onclick = () => approveAll(item);
+    actionsCell.appendChild(approveAllBtn);
+
+    const rejectAllBtn = document.createElement('button');
+    rejectAllBtn.className = 'action-btn reject-all';
+    rejectAllBtn.textContent = 'Reprovar Todos';
+    rejectAllBtn.dataset.key = key;
+    rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
+    actionsCell.appendChild(rejectAllBtn);
+    row.appendChild(actionsCell);
+
+    tbody.appendChild(row);
+
+    const childRow = document.createElement('tr');
+    childRow.className = `children level-${level + 1}`;
+    childRow.id = `children-${key}`;
+    childRow.style.display = 'none';
+    const childCell = document.createElement('td');
+    childCell.colSpan = 15;
+    const childTable = document.createElement('table');
+    childTable.className = 'sub-table';
+    const childTbody = document.createElement('tbody');
+    childTable.appendChild(childTbody);
+    childCell.appendChild(childTable);
+    childRow.appendChild(childCell);
+    tbody.appendChild(childRow);
+  });
+}
+
+function handleCellClick(e, key, monthKey) {
   const isShiftPressed = e.shiftKey;
   const isCtrlPressed = e.ctrlKey;
-  const day = e.target.closest('.day'); // Garante que o clique seja no elemento .day
-  if (!day || day.classList.contains('empty')) return;
+  const checkbox = e.target;
 
-  const days = document.querySelectorAll('.calendar-days .day:not(.empty)');
+  const allCheckboxes = Array.from(document.querySelectorAll('.select-cell'));
+  const currentIndex = allCheckboxes.findIndex(cb => cb.dataset.key === `${key}-${monthKey}`);
 
   if (!isShiftPressed && !isCtrlPressed) {
-    days.forEach(d => d.classList.remove('selected'));
-    day.classList.add('selected');
-    lastSelectedDay = day;
+    allCheckboxes.forEach(cb => {
+      if (cb !== checkbox) {
+        cb.checked = false;
+      }
+    });
+    checkbox.checked = true;
+    lastSelectedCell = { checkbox, index: currentIndex };
   } else if (isCtrlPressed) {
-    day.classList.toggle('selected');
-    lastSelectedDay = day;
-  } else if (isShiftPressed && lastSelectedDay) {
-    const allDays = Array.from(days);
-    const startIndex = allDays.indexOf(lastSelectedDay);
-    const endIndex = allDays.indexOf(day);
+    checkbox.checked = !checkbox.checked;
+    lastSelectedCell = { checkbox, index: currentIndex };
+  } else if (isShiftPressed && lastSelectedCell) {
+    const startIndex = lastSelectedCell.index;
+    const endIndex = currentIndex;
     const minIndex = Math.min(startIndex, endIndex);
     const maxIndex = Math.max(startIndex, endIndex);
 
-    days.forEach(d => {
-      if (!d.classList.contains('selected')) {
-        d.classList.remove('selected');
+    for (let i = minIndex; i <= maxIndex; i++) {
+      allCheckboxes[i].checked = true;
+    }
+    lastSelectedCell = { checkbox, index: currentIndex };
+  }
+}
+
+function approveSelected() {
+  const selectedCells = document.querySelectorAll('.select-cell:checked');
+  if (selectedCells.length === 0) {
+    alert('Nenhuma célula selecionada para aprovar.');
+    return;
+  }
+  selectedCells.forEach(checkbox => {
+    const [key, monthKey] = checkbox.dataset.key.split('-2025-');
+    const item = findItemByKey(data, key.split('-').map(Number));
+    if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+      item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
+        alloc.status = 'aprovado';
+        alloc.justificativa = '';
+      });
+    }
+    checkbox.checked = false;
+  });
+  lastSelectedCell = null;
+  saveApprovals();
+  renderTable();
+}
+
+function rejectSelected() {
+  const selectedCells = document.querySelectorAll('.select-cell:checked');
+  if (selectedCells.length === 0) {
+    alert('Nenhuma célula selecionada para reprovar.');
+    return;
+  }
+
+  currentJustificativaTarget = { cells: Array.from(selectedCells).map(cb => cb.dataset.key) };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = '';
+  modal.style.display = 'block';
+}
+
+function approveAll(item) {
+  if (item.alocacoes) {
+    Object.keys(item.alocacoes).forEach(monthKey => {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = 'aprovado';
+        alloc.justificativa = '';
+      });
+    });
+    saveApprovals();
+    renderTable();
+  }
+}
+
+function rejectAll(item) {
+  if (item.alocacoes) {
+    Object.keys(item.alocacoes).forEach(monthKey => {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = 'reprovado';
+        alloc.justificativa = justificativa;
+      });
+    });
+    saveApprovals();
+    renderTable();
+  }
+}
+
+function openJustificativaModal(item, monthKey) {
+  currentJustificativaTarget = { item, monthKey };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = monthKey !== 'all' && item.alocacoes[monthKey] && item.alocacoes[monthKey][0].justificativa ? item.alocacoes[monthKey][0].justificativa : '';
+  modal.style.display = 'block';
+}
+
+function editJustificativa(item, monthKey) {
+  openJustificativaModal(item, monthKey);
+}
+
+function submitJustificativa() {
+  const textArea = document.getElementById('justificativa-text');
+  const justificativa = textArea.value.trim();
+  if (!justificativa) {
+    alert('A justificativa é obrigatória.');
+    return;
+  }
+
+  if (currentJustificativaTarget.cells) {
+    currentJustificativaTarget.cells.forEach(cellKey => {
+      const [key, monthKey] = cellKey.split('-2025-');
+      const item = findItemByKey(data, key.split('-').map(Number));
+      if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+        item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
+          alloc.status = 'reprovado';
+          alloc.justificativa = justificativa;
+        });
+        const checkbox = document.querySelector(`.select-cell[data-key="${cellKey}"]`);
+        if (checkbox) checkbox.checked = false;
       }
     });
-
-    for (let i = minIndex; i <= maxIndex; i++) {
-      allDays[i].classList.add('selected');
-    }
-  }
-
-  updateSelection();
-}
-
-// Atualiza a seleção de dias e os campos de data
-function updateSelection() {
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const counter = document.getElementById('counter');
-  if (!counter) {
-    console.error('Elemento "counter" não encontrado no DOM.');
-    return;
-  }
-  counter.textContent = `${selectedDays.length} dias selecionados`;
-
-  if (selectedDays.length > 0) {
-    const dates = Array.from(selectedDays)
-      .map(day => new Date(day.getAttribute('data-date')))
-      .filter(date => !isNaN(date));
-    
-    if (dates.length > 0) {
-      const minDate = new Date(Math.min(...dates));
-      const maxDate = new Date(Math.max(...dates));
-      document.getElementById('data-inicio').value = minDate.toISOString().split('T')[0];
-      document.getElementById('data-fim').value = maxDate.toISOString().split('T')[0];
+  } else {
+    const { item, monthKey } = currentJustificativaTarget;
+    if (monthKey === 'all') {
+      Object.keys(item.alocacoes).forEach(key => {
+        item.alocacoes[key].forEach(alloc => {
+          alloc.status = 'reprovado';
+          alloc.justificativa = justificativa;
+        });
+      });
     } else {
-      document.getElementById('data-inicio').value = '';
-      document.getElementById('data-fim').value = '';
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = 'reprovado';
+        alloc.justificativa = justificativa;
+      });
     }
-  } else {
-    document.getElementById('data-inicio').value = '';
-    document.getElementById('data-fim').value = '';
   }
-  console.log('Seleção atualizada. Dias selecionados:', selectedDays.length);
+  lastSelectedCell = null;
+  saveApprovals();
+  closeModal();
+  renderTable();
 }
 
-// Realiza a alocação de horas
-function alocar() {
-  const tipoProjetoAtividade = document.getElementById('tipo-projeto-atividade').value;
-  const projeto = document.getElementById('projeto').value;
-  const atividade = document.getElementById('atividade').value;
-  const dataInicio = document.getElementById('data-inicio').value;
-  const dataFim = document.getElementById('data-fim').value;
-  const quantidade = parseFloat(document.getElementById('quantidade').value);
-  const metrica = document.getElementById('metrica').value;
+function closeModal() {
+  const modal = document.getElementById('justificativa-modal');
+  modal.style.display = 'none';
+  currentJustificativaTarget = null;
+}
 
-  console.log('Iniciando alocação:', { tipoProjetoAtividade, projeto, atividade, dataInicio, dataFim, quantidade, metrica });
-
-  if (!tipoProjetoAtividade || !projeto || !atividade || !dataInicio || !dataFim || isNaN(quantidade)) {
-    console.log('Campos obrigatórios não preenchidos para alocação.');
-    alert('Preencha todos os campos corretamente.');
-    return;
+function moveUp(index) {
+  if (index > 0) {
+    [hierarchy[index - 1], hierarchy[index]] = [hierarchy[index], hierarchy[index - 1]];
+    updateHierarchyDisplay();
+    renderTable();
+    updateButtonStates();
   }
+}
 
-  const startDate = new Date(dataInicio);
-  const endDate = new Date(dataFim);
-  const businessDays = [];
-  let current = new Date(startDate);
-
-  while (current <= endDate) {
-    const dayOfWeek = current.getDay();
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
-      businessDays.push(new Date(current));
-    }
-    current.setDate(current.getDate() + 1);
+function moveDown(index) {
+  if (index < hierarchy.length - 1) {
+    [hierarchy[index], hierarchy[index + 1]] = [hierarchy[index + 1], hierarchy[index]];
+    updateHierarchyDisplay();
+    renderTable();
+    updateButtonStates();
   }
+}
 
-  if (businessDays.length === 0) {
-    console.log('Nenhum dia útil encontrado no período selecionado.');
-    alert('Nenhum dia útil encontrado no período selecionado.');
-    return;
+function updateHierarchyDisplay() {
+  const display = document.getElementById('hierarchy-display');
+  display.innerHTML = `
+    <span class="hierarchy-level">${hierarchy[0]}</span>
+    <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[1]}</span>
+    <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
+    <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[2]}</span>
+    <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
+  `;
+}
+
+function updateButtonStates() {
+  document.getElementById('down-0').disabled = false;
+  document.getElementById('up-1').disabled = false;
+  document.getElementById('down-1').disabled = false;
+  document.getElementById('up-2').disabled = false;
+
+  if (hierarchy[0] === 'Colaborador') {
+    document.getElementById('down-0').disabled = false;
   }
-
-  let allocationPerDay;
-  if (metrica === 'horas/mês') {
-    allocationPerDay = (quantidade / businessDays.length) / 8 * 100;
-  } else {
-    allocationPerDay = 100 / businessDays.length;
+  if (hierarchy[1] === 'Projeto') {
+    document.getElementById('up-1').disabled = false;
+    document.getElementById('down-1').disabled = false;
   }
+  if (hierarchy[2] === 'Atividade') {
+    document.getElementById('up-2').disabled = false;
+  }
+}
 
-  businessDays.forEach(day => {
-    const dateStr = day.toISOString().split('T')[0];
-    if (!allocations[dateStr]) {
-      allocations[dateStr] = [];
-    }
-    allocations[dateStr].push({
-      percentage: allocationPerDay,
-      projeto: projeto,
-      atividade: atividade,
-      usuario: currentUser // Adiciona o usuário atual à alocação
-    });
+function filtrar() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const busca = document.getElementById('busca').value.toLowerCase();
+  const periodo = document.getElementById('periodo').value;
+  const mesInicio = parseInt(document.getElementById('mes-inicio').value) || 1;
+  const mesFim = parseInt(document.getElementById('mes-fim').value) || 12;
+
+  let filteredData = data.filter(item => {
+    const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
+    const matchesPerfil = perfil === '' || usuarios[perfil]?.includes(item.Colaborador);
+    const matchesBusca = busca === '' || 
+      item.Colaborador.toLowerCase().includes(busca) || 
+      item.Projeto.toLowerCase().includes(busca) || 
+      item.Atividade.toLowerCase().includes(busca);
+    return matchesGestor && matchesPerfil && matchesBusca;
   });
 
-  saveAllocations();
-  renderCalendar();
-  console.log('Alocação concluída para os dias:', businessDays);
-}
-
-// Realiza a desalocação de horas
-function desalocar() {
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  console.log('Iniciando desalocação...');
-  console.log('Dias selecionados:', selectedDays.length);
-
-  if (selectedDays.length > 0) {
-    // Desalocar apenas os dias selecionados
-    selectedDays.forEach(day => {
-      const dateStr = day.dataset.date;
-      if (allocations[dateStr]) {
-        console.log('Desalocando dia:', dateStr);
-        delete allocations[dateStr];
-      }
-    });
-  } else {
-    // Desalocar todo o mês atual
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      if (allocations[dateStr]) {
-        console.log('Desalocando dia do mês:', dateStr);
-        delete allocations[dateStr];
-      }
-    }
+  if (mesInicio && mesFim) {
+    filteredData = filteredData.map(item => {
+      const newItem = { ...item, alocacoes: {} };
+      Object.keys(item.alocacoes).forEach(month => {
+        const monthNum = parseInt(month.split('-')[1]);
+        if (monthNum >= mesInicio && monthNum <= mesFim) {
+          newItem.alocacoes[month] = item.alocacoes[month];
+        }
+      });
+      return newItem;
+    }).filter(item => Object.keys(item.alocacoes).length > 0);
   }
 
-  saveAllocations();
-  renderCalendar();
-  console.log('Desalocação concluída.');
+  if (periodo === 'trimestre') {
+    filteredData = filteredData.map(item => {
+      const newItem = { ...item, alocacoes: {} };
+      const startMonth = 1;
+      const endMonth = 3;
+      Object.keys(item.alocacoes).forEach(month => {
+        const monthNum = parseInt(month.split('-')[1]);
+        if (monthNum >= startMonth && monthNum <= endMonth) {
+          newItem.alocacoes[month] = item.alocacoes[month];
+        }
+      });
+      return newItem;
+    }).filter(item => Object.keys(item.alocacoes).length > 0);
+  }
+
+  data = filteredData;
+  renderTable();
+  updateAutocomplete();
 }
+
+document.getElementById('gestor').addEventListener('change', updateAutocomplete);
+document.getElementById('perfil').addEventListener('change', updateAutocomplete);
