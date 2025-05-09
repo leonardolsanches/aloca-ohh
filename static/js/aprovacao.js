@@ -10,6 +10,44 @@ const urlParams = new URLSearchParams(window.location.search);
 const currentUser = urlParams.get('username') || 'Convidado';
 console.log('Usuário atual obtido da URL:', currentUser);
 
+// Dados simulados para teste (mock)
+const mockData = [
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto A",
+    Atividade: "Atividade 1",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
+        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-02': [
+        { percentage: 48, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
+        { percentage: 50, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto B",
+    Atividade: "Atividade 2",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 80, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-02': [
+        { percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ]
+    }
+  }
+];
+
 // Carrega alocações do localStorage
 function loadAllocationsFromLocalStorage() {
   const saved = localStorage.getItem('allocations');
@@ -22,7 +60,7 @@ function loadAllocationsFromLocalStorage() {
   Object.keys(allocations).forEach(date => {
     const entries = allocations[date];
     entries.forEach(entry => {
-      const colaborador = entry.usuario || currentUser; // Usa o usuário da alocação ou o usuário atual
+      const colaborador = entry.usuario || currentUser;
       const projeto = entry.projeto;
       const atividade = entry.atividade;
       const percentage = entry.percentage;
@@ -80,31 +118,12 @@ fetch('/static/usuarios.json')
     });
 
     // Carregar alocações do localStorage
-    data = loadAllocationsFromLocalStorage();
-    console.log('Dados processados para a tela de aprovação:', data);
+    let localData = loadAllocationsFromLocalStorage();
+    console.log('Dados processados do localStorage:', localData);
 
-    // Se não houver dados no localStorage, usar dados simulados para teste
-    if (data.length === 0) {
-      console.log('Nenhuma alocação encontrada no localStorage. Usando dados simulados...');
-      data = [
-        {
-          Colaborador: currentUser,
-          Projeto: "Projeto Simulado",
-          Atividade: "Atividade Simulada",
-          alocacoes: {
-            '2025-01': [
-              { percentage: 50, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
-            ],
-            '2025-02': [
-              { percentage: 75, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
-            ],
-            '2025-03': [
-              { percentage: 60, projeto: "Projeto Simulado", atividade: "Atividade Simulada", status: 'pendente', justificativa: '' }
-            ]
-          }
-        }
-      ];
-    }
+    // Combinar dados do localStorage com mockData
+    data = [...localData, ...mockData];
+    console.log('Dados combinados para a tela de aprovação:', data);
 
     renderTable();
     updateButtonStates();
