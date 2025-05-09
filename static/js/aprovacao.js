@@ -18,31 +18,117 @@ const mockData = [
     Atividade: "Atividade 1",
     alocacoes: {
       '2025-01': [
-        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
-        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+        { percentage: 55, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
       ],
       '2025-02': [
         { percentage: 48, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
       ],
       '2025-03': [
-        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' },
+        { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 70, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 65, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 50, projeto: "Projeto A", atividade: "Atividade 1", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto A",
+    Atividade: "Atividade 2",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 37, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
         { percentage: 50, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 65, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+      ],
+      '2025-07': [
+        { percentage: 70, projeto: "Projeto A", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
       ]
     }
   },
   {
     Colaborador: "João Silva",
     Projeto: "Projeto B",
-    Atividade: "Atividade 2",
+    Atividade: "Atividade 3",
+    alocacoes: {
+      '2025-02': [
+        { percentage: 80, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 90, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 100, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ],
+      '2025-08': [
+        { percentage: 60, projeto: "Projeto B", atividade: "Atividade 3", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "João Silva",
+    Projeto: "Projeto B",
+    Atividade: "Atividade 4",
+    alocacoes: {
+      '2025-03': [
+        { percentage: 45, projeto: "Projeto B", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 70, projeto: "Projeto B", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ],
+      '2025-07': [
+        { percentage: 85, projeto: "Projeto B", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ],
+      '2025-09': [
+        { percentage: 55, projeto: "Projeto B", atividade: "Atividade 4", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "Maria Oliveira",
+    Projeto: "Projeto C",
+    Atividade: "Atividade 5",
     alocacoes: {
       '2025-01': [
-        { percentage: 80, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
-      ],
-      '2025-02': [
-        { percentage: 90, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+        { percentage: 45, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
       ],
       '2025-03': [
-        { percentage: 100, projeto: "Projeto B", atividade: "Atividade 2", status: 'pendente', justificativa: '' }
+        { percentage: 60, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 70, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ],
+      '2025-07': [
+        { percentage: 80, projeto: "Projeto C", atividade: "Atividade 5", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "Maria Oliveira",
+    Projeto: "Projeto C",
+    Atividade: "Atividade 6",
+    alocacoes: {
+      '2025-02': [
+        { percentage: 50, projeto: "Projeto C", atividade: "Atividade 6", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 80, projeto: "Projeto C", atividade: "Atividade 6", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 90, projeto: "Projeto C", atividade: "Atividade 6", status: 'pendente', justificativa: '' }
+      ],
+      '2025-08': [
+        { percentage: 65, projeto: "Projeto C", atividade: "Atividade 6", status: 'pendente', justificativa: '' }
       ]
     }
   }
@@ -56,7 +142,6 @@ function loadAllocationsFromLocalStorage() {
 
   const groupedData = [];
 
-  // Agrupar alocações por usuário, projeto e atividade
   Object.keys(allocations).forEach(date => {
     const entries = allocations[date];
     entries.forEach(entry => {
@@ -65,8 +150,7 @@ function loadAllocationsFromLocalStorage() {
       const atividade = entry.atividade;
       const percentage = entry.percentage;
 
-      // Encontrar ou criar entrada para o colaborador
-      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador);
+      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador && item.Projeto === projeto && item.Atividade === atividade);
       if (!colaboradorEntry) {
         colaboradorEntry = {
           Colaborador: colaborador,
@@ -77,8 +161,7 @@ function loadAllocationsFromLocalStorage() {
         groupedData.push(colaboradorEntry);
       }
 
-      // Agrupar alocações por mês
-      const monthKey = date.slice(0, 7); // Ex.: "2025-01"
+      const monthKey = date.slice(0, 7);
       if (!colaboradorEntry.alocacoes[monthKey]) {
         colaboradorEntry.alocacoes[monthKey] = [];
       }
@@ -117,11 +200,9 @@ fetch('/static/usuarios.json')
       gestorSelect.appendChild(option);
     });
 
-    // Carregar alocações do localStorage
     let localData = loadAllocationsFromLocalStorage();
     console.log('Dados processados do localStorage:', localData);
 
-    // Combinar dados do localStorage com mockData
     data = [...localData, ...mockData];
     console.log('Dados combinados para a tela de aprovação:', data);
 
@@ -265,9 +346,11 @@ function renderTable() {
             cell.appendChild(editBtn);
           }
 
-          cell.onclick = () => {
-            checkbox.checked = !checkbox.checked;
-            handleCellClick({ target: checkbox, shiftKey: false, ctrlKey: false }, key, monthKey);
+          cell.onclick = (e) => {
+            if (e.target !== checkbox) {
+              checkbox.checked = !checkbox.checked;
+              handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
+            }
           };
         }
         row.appendChild(cell);
@@ -314,14 +397,23 @@ function groupData(data) {
   const grouped = {};
 
   data.forEach(item => {
-    let currentLevel = grouped;
-    hierarchy.forEach(level => {
-      const key = item[level];
-      if (!currentLevel[key]) {
-        currentLevel[key] = { name: key, children: {}, alocacoes: level === hierarchy[hierarchy.length - 1] ? item.alocacoes : null };
-      }
-      currentLevel = currentLevel[key].children;
-    });
+    let colaboradorLevel = grouped;
+    const colaboradorKey = item.Colaborador;
+    if (!colaboradorLevel[colaboradorKey]) {
+      colaboradorLevel[colaboradorKey] = { name: colaboradorKey, children: {}, alocacoes: null };
+    }
+    colaboradorLevel = colaboradorLevel[colaboradorKey].children;
+
+    const projetoKey = item.Projeto;
+    if (!colaboradorLevel[projetoKey]) {
+      colaboradorLevel[projetoKey] = { name: projetoKey, children: {}, alocacoes: null };
+    }
+    colaboradorLevel = colaboradorLevel[projetoKey].children;
+
+    const atividadeKey = item.Atividade;
+    if (!colaboradorLevel[atividadeKey]) {
+      colaboradorLevel[atividadeKey] = { name: atividadeKey, children: {}, alocacoes: item.alocacoes };
+    }
   });
 
   function convertToArray(obj) {
@@ -440,9 +532,11 @@ function renderSubRows(items, tbody, parentKey) {
           cell.appendChild(editBtn);
         }
 
-        cell.onclick = () => {
-          checkbox.checked = !checkbox.checked;
-          handleCellClick({ target: checkbox, shiftKey: false, ctrlKey: false }, key, monthKey);
+        cell.onclick = (e) => {
+          if (e.target !== checkbox) {
+            checkbox.checked = !checkbox.checked;
+            handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
+          }
         };
       }
       row.appendChild(cell);
@@ -556,6 +650,19 @@ function approveAll(item) {
       item.alocacoes[monthKey].forEach(alloc => {
         alloc.status = 'aprovado';
         alloc.justificativa = '';
+      });
+    });
+    saveApprovals();
+    renderTable();
+  }
+}
+
+function rejectAll(item) {
+  if (item.alocacoes) {
+    Object.keys(item.alocacoes).forEach(monthKey => {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = 'reprovado';
+        alloc.justificativa = justificativa;
       });
     });
     saveApprovals();
@@ -680,6 +787,8 @@ function filtrar() {
   const perfil = document.getElementById('perfil').value;
   const busca = document.getElementById('busca').value.toLowerCase();
   const periodo = document.getElementById('periodo').value;
+  const mesInicio = parseInt(document.getElementById('mes-inicio').value) || 1;
+  const mesFim = parseInt(document.getElementById('mes-fim').value) || 12;
 
   let filteredData = data.filter(item => {
     const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
@@ -690,6 +799,19 @@ function filtrar() {
       item.Atividade.toLowerCase().includes(busca);
     return matchesGestor && matchesPerfil && matchesBusca;
   });
+
+  if (mesInicio && mesFim) {
+    filteredData = filteredData.map(item => {
+      const newItem = { ...item, alocacoes: {} };
+      Object.keys(item.alocacoes).forEach(month => {
+        const monthNum = parseInt(month.split('-')[1]);
+        if (monthNum >= mesInicio && monthNum <= mesFim) {
+          newItem.alocacoes[month] = item.alocacoes[month];
+        }
+      });
+      return newItem;
+    }).filter(item => Object.keys(item.alocacoes).length > 0);
+  }
 
   if (periodo === 'trimestre') {
     filteredData = filteredData.map(item => {
@@ -703,7 +825,7 @@ function filtrar() {
         }
       });
       return newItem;
-    });
+    }).filter(item => Object.keys(item.alocacoes).length > 0);
   }
 
   data = filteredData;
