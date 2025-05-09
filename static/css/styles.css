@@ -149,10 +149,11 @@ body {
 .filters-container {
     display: flex;
     flex-direction: row;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     gap: 10px;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-between;
 }
 
 .filters-container .filter-row {
@@ -445,7 +446,7 @@ body {
 }
 
 #approval-table th:nth-child(n+3):nth-child(-n+14) {
-    width: 7%;
+    width: 8%; /* Aumentado para ocupar mais espaço */
 }
 
 #approval-table .level-0 td {
@@ -454,12 +455,12 @@ body {
 
 #approval-table .level-1 td {
     background-color: #f0f0f0;
-    padding-left: 20px; /* Indentação sem borda */
+    padding-left: 20px;
 }
 
 #approval-table .level-2 td {
     background-color: #e9ecef;
-    padding-left: 40px; /* Indentação maior sem borda */
+    padding-left: 40px;
 }
 
 .expand-btn {
@@ -476,30 +477,54 @@ body {
 }
 
 .month-cell {
-    cursor: pointer;
+    cursor: default;
     position: relative;
+    padding: 5px;
 }
 
-.month-cell.cell-selected {
-    background-color: #800020 !important;
+.subcell-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.subcell {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.approved-subcell {
+    background-color: #4CAF50;
     color: #fff;
 }
 
+.rejected-subcell {
+    background-color: #F44336;
+    color: #fff;
+}
+
+.alloc-text {
+    flex: 1;
+}
+
 .action-btn {
-    padding: 4px 8px;
-    margin: 2px;
+    padding: 2px 6px;
+    margin: 0 2px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
     font-size: 0.8em;
 }
 
-.action-btn.approve {
+.action-btn.approve-subcell {
     background-color: #4CAF50;
     color: #fff;
 }
 
-.action-btn.reject {
+.action-btn.reject-subcell {
     background-color: #F44336;
     color: #fff;
 }
@@ -507,30 +532,6 @@ body {
 .action-btn.edit {
     background-color: #555;
     color: #fff;
-}
-
-.action-btn.reject-all {
-    background-color: #F44336;
-    color: #fff;
-}
-
-.action-btn.approve-all {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.approved {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.rejected {
-    background-color: #F44336;
-    color: #fff;
-}
-
-.pending {
-    background-color: #ddd;
 }
 
 .hierarchy-control {

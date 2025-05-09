@@ -352,59 +352,64 @@ function renderTable() {
                 const monthKey = `2025-${String(month).padStart(2, '0')}`;
                 const cell = document.createElement('td');
                 cell.className = 'month-cell';
+
                 if (item.alocacoes && item.alocacoes[monthKey]) {
                     const alocs = item.alocacoes[monthKey];
-                    const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
-                    const status = alocs[0].status;
-                    const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
-                    cell.className += ` ${statusClass}`;
-                    if (cell.classList.contains('selected')) {
-                        cell.classList.add('cell-selected');
-                    }
+                    const subCellContainer = document.createElement('div');
+                    subCellContainer.className = 'subcell-container';
 
-                    const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
-                    const summary = document.createElement('span');
-                    summary.className = 'allocation-summary';
-                    summary.innerHTML = summaryText;
-                    cell.appendChild(summary);
+                    alocs.forEach((alloc, allocIndex) => {
+                        const subCell = document.createElement('div');
+                        subCell.className = 'subcell';
+                        subCell.dataset.allocKey = `${key}-${monthKey}-${allocIndex}`;
 
-                    cell.appendChild(document.createElement('br'));
+                        const statusClass = alloc.status === 'aprovado' ? 'approved-subcell' : alloc.status === 'reprovado' ? 'rejected-subcell' : '';
+                        subCell.className += ` ${statusClass}`;
 
-                    if (alocs.some(alloc => alloc.justificativa)) {
-                        const editBtn = document.createElement('button');
-                        editBtn.className = 'action-btn edit';
-                        editBtn.textContent = '✎';
-                        editBtn.onclick = (e) => {
-                            e.stopPropagation();
-                            editJustificativa(item, monthKey);
-                        };
-                        cell.appendChild(editBtn);
-                    }
-
-                    cell.onclick = (e) => {
-                        if (!e.target.classList.contains('edit')) {
-                            handleCellClick(e, key, monthKey, cell);
+                        const allocText = document.createElement('span');
+                        allocText.className = 'alloc-text';
+                        allocText.textContent = `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`;
+                        if (alloc.justificativa) {
+                            allocText.setAttribute('title', `Justificativa: ${alloc.justificativa}`);
                         }
-                    };
+                        subCell.appendChild(allocText);
+
+                        const approveBtn = document.createElement('button');
+                        approveBtn.className = 'action-btn approve-subcell';
+                        approveBtn.textContent = '✓';
+                        approveBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            approveSubCell(item, monthKey, allocIndex);
+                        };
+                        subCell.appendChild(approveBtn);
+
+                        const rejectBtn = document.createElement('button');
+                        rejectBtn.className = 'action-btn reject-subcell';
+                        rejectBtn.textContent = '✕';
+                        rejectBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            rejectSubCell(item, monthKey, allocIndex);
+                        };
+                        subCell.appendChild(rejectBtn);
+
+                        if (alloc.justificativa) {
+                            const editBtn = document.createElement('button');
+                            editBtn.className = 'action-btn edit';
+                            editBtn.textContent = '✎';
+                            editBtn.onclick = (e) => {
+                                e.stopPropagation();
+                                editJustificativa(item, monthKey, allocIndex);
+                            };
+                            subCell.appendChild(editBtn);
+                        }
+
+                        subCellContainer.appendChild(subCell);
+                    });
+
+                    cell.appendChild(subCellContainer);
                 }
                 row.appendChild(cell);
             }
-
-            const actionsCell = document.createElement('td');
-            const approveAllBtn = document.createElement('button');
-            approveAllBtn.className = 'action-btn approve-all';
-            approveAllBtn.textContent = 'Aprovar Todos';
-            approveAllBtn.dataset.key = key;
-            approveAllBtn.onclick = () => approveAll(item);
-            actionsCell.appendChild(approveAllBtn);
-
-            const rejectAllBtn = document.createElement('button');
-            rejectAllBtn.className = 'action-btn reject-all';
-            rejectAllBtn.textContent = 'Reprovar Todos';
-            rejectAllBtn.dataset.key = key;
-            rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
-            actionsCell.appendChild(rejectAllBtn);
-            row.appendChild(actionsCell);
 
             tbody.appendChild(row);
 
@@ -413,7 +418,7 @@ function renderTable() {
             childRow.id = `children-${key}`;
             childRow.style.display = 'none';
             const childCell = document.createElement('td');
-            childCell.colSpan = 15;
+            childCell.colSpan = 14; // Ajustado para o número de colunas (sem a coluna "Ações")
             const childTable = document.createElement('table');
             childTable.className = 'sub-table';
             const childTbody = document.createElement('tbody');
@@ -456,8 +461,6 @@ function toggleExpand(key) {
     const childrenRow = document.getElementById(`children-${key}`);
     const childTbody = childrenRow.querySelector('tbody');
     const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
-    const approveAllBtn = document.querySelector(`tr[data-key="${key}"] .approve-all`);
-    const rejectAllBtn = document.querySelector(`tr[data-key="${key}"] .reject-all`);
 
     if (childrenRow.style.display === 'none') {
         childTbody.innerHTML = '';
@@ -467,26 +470,18 @@ function toggleExpand(key) {
             renderSubRows(item.children, childTbody, key);
             childrenRow.style.display = 'table-row';
             btn.textContent = '-';
-            if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
-            if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
         } else if (item.alocacoes && Object.keys(item.alocacoes).length > 0) {
             renderSubRows([item], childTbody, key);
             childrenRow.style.display = 'table-row';
             btn.textContent = '-';
-            if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
-            if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
         } else {
-            childTbody.innerHTML = '<tr><td colspan="15">Sem registros no período selecionado.</td></tr>';
+            childTbody.innerHTML = '<tr><td colspan="14">Sem registros no período selecionado.</td></tr>';
             childrenRow.style.display = 'table-row';
             btn.textContent = '-';
-            if (approveAllBtn) approveAllBtn.style.display = 'none';
-            if (rejectAllBtn) rejectAllBtn.style.display = 'none';
         }
     } else {
         childrenRow.style.display = 'none';
         btn.textContent = '+';
-        if (approveAllBtn) approveAllBtn.style.display = 'none';
-        if (rejectAllBtn) rejectAllBtn.style.display = 'none';
     }
 }
 
@@ -527,59 +522,64 @@ function renderSubRows(items, tbody, parentKey) {
             const monthKey = `2025-${String(month).padStart(2, '0')}`;
             const cell = document.createElement('td');
             cell.className = 'month-cell';
+
             if (item.alocacoes && item.alocacoes[monthKey]) {
                 const alocs = item.alocacoes[monthKey];
-                const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
-                const status = alocs[0].status;
-                const statusClass = status === 'aprovado' ? 'approved' : status === 'reprovado' ? 'rejected' : 'pending';
-                cell.className += ` ${statusClass}`;
-                if (cell.classList.contains('selected')) {
-                    cell.classList.add('cell-selected');
-                }
+                const subCellContainer = document.createElement('div');
+                subCellContainer.className = 'subcell-container';
 
-                const summaryText = alocs.map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('<br>');
-                const summary = document.createElement('span');
-                summary.className = 'allocation-summary';
-                summary.innerHTML = summaryText;
-                cell.appendChild(summary);
+                alocs.forEach((alloc, allocIndex) => {
+                    const subCell = document.createElement('div');
+                    subCell.className = 'subcell';
+                    subCell.dataset.allocKey = `${key}-${monthKey}-${allocIndex}`;
 
-                cell.appendChild(document.createElement('br'));
+                    const statusClass = alloc.status === 'aprovado' ? 'approved-subcell' : alloc.status === 'reprovado' ? 'rejected-subcell' : '';
+                    subCell.className += ` ${statusClass}`;
 
-                if (alocs.some(alloc => alloc.justificativa)) {
-                    const editBtn = document.createElement('button');
-                    editBtn.className = 'action-btn edit';
-                    editBtn.textContent = '✎';
-                    editBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        editJustificativa(item, monthKey);
-                    };
-                    cell.appendChild(editBtn);
-                }
-
-                cell.onclick = (e) => {
-                    if (!e.target.classList.contains('edit')) {
-                        handleCellClick(e, key, monthKey, cell);
+                    const allocText = document.createElement('span');
+                    allocText.className = 'alloc-text';
+                    allocText.textContent = `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`;
+                    if (alloc.justificativa) {
+                        allocText.setAttribute('title', `Justificativa: ${alloc.justificativa}`);
                     }
-                };
+                    subCell.appendChild(allocText);
+
+                    const approveBtn = document.createElement('button');
+                    approveBtn.className = 'action-btn approve-subcell';
+                    approveBtn.textContent = '✓';
+                    approveBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        approveSubCell(item, monthKey, allocIndex);
+                    };
+                    subCell.appendChild(approveBtn);
+
+                    const rejectBtn = document.createElement('button');
+                    rejectBtn.className = 'action-btn reject-subcell';
+                    rejectBtn.textContent = '✕';
+                    rejectBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        rejectSubCell(item, monthKey, allocIndex);
+                    };
+                    subCell.appendChild(rejectBtn);
+
+                    if (alloc.justificativa) {
+                        const editBtn = document.createElement('button');
+                        editBtn.className = 'action-btn edit';
+                        editBtn.textContent = '✎';
+                        editBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            editJustificativa(item, monthKey, allocIndex);
+                        };
+                        subCell.appendChild(editBtn);
+                    }
+
+                    subCellContainer.appendChild(subCell);
+                });
+
+                cell.appendChild(subCellContainer);
             }
             row.appendChild(cell);
         }
-
-        const actionsCell = document.createElement('td');
-        const approveAllBtn = document.createElement('button');
-        approveAllBtn.className = 'action-btn approve-all';
-        approveAllBtn.textContent = 'Aprovar Todos';
-        approveAllBtn.dataset.key = key;
-        approveAllBtn.onclick = () => approveAll(item);
-        actionsCell.appendChild(approveAllBtn);
-
-        const rejectAllBtn = document.createElement('button');
-        rejectAllBtn.className = 'action-btn reject-all';
-        rejectAllBtn.textContent = 'Reprovar Todos';
-        rejectAllBtn.dataset.key = key;
-        rejectAllBtn.onclick = () => openJustificativaModal(item, 'all');
-        actionsCell.appendChild(rejectAllBtn);
-        row.appendChild(actionsCell);
 
         tbody.appendChild(row);
 
@@ -588,7 +588,7 @@ function renderSubRows(items, tbody, parentKey) {
         childRow.id = `children-${key}`;
         childRow.style.display = 'none';
         const childCell = document.createElement('td');
-        childCell.colSpan = 15;
+        childCell.colSpan = 14;
         const childTable = document.createElement('table');
         childTable.className = 'sub-table';
         const childTbody = document.createElement('tbody');
@@ -599,109 +599,33 @@ function renderSubRows(items, tbody, parentKey) {
     });
 }
 
-function handleCellClick(e, key, monthKey, cell) {
-    const isShiftPressed = e.shiftKey;
-    const isCtrlPressed = e.ctrlKey;
-
-    const allCells = Array.from(document.querySelectorAll('.month-cell'));
-    const currentIndex = allCells.findIndex(c => c.dataset.key === `${key}-${monthKey}`);
-
-    if (!isShiftPressed && !isCtrlPressed) {
-        allCells.forEach(c => {
-            if (c !== cell) {
-                c.classList.remove('cell-selected');
-            }
-        });
-        cell.classList.toggle('cell-selected');
-        lastSelectedCell = { cell, index: currentIndex };
-    } else if (isCtrlPressed) {
-        cell.classList.toggle('cell-selected');
-        lastSelectedCell = { cell, index: currentIndex };
-    } else if (isShiftPressed && lastSelectedCell) {
-        const startIndex = lastSelectedCell.index;
-        const endIndex = currentIndex;
-        const minIndex = Math.min(startIndex, endIndex);
-        const maxIndex = Math.max(startIndex, endIndex);
-
-        for (let i = minIndex; i <= maxIndex; i++) {
-            allCells[i].classList.add('cell-selected');
+function approveSubCell(item, monthKey, allocIndex) {
+    if (item.alocacoes && item.alocacoes[monthKey]) {
+        const alloc = item.alocacoes[monthKey][allocIndex];
+        if (alloc) {
+            alloc.status = 'aprovado';
+            alloc.justificativa = '';
+            saveApprovals();
+            renderTable();
         }
-        lastSelectedCell = { cell, index: currentIndex };
     }
 }
 
-function approveSelected() {
-    const selectedCells = document.querySelectorAll('.month-cell.cell-selected');
-    if (selectedCells.length === 0) {
-        alert('Nenhuma célula selecionada para aprovar.');
-        return;
-    }
-    selectedCells.forEach(cell => {
-        const [key, monthKey] = cell.dataset.key.split('-2025-');
-        const item = findItemByKey(data, key.split('-').map(Number));
-        if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
-            item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
-                alloc.status = 'aprovado';
-                alloc.justificativa = '';
-            });
-        }
-        cell.classList.remove('cell-selected');
-    });
-    lastSelectedCell = null;
-    saveApprovals();
-    renderTable();
-}
-
-function rejectSelected() {
-    const selectedCells = document.querySelectorAll('.month-cell.cell-selected');
-    if (selectedCells.length === 0) {
-        alert('Nenhuma célula selecionada para reprovar.');
-        return;
-    }
-
-    currentJustificativaTarget = { cells: Array.from(selectedCells).map(cb => cb.dataset.key) };
+function rejectSubCell(item, monthKey, allocIndex) {
+    currentJustificativaTarget = { item, monthKey, allocIndex };
     const modal = document.getElementById('justificativa-modal');
     const textArea = document.getElementById('justificativa-text');
     textArea.value = '';
     modal.style.display = 'block';
 }
 
-function approveAll(item) {
-    if (item.alocacoes) {
-        Object.keys(item.alocacoes).forEach(monthKey => {
-            item.alocacoes[monthKey].forEach(alloc => {
-                alloc.status = 'aprovado';
-                alloc.justificativa = '';
-            });
-        });
-        saveApprovals();
-        renderTable();
-    }
-}
-
-function rejectAll(item) {
-    if (item.alocacoes) {
-        Object.keys(item.alocacoes).forEach(monthKey => {
-            item.alocacoes[monthKey].forEach(alloc => {
-                alloc.status = 'reprovado';
-                alloc.justificativa = justificativa;
-            });
-        });
-        saveApprovals();
-        renderTable();
-    }
-}
-
-function openJustificativaModal(item, monthKey) {
-    currentJustificativaTarget = { item, monthKey };
+function editJustificativa(item, monthKey, allocIndex) {
+    currentJustificativaTarget = { item, monthKey, allocIndex };
     const modal = document.getElementById('justificativa-modal');
     const textArea = document.getElementById('justificativa-text');
-    textArea.value = monthKey !== 'all' && item.alocacoes[monthKey] && item.alocacoes[monthKey][0].justificativa ? item.alocacoes[monthKey][0].justificativa : '';
+    const alloc = item.alocacoes[monthKey][allocIndex];
+    textArea.value = alloc.justificativa || '';
     modal.style.display = 'block';
-}
-
-function editJustificativa(item, monthKey) {
-    openJustificativaModal(item, monthKey);
 }
 
 function submitJustificativa() {
@@ -712,36 +636,17 @@ function submitJustificativa() {
         return;
     }
 
-    if (currentJustificativaTarget.cells) {
-        currentJustificativaTarget.cells.forEach(cellKey => {
-            const [key, monthKey] = cellKey.split('-2025-');
-            const item = findItemByKey(data, key.split('-').map(Number));
-            if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
-                item.alocacoes[`2025-${monthKey}`].forEach(alloc => {
-                    alloc.status = 'reprovado';
-                    alloc.justificativa = justificativa;
-                });
-                const cell = document.querySelector(`.month-cell[data-key="${cellKey}"]`);
-                if (cell) cell.classList.remove('cell-selected');
-            }
-        });
-    } else {
-        const { item, monthKey } = currentJustificativaTarget;
-        if (monthKey === 'all') {
-            Object.keys(item.alocacoes).forEach(key => {
-                item.alocacoes[key].forEach(alloc => {
-                    alloc.status = 'reprovado';
-                    alloc.justificativa = justificativa;
-                });
-            });
-        } else {
-            item.alocacoes[monthKey].forEach(alloc => {
+    if (currentJustificativaTarget) {
+        const { item, monthKey, allocIndex } = currentJustificativaTarget;
+        if (item.alocacoes && item.alocacoes[monthKey]) {
+            const alloc = item.alocacoes[monthKey][allocIndex];
+            if (alloc) {
                 alloc.status = 'reprovado';
                 alloc.justificativa = justificativa;
-            });
+            }
         }
     }
-    lastSelectedCell = null;
+
     saveApprovals();
     closeModal();
     renderTable();
