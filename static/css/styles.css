@@ -446,7 +446,7 @@ body {
 }
 
 #approval-table th:nth-child(n+3):nth-child(-n+14) {
-    width: 8%; /* Aumentado para ocupar mais espaço */
+    width: 8%;
 }
 
 #approval-table .level-0 td {
@@ -494,6 +494,11 @@ body {
     gap: 5px;
     padding: 2px 5px;
     border-radius: 3px;
+    border-top: 1px dashed #ddd;
+}
+
+.subcell:first-child {
+    border-top: none;
 }
 
 .approved-subcell {
@@ -504,6 +509,10 @@ body {
 .rejected-subcell {
     background-color: #F44336;
     color: #fff;
+}
+
+.pending-subcell {
+    background-color: #ddd;
 }
 
 .alloc-text {
