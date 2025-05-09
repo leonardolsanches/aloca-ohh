@@ -131,6 +131,44 @@ const mockData = [
         { percentage: 65, projeto: "Projeto C", atividade: "Atividade 6", status: 'pendente', justificativa: '' }
       ]
     }
+  },
+  {
+    Colaborador: "Pedro Almeida",
+    Projeto: "Projeto D",
+    Atividade: "Atividade 7",
+    alocacoes: {
+      '2025-01': [
+        { percentage: 40, projeto: "Projeto D", atividade: "Atividade 7", status: 'pendente', justificativa: '' }
+      ],
+      '2025-03': [
+        { percentage: 55, projeto: "Projeto D", atividade: "Atividade 7", status: 'pendente', justificativa: '' }
+      ],
+      '2025-05': [
+        { percentage: 60, projeto: "Projeto D", atividade: "Atividade 7", status: 'pendente', justificativa: '' }
+      ],
+      '2025-07': [
+        { percentage: 75, projeto: "Projeto D", atividade: "Atividade 7", status: 'pendente', justificativa: '' }
+      ]
+    }
+  },
+  {
+    Colaborador: "Pedro Almeida",
+    Projeto: "Projeto D",
+    Atividade: "Atividade 8",
+    alocacoes: {
+      '2025-02': [
+        { percentage: 60, projeto: "Projeto D", atividade: "Atividade 8", status: 'pendente', justificativa: '' }
+      ],
+      '2025-04': [
+        { percentage: 70, projeto: "Projeto D", atividade: "Atividade 8", status: 'pendente', justificativa: '' }
+      ],
+      '2025-06': [
+        { percentage: 85, projeto: "Projeto D", atividade: "Atividade 8", status: 'pendente', justificativa: '' }
+      ],
+      '2025-08': [
+        { percentage: 50, projeto: "Projeto D", atividade: "Atividade 8", status: 'pendente', justificativa: '' }
+      ]
+    }
   }
 ];
 
@@ -143,12 +181,12 @@ function loadAllocationsFromLocalStorage() {
   const groupedData = [];
 
   Object.keys(allocations).forEach(date => {
-    const entries = allocations[date];
+    const entries = allocations[date] || [];
     entries.forEach(entry => {
       const colaborador = entry.usuario || currentUser;
-      const projeto = entry.projeto;
-      const atividade = entry.atividade;
-      const percentage = entry.percentage;
+      const projeto = entry.projeto || "Projeto Desconhecido";
+      const atividade = entry.atividade || "Atividade Desconhecida";
+      const percentage = entry.percentage || 0;
 
       let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador && item.Projeto === projeto && item.Atividade === atividade);
       if (!colaboradorEntry) {
@@ -281,6 +319,10 @@ function saveApprovals() {
 function renderTable() {
   loadApprovals();
   const tbody = document.getElementById('approval-table-body');
+  if (!tbody) {
+    console.error('Elemento "approval-table-body" não encontrado no DOM.');
+    return;
+  }
   tbody.innerHTML = '';
   const groupedData = groupData(data);
 
@@ -347,7 +389,7 @@ function renderTable() {
           }
 
           cell.onclick = (e) => {
-            if (e.target !== checkbox) {
+            if (e.target !== checkbox && !e.target.classList.contains('edit')) {
               checkbox.checked = !checkbox.checked;
               handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
             }
@@ -444,6 +486,12 @@ function toggleExpand(key) {
       btn.textContent = '-';
       if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
       if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
+    } else if (item.alocacoes && Object.keys(item.alocacoes).length > 0) {
+      renderSubRows([item], childTbody, key);
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+      if (approveAllBtn) approveAllBtn.style.display = 'inline-block';
+      if (rejectAllBtn) rejectAllBtn.style.display = 'inline-block';
     } else {
       childTbody.innerHTML = '<tr><td colspan="15">Sem registros no período selecionado.</td></tr>';
       childrenRow.style.display = 'table-row';
@@ -533,7 +581,7 @@ function renderSubRows(items, tbody, parentKey) {
         }
 
         cell.onclick = (e) => {
-          if (e.target !== checkbox) {
+          if (e.target !== checkbox && !e.target.classList.contains('edit')) {
             checkbox.checked = !checkbox.checked;
             handleCellClick({ target: checkbox, shiftKey: e.shiftKey, ctrlKey: e.ctrlKey }, key, monthKey);
           }
@@ -800,18 +848,16 @@ function filtrar() {
     return matchesGestor && matchesPerfil && matchesBusca;
   });
 
-  if (mesInicio && mesFim) {
-    filteredData = filteredData.map(item => {
-      const newItem = { ...item, alocacoes: {} };
-      Object.keys(item.alocacoes).forEach(month => {
-        const monthNum = parseInt(month.split('-')[1]);
-        if (monthNum >= mesInicio && monthNum <= mesFim) {
-          newItem.alocacoes[month] = item.alocacoes[month];
-        }
-      });
-      return newItem;
-    }).filter(item => Object.keys(item.alocacoes).length > 0);
-  }
+  filteredData = filteredData.map(item => {
+    const newItem = { ...item, alocacoes: {} };
+    Object.keys(item.alocacoes).forEach(month => {
+      const monthNum = parseInt(month.split('-')[1]);
+      if (monthNum >= mesInicio && monthNum <= mesFim) {
+        newItem.alocacoes[month] = item.alocacoes[month];
+      }
+    });
+    return newItem;
+  });
 
   if (periodo === 'trimestre') {
     filteredData = filteredData.map(item => {
@@ -825,7 +871,7 @@ function filtrar() {
         }
       });
       return newItem;
-    }).filter(item => Object.keys(item.alocacoes).length > 0);
+    });
   }
 
   data = filteredData;
