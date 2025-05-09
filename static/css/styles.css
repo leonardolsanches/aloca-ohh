@@ -477,7 +477,7 @@ body {
 }
 
 .month-cell {
-    cursor: default;
+    cursor: pointer;
     position: relative;
     padding: 5px;
 }
@@ -519,28 +519,15 @@ body {
     flex: 1;
 }
 
-.action-btn {
-    padding: 2px 6px;
-    margin: 0 2px;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+.status-icon {
+    font-size: 1em;
+    margin-left: 5px;
+}
+
+.edit-icon {
     font-size: 0.8em;
-}
-
-.action-btn.approve-subcell {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.action-btn.reject-subcell {
-    background-color: #F44336;
-    color: #fff;
-}
-
-.action-btn.edit {
-    background-color: #555;
-    color: #fff;
+    margin-left: 5px;
+    cursor: pointer;
 }
 
 .hierarchy-control {
