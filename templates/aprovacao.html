@@ -25,17 +25,10 @@
             <div class="filter-row">
                 <div class="hierarchy-control">
                     <span>Hierarquia:</span>
-                    <span id="hierarchy-display">
-                        <span class="hierarchy-level">Colaborador</span>
-                        <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
-                        <span> ⬇ > </span>
-                        <span class="hierarchy-level">Projeto</span>
-                        <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
-                        <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
-                        <span> ⬇ > </span>
-                        <span class="hierarchy-level">Atividade</span>
-                        <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
-                    </span>
+                    <select id="hierarchy-select" onchange="updateHierarchy()">
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                    <span id="hierarchy-display"></span>
                 </div>
                 <select id="gestor"></select>
                 <select id="perfil">

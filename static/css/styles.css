@@ -345,6 +345,10 @@ body {
     color: #fff;
 }
 
+.calendar-days .day.gray {
+    background-color: #ddd;
+}
+
 .calendar-days .day:hover:not(.empty) {
     background-color: #f0f0f0;
 }
@@ -422,6 +426,10 @@ body {
 
 .color-box.red {
     background-color: #F44336;
+}
+
+.color-box.gray {
+    background-color: #ddd;
 }
 
 /* Estilos para aprovacao.html */

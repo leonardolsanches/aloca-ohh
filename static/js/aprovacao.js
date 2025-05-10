@@ -1,6 +1,14 @@
 let gestores = [];
 let data = [];
 let hierarchy = ['Projeto', 'Colaborador', 'Atividade'];
+let hierarchyOptions = [
+    ['Colaborador', 'Projeto', 'Atividade'],
+    ['Projeto', 'Colaborador', 'Atividade'],
+    ['Projeto', 'Atividade', 'Colaborador'],
+    ['Atividade', 'Colaborador', 'Projeto'],
+    ['Atividade', 'Projeto', 'Colaborador'],
+    ['Colaborador', 'Atividade', 'Projeto']
+];
 let currentJustificativaTarget = null;
 let usuarios = {};
 
@@ -242,6 +250,15 @@ fetch('/static/usuarios.json')
 
         data = [...localData, ...mockData];
         console.log('Dados combinados para a tela de aprovação:', data);
+
+        // Popula o seletor de hierarquia
+        const hierarchySelect = document.getElementById('hierarchy-select');
+        hierarchyOptions.forEach((option, index) => {
+            const opt = document.createElement('option');
+            opt.value = index;
+            opt.textContent = `${option[0]} → ${option[1]} → ${option[2]}`;
+            hierarchySelect.appendChild(opt);
+        });
 
         renderTable();
         updateButtonStates();
@@ -830,55 +847,27 @@ function closeModal() {
     currentJustificativaTarget = null;
 }
 
-function moveUp(index) {
-    if (index > 0) {
-        [hierarchy[index - 1], hierarchy[index]] = [hierarchy[index], hierarchy[index - 1]];
-        updateHierarchyDisplay();
-        renderTable();
-        updateButtonStates();
-    }
-}
-
-function moveDown(index) {
-    if (index < hierarchy.length - 1) {
-        [hierarchy[index], hierarchy[index + 1]] = [hierarchy[index + 1], hierarchy[index]];
-        updateHierarchyDisplay();
-        renderTable();
-        updateButtonStates();
-    }
+function updateHierarchy() {
+    const hierarchySelect = document.getElementById('hierarchy-select');
+    const selectedIndex = parseInt(hierarchySelect.value);
+    hierarchy = hierarchyOptions[selectedIndex];
+    updateHierarchyDisplay();
+    renderTable();
 }
 
 function updateHierarchyDisplay() {
     const display = document.getElementById('hierarchy-display');
     display.innerHTML = `
         <span class="hierarchy-level">${hierarchy[0]}</span>
-        <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
         <span> ⬇ > </span>
         <span class="hierarchy-level">${hierarchy[1]}</span>
-        <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
-        <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
         <span> ⬇ > </span>
         <span class="hierarchy-level">${hierarchy[2]}</span>
-        <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
     `;
 }
 
 function updateButtonStates() {
-    document.getElementById('down-0').disabled = false;
-    document.getElementById('up-1').disabled = false;
-    document.getElementById('down-1').disabled = false;
-    document.getElementById('up-2').disabled = false;
-
-    if (hierarchy[0] === 'Colaborador') {
-        document.getElementById('down-0').disabled = false;
-    }
-    if (hierarchy[1] === 'Projeto') {
-        document.getElementById('up-1').disabled = false;
-        document.getElementById('down-1').disabled = false;
-    }
-    if (hierarchy[2] === 'Atividade') {
-        document.getElementById('up-2').disabled = false;
-    }
+    // Função mantida para compatibilidade, mas não usada diretamente
 }
 
 function filtrar() {
