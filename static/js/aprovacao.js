@@ -264,249 +264,54 @@ function renderTable() {
                 cell.className = 'month-cell';
                 cell.dataset.key = `${key}-${monthKey}`;
 
-                const subCellContainer = document.createElement('div');
-                subCellContainer.className = 'subcell-container';
-
                 if (item.alocacoes && item.alocacoes[monthKey]) {
                     const alocs = item.alocacoes[monthKey];
                     const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
                                        alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
                     cell.className += ` ${statusClass}`;
 
-                    // Exibir subníveis dentro da célula
-                    if (level === 0) {
-                        // Nível mais alto (ex.: Projeto)
-                        const subCell = document.createElement('div');
-                        subCell.className = 'subcell';
-                        subCell.dataset.allocKey = `${key}-${monthKey}`;
+                    const subCellContainer = document.createElement('div');
+                    subCellContainer.className = 'subcell-container';
 
-                        const statusIcon = document.createElement('span');
-                        statusIcon.className = 'status-icon';
-                        statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                 alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                        statusIcon.onclick = (e) => {
-                            e.stopPropagation();
-                            toggleCellStatus(item, monthKey, null, true, level, statusIcon);
-                        };
-                        subCell.appendChild(statusIcon);
+                    const subCell = document.createElement('div');
+                    subCell.className = 'subcell';
+                    subCell.dataset.allocKey = `${key}-${monthKey}`;
 
-                        const allocText = document.createElement('span');
-                        allocText.className = 'alloc-text';
-                        allocText.textContent = item.name;
-                        subCell.appendChild(allocText);
+                    const statusIcon = document.createElement('span');
+                    statusIcon.className = 'status-icon';
+                    statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
+                                             alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
+                    statusIcon.onclick = (e) => {
+                        e.stopPropagation();
+                        toggleCellStatus(item, monthKey, level, statusIcon);
+                    };
+                    subCell.appendChild(statusIcon);
 
-                        subCellContainer.appendChild(subCell);
-
-                        // Exibir subníveis (Colaboradores)
-                        const subLevel = hierarchy[1];
-                        const subItems = {};
-                        alocs.forEach(alloc => {
-                            const subKey = alloc[subLevel.toLowerCase()];
-                            if (!subItems[subKey]) {
-                                subItems[subKey] = [];
-                            }
-                            subItems[subKey].push(alloc);
-                        });
-
-                        Object.keys(subItems).forEach(subKey => {
-                            const subAlocs = subItems[subKey];
-                            const subStatusClass = subAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                                  subAlocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                            const subCell = document.createElement('div');
-                            subCell.className = `subcell sublevel-1 ${subStatusClass}`;
-                            subCell.dataset.allocKey = `${key}-${monthKey}-${subKey}`;
-
-                            const subStatusIcon = document.createElement('span');
-                            subStatusIcon.className = 'status-icon';
-                            subStatusIcon.textContent = subAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                        subAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                            subStatusIcon.onclick = (e) => {
-                                e.stopPropagation();
-                                toggleSubLevelStatus(item, monthKey, subKey, subAlocs, level + 1, subStatusIcon);
-                            };
-                            subCell.appendChild(subStatusIcon);
-
-                            const subAllocText = document.createElement('span');
-                            subAllocText.className = 'alloc-text';
-                            subAllocText.textContent = subKey;
-                            subCell.appendChild(subAllocText);
-
-                            subCellContainer.appendChild(subCell);
-
-                            // Exibir sub-subníveis (Atividades)
-                            const subSubLevel = hierarchy[2];
-                            const subSubItems = {};
-                            subAlocs.forEach(alloc => {
-                                const subSubKey = alloc[subSubLevel.toLowerCase()];
-                                if (!subSubItems[subSubKey]) {
-                                    subSubItems[subSubKey] = [];
-                                }
-                                subSubItems[subSubKey].push(alloc);
-                            });
-
-                            Object.keys(subSubItems).forEach(subSubKey => {
-                                const subSubAlocs = subSubItems[subSubKey];
-                                const subSubStatusClass = subSubAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                                         subSubAlocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                                const subSubCell = document.createElement('div');
-                                subSubCell.className = `subcell sublevel-2 ${subSubStatusClass}`;
-                                subSubCell.dataset.allocKey = `${key}-${monthKey}-${subKey}-${subSubKey}`;
-
-                                const subSubStatusIcon = document.createElement('span');
-                                subSubStatusIcon.className = 'status-icon';
-                                subSubStatusIcon.textContent = subSubAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                               subSubAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                                subSubStatusIcon.onclick = (e) => {
-                                    e.stopPropagation();
-                                    toggleSubSubLevelStatus(item, monthKey, subKey, subSubKey, subSubAlocs, subSubStatusIcon);
-                                };
-                                subSubCell.appendChild(subSubStatusIcon);
-
-                                const subSubAllocText = document.createElement('span');
-                                subSubAllocText.className = 'alloc-text';
-                                subSubAllocText.textContent = subSubAlocs.map(alloc => `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`).join(', ');
-                                if (subSubAlocs[0].justificativa) {
-                                    subSubAllocText.setAttribute('title', `Justificativa: ${subSubAlocs[0].justificativa}`);
-                                }
-                                subSubCell.appendChild(subSubAllocText);
-
-                                if (subSubAlocs[0].justificativa) {
-                                    const editBtn = document.createElement('span');
-                                    editBtn.className = 'edit-icon';
-                                    editBtn.textContent = '✎';
-                                    editBtn.onclick = (e) => {
-                                        e.stopPropagation();
-                                        editJustificativa(item, monthKey, subSubAlocs[0]);
-                                    };
-                                    subSubCell.appendChild(editBtn);
-                                }
-
-                                subCellContainer.appendChild(subSubCell);
-                            });
-                        });
-                    } else if (level === 1) {
-                        // Nível intermediário (ex.: Colaborador)
-                        const subCell = document.createElement('div');
-                        subCell.className = 'subcell';
-                        subCell.dataset.allocKey = `${key}-${monthKey}`;
-
-                        const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                          alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                        subCell.className += ` ${statusClass}`;
-
-                        const statusIcon = document.createElement('span');
-                        statusIcon.className = 'status-icon';
-                        statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                 alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                        statusIcon.onclick = (e) => {
-                            e.stopPropagation();
-                            toggleCellStatus(item, monthKey, null, true, level, statusIcon);
-                        };
-                        subCell.appendChild(statusIcon);
-
-                        const allocText = document.createElement('span');
-                        allocText.className = 'alloc-text';
-                        allocText.textContent = item.name;
-                        subCell.appendChild(allocText);
-
-                        subCellContainer.appendChild(subCell);
-
-                        // Exibir subníveis (Atividades)
-                        const subLevel = hierarchy[2];
-                        const subItems = {};
-                        alocs.forEach(alloc => {
-                            const subKey = alloc[subLevel.toLowerCase()];
-                            if (!subItems[subKey]) {
-                                subItems[subKey] = [];
-                            }
-                            subItems[subKey].push(alloc);
-                        });
-
-                        Object.keys(subItems).forEach(subKey => {
-                            const subAlocs = subItems[subKey];
-                            const subStatusClass = subAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                                  subAlocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                            const subCell = document.createElement('div');
-                            subCell.className = `subcell sublevel-2 ${subStatusClass}`;
-                            subCell.dataset.allocKey = `${key}-${monthKey}-${subKey}`;
-
-                            const subStatusIcon = document.createElement('span');
-                            subStatusIcon.className = 'status-icon';
-                            subStatusIcon.textContent = subAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                        subAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                            subStatusIcon.onclick = (e) => {
-                                e.stopPropagation();
-                                toggleSubLevelStatus(item, monthKey, subKey, subAlocs, level + 1, subStatusIcon);
-                            };
-                            subCell.appendChild(subStatusIcon);
-
-                            const subAllocText = document.createElement('span');
-                            subAllocText.className = 'alloc-text';
-                            subAllocText.textContent = subAlocs.map(alloc => `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`).join(', ');
-                            if (subAlocs[0].justificativa) {
-                                subAllocText.setAttribute('title', `Justificativa: ${subAlocs[0].justificativa}`);
-                            }
-                            subCell.appendChild(subAllocText);
-
-                            if (subAlocs[0].justificativa) {
-                                const editBtn = document.createElement('span');
-                                editBtn.className = 'edit-icon';
-                                editBtn.textContent = '✎';
-                                editBtn.onclick = (e) => {
-                                    e.stopPropagation();
-                                    editJustificativa(item, monthKey, subAlocs[0]);
-                                };
-                                subCell.appendChild(editBtn);
-                            }
-
-                            subCellContainer.appendChild(subCell);
-                        });
-                    } else if (level === 2) {
-                        // Nível mais baixo (ex.: Atividade)
-                        alocs.forEach((alloc, allocIndex) => {
-                            const subCell = document.createElement('div');
-                            subCell.className = 'subcell';
-                            subCell.dataset.allocKey = `${key}-${monthKey}-${allocIndex}`;
-
-                            const statusClass = alloc.status === 'aprovado' ? 'approved-subcell' :
-                                              alloc.status === 'reprovado' ? 'rejected-subcell' : 'pending-subcell';
-                            subCell.className += ` ${statusClass}`;
-
-                            const statusIcon = document.createElement('span');
-                            statusIcon.className = 'status-icon';
-                            statusIcon.textContent = alloc.status === 'aprovado' ? '✓' :
-                                                     alloc.status === 'reprovado' ? '✗' : '';
-                            statusIcon.onclick = (e) => {
-                                e.stopPropagation();
-                                toggleCellStatus(item, monthKey, allocIndex, false, level, statusIcon);
-                            };
-                            subCell.appendChild(statusIcon);
-
-                            const allocText = document.createElement('span');
-                            allocText.className = 'alloc-text';
-                            allocText.textContent = `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`;
-                            if (alloc.justificativa) {
-                                allocText.setAttribute('title', `Justificativa: ${alloc.justificativa}`);
-                            }
-                            subCell.appendChild(allocText);
-
-                            if (alloc.justificativa) {
-                                const editBtn = document.createElement('span');
-                                editBtn.className = 'edit-icon';
-                                editBtn.textContent = '✎';
-                                editBtn.onclick = (e) => {
-                                    e.stopPropagation();
-                                    editJustificativa(item, monthKey, alloc);
-                                };
-                                subCell.appendChild(editBtn);
-                            }
-
-                            subCellContainer.appendChild(subCell);
-                        });
+                    const allocText = document.createElement('span');
+                    allocText.className = 'alloc-text';
+                    allocText.textContent = alocs.map(alloc => `${alloc.percentage}%`).join(', ');
+                    if (alocs[0].justificativa) {
+                        allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
                     }
+                    subCell.appendChild(allocText);
+
+                    if (alocs.some(alloc => alloc.justificativa)) {
+                        const editBtn = document.createElement('span');
+                        editBtn.className = 'edit-icon';
+                        editBtn.textContent = '✎';
+                        editBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            editJustificativa(item, monthKey, alocs[0]);
+                        };
+                        subCell.appendChild(editBtn);
+                    }
+
+                    subCellContainer.appendChild(subCell);
+                    cell.appendChild(subCellContainer);
+                } else {
+                    cell.textContent = '-';
                 }
 
-                cell.appendChild(subCellContainer);
                 row.appendChild(cell);
             }
 
@@ -517,13 +322,18 @@ function renderTable() {
             childRow.id = `children-${key}`;
             childRow.style.display = 'none';
             const childCell = document.createElement('td');
-            childCell.colSpan = 14;
             const childTable = document.createElement('table');
             childTable.className = 'sub-table';
             const childTbody = document.createElement('tbody');
             childTable.appendChild(childTbody);
             childCell.appendChild(childTable);
             childRow.appendChild(childCell);
+
+            for (let month = 1; month <= 12; month++) {
+                const placeholderCell = document.createElement('td');
+                childRow.appendChild(placeholderCell);
+            }
+
             tbody.appendChild(childRow);
         });
     }
@@ -651,248 +461,54 @@ function renderSubRows(items, tbody, parentKey) {
             cell.className = 'month-cell';
             cell.dataset.key = `${key}-${monthKey}`;
 
-            const subCellContainer = document.createElement('div');
-            subCellContainer.className = 'subcell-container';
-
             if (item.alocacoes && item.alocacoes[monthKey]) {
                 const alocs = item.alocacoes[monthKey];
                 const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
                                    alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
                 cell.className += ` ${statusClass}`;
 
-                if (level === 0) {
-                    // Nível mais alto (ex.: Projeto)
-                    const subCell = document.createElement('div');
-                    subCell.className = 'subcell';
-                    subCell.dataset.allocKey = `${key}-${monthKey}`;
+                const subCellContainer = document.createElement('div');
+                subCellContainer.className = 'subcell-container';
 
-                    const statusIcon = document.createElement('span');
-                    statusIcon.className = 'status-icon';
-                    statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                             alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                    statusIcon.onclick = (e) => {
-                        e.stopPropagation();
-                        toggleCellStatus(item, monthKey, null, true, level, statusIcon);
-                    };
-                    subCell.appendChild(statusIcon);
+                const subCell = document.createElement('div');
+                subCell.className = 'subcell';
+                subCell.dataset.allocKey = `${key}-${monthKey}`;
 
-                    const allocText = document.createElement('span');
-                    allocText.className = 'alloc-text';
-                    allocText.textContent = item.name;
-                    subCell.appendChild(allocText);
+                const statusIcon = document.createElement('span');
+                statusIcon.className = 'status-icon';
+                statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
+                                         alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
+                statusIcon.onclick = (e) => {
+                    e.stopPropagation();
+                    toggleCellStatus(item, monthKey, level, statusIcon);
+                };
+                subCell.appendChild(statusIcon);
 
-                    subCellContainer.appendChild(subCell);
-
-                    // Exibir subníveis (Colaboradores)
-                    const subLevel = hierarchy[1];
-                    const subItems = {};
-                    alocs.forEach(alloc => {
-                        const subKey = alloc[subLevel.toLowerCase()];
-                        if (!subItems[subKey]) {
-                            subItems[subKey] = [];
-                        }
-                        subItems[subKey].push(alloc);
-                    });
-
-                    Object.keys(subItems).forEach(subKey => {
-                        const subAlocs = subItems[subKey];
-                        const subStatusClass = subAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                              subAlocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                        const subCell = document.createElement('div');
-                        subCell.className = `subcell sublevel-1 ${subStatusClass}`;
-                        subCell.dataset.allocKey = `${key}-${monthKey}-${subKey}`;
-
-                        const subStatusIcon = document.createElement('span');
-                        subStatusIcon.className = 'status-icon';
-                        subStatusIcon.textContent = subAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                    subAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                        subStatusIcon.onclick = (e) => {
-                            e.stopPropagation();
-                            toggleSubLevelStatus(item, monthKey, subKey, subAlocs, level + 1, subStatusIcon);
-                        };
-                        subCell.appendChild(subStatusIcon);
-
-                        const subAllocText = document.createElement('span');
-                        subAllocText.className = 'alloc-text';
-                        subAllocText.textContent = subKey;
-                        subCell.appendChild(subAllocText);
-
-                        subCellContainer.appendChild(subCell);
-
-                        // Exibir sub-subníveis (Atividades)
-                        const subSubLevel = hierarchy[2];
-                        const subSubItems = {};
-                        subAlocs.forEach(alloc => {
-                            const subSubKey = alloc[subSubLevel.toLowerCase()];
-                            if (!subSubItems[subSubKey]) {
-                                subSubItems[subSubKey] = [];
-                            }
-                            subSubItems[subSubKey].push(alloc);
-                        });
-
-                        Object.keys(subSubItems).forEach(subSubKey => {
-                            const subSubAlocs = subSubItems[subSubKey];
-                            const subSubStatusClass = subSubAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                                     subSubAlocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                            const subSubCell = document.createElement('div');
-                            subSubCell.className = `subcell sublevel-2 ${subSubStatusClass}`;
-                            subSubCell.dataset.allocKey = `${key}-${monthKey}-${subKey}-${subSubKey}`;
-
-                            const subSubStatusIcon = document.createElement('span');
-                            subSubStatusIcon.className = 'status-icon';
-                            subSubStatusIcon.textContent = subSubAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                           subSubAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                            subSubStatusIcon.onclick = (e) => {
-                                e.stopPropagation();
-                                toggleSubSubLevelStatus(item, monthKey, subKey, subSubKey, subSubAlocs, subSubStatusIcon);
-                            };
-                            subSubCell.appendChild(subSubStatusIcon);
-
-                            const subSubAllocText = document.createElement('span');
-                            subSubAllocText.className = 'alloc-text';
-                            subSubAllocText.textContent = subSubAlocs.map(alloc => `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`).join(', ');
-                            if (subSubAlocs[0].justificativa) {
-                                subSubAllocText.setAttribute('title', `Justificativa: ${subSubAlocs[0].justificativa}`);
-                            }
-                            subSubCell.appendChild(subSubAllocText);
-
-                            if (subSubAlocs[0].justificativa) {
-                                const editBtn = document.createElement('span');
-                                editBtn.className = 'edit-icon';
-                                editBtn.textContent = '✎';
-                                editBtn.onclick = (e) => {
-                                    e.stopPropagation();
-                                    editJustificativa(item, monthKey, subSubAlocs[0]);
-                                };
-                                subSubCell.appendChild(editBtn);
-                            }
-
-                            subCellContainer.appendChild(subSubCell);
-                        });
-                    });
-                } else if (level === 1) {
-                    // Nível intermediário (ex.: Colaborador)
-                    const subCell = document.createElement('div');
-                    subCell.className = 'subcell';
-                    subCell.dataset.allocKey = `${key}-${monthKey}`;
-
-                    const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                      alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                    subCell.className += ` ${statusClass}`;
-
-                    const statusIcon = document.createElement('span');
-                    statusIcon.className = 'status-icon';
-                    statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                             alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                    statusIcon.onclick = (e) => {
-                        e.stopPropagation();
-                        toggleCellStatus(item, monthKey, null, true, level, statusIcon);
-                    };
-                    subCell.appendChild(statusIcon);
-
-                    const allocText = document.createElement('span');
-                    allocText.className = 'alloc-text';
-                    allocText.textContent = item.name;
-                    subCell.appendChild(allocText);
-
-                    subCellContainer.appendChild(subCell);
-
-                    // Exibir subníveis (Atividades)
-                    const subLevel = hierarchy[2];
-                    const subItems = {};
-                    alocs.forEach(alloc => {
-                        const subKey = alloc[subLevel.toLowerCase()];
-                        if (!subItems[subKey]) {
-                            subItems[subKey] = [];
-                        }
-                        subItems[subKey].push(alloc);
-                    });
-
-                    Object.keys(subItems).forEach(subKey => {
-                        const subAlocs = subItems[subKey];
-                        const subStatusClass = subAlocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
-                                              alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
-                        const subCell = document.createElement('div');
-                        subCell.className = `subcell sublevel-2 ${subStatusClass}`;
-                        subCell.dataset.allocKey = `${key}-${monthKey}-${subKey}`;
-
-                        const subStatusIcon = document.createElement('span');
-                        subStatusIcon.className = 'status-icon';
-                        subStatusIcon.textContent = subAlocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
-                                                    subAlocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '';
-                        subStatusIcon.onclick = (e) => {
-                            e.stopPropagation();
-                            toggleSubLevelStatus(item, monthKey, subKey, subAlocs, level + 1, subStatusIcon);
-                        };
-                        subCell.appendChild(subStatusIcon);
-
-                        const subAllocText = document.createElement('span');
-                        subAllocText.className = 'alloc-text';
-                        subAllocText.textContent = subAlocs.map(alloc => `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`).join(', ');
-                        if (subAlocs[0].justificativa) {
-                            subAllocText.setAttribute('title', `Justificativa: ${subAlocs[0].justificativa}`);
-                        }
-                        subCell.appendChild(subAllocText);
-
-                        if (subAlocs[0].justificativa) {
-                            const editBtn = document.createElement('span');
-                            editBtn.className = 'edit-icon';
-                            editBtn.textContent = '✎';
-                            editBtn.onclick = (e) => {
-                                e.stopPropagation();
-                                editJustificativa(item, monthKey, subAlocs[0]);
-                            };
-                            subCell.appendChild(editBtn);
-                        }
-
-                        subCellContainer.appendChild(subCell);
-                    });
-                } else if (level === 2) {
-                    // Nível mais baixo (ex.: Atividade)
-                    alocs.forEach((alloc, allocIndex) => {
-                        const subCell = document.createElement('div');
-                        subCell.className = 'subcell';
-                        subCell.dataset.allocKey = `${key}-${monthKey}-${allocIndex}`;
-
-                        const statusClass = alloc.status === 'aprovado' ? 'approved-subcell' :
-                                          alloc.status === 'reprovado' ? 'rejected-subcell' : 'pending-subcell';
-                        subCell.className += ` ${statusClass}`;
-
-                        const statusIcon = document.createElement('span');
-                        statusIcon.className = 'status-icon';
-                        statusIcon.textContent = alloc.status === 'aprovado' ? '✓' :
-                                                 alloc.status === 'reprovado' ? '✗' : '';
-                        statusIcon.onclick = (e) => {
-                            e.stopPropagation();
-                            toggleCellStatus(item, monthKey, allocIndex, false, level, statusIcon);
-                        };
-                        subCell.appendChild(statusIcon);
-
-                        const allocText = document.createElement('span');
-                        allocText.className = 'alloc-text';
-                        allocText.textContent = `${alloc.percentage}% ${alloc.projeto} - ${alloc.atividade}`;
-                        if (alloc.justificativa) {
-                            allocText.setAttribute('title', `Justificativa: ${alloc.justificativa}`);
-                        }
-                        subCell.appendChild(allocText);
-
-                        if (alloc.justificativa) {
-                            const editBtn = document.createElement('span');
-                            editBtn.className = 'edit-icon';
-                            editBtn.textContent = '✎';
-                            editBtn.onclick = (e) => {
-                                e.stopPropagation();
-                                editJustificativa(item, monthKey, alloc);
-                            };
-                            subCell.appendChild(editBtn);
-                        }
-
-                        subCellContainer.appendChild(subCell);
-                    });
+                const allocText = document.createElement('span');
+                allocText.className = 'alloc-text';
+                allocText.textContent = alocs.map(alloc => `${alloc.percentage}%`).join(', ');
+                if (alocs[0].justificativa) {
+                    allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
                 }
+                subCell.appendChild(allocText);
+
+                if (alocs.some(alloc => alloc.justificativa)) {
+                    const editBtn = document.createElement('span');
+                    editBtn.className = 'edit-icon';
+                    editBtn.textContent = '✎';
+                    editBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        editJustificativa(item, monthKey, alocs[0]);
+                    };
+                    subCell.appendChild(editBtn);
+                }
+
+                subCellContainer.appendChild(subCell);
+                cell.appendChild(subCellContainer);
+            } else {
+                cell.textContent = '-';
             }
 
-            cell.appendChild(subCellContainer);
             row.appendChild(cell);
         }
 
@@ -903,140 +519,65 @@ function renderSubRows(items, tbody, parentKey) {
         childRow.id = `children-${key}`;
         childRow.style.display = 'none';
         const childCell = document.createElement('td');
-        childCell.colSpan = 14;
         const childTable = document.createElement('table');
         childTable.className = 'sub-table';
         const childTbody = document.createElement('tbody');
         childTable.appendChild(childTbody);
         childCell.appendChild(childTable);
         childRow.appendChild(childCell);
+
+        for (let month = 1; month <= 12; month++) {
+            const placeholderCell = document.createElement('td');
+            childRow.appendChild(placeholderCell);
+        }
+
         tbody.appendChild(childRow);
     });
 }
 
-function toggleCellStatus(item, monthKey, allocIndex, propagate, level, iconElement) {
+function toggleCellStatus(item, monthKey, level, iconElement) {
     if (item.alocacoes && item.alocacoes[monthKey]) {
+        const alocs = item.alocacoes[monthKey];
         let newStatus = 'pendente';
-        if (allocIndex !== null) {
-            const alloc = item.alocacoes[monthKey][allocIndex];
-            if (alloc.status === 'pendente') {
-                newStatus = 'aprovado';
-            } else if (alloc.status === 'aprovado') {
-                newStatus = 'reprovado';
-                currentJustificativaTarget = { item, monthKey, alloc: alloc };
-                const modal = document.getElementById('justificativa-modal');
-                const textArea = document.getElementById('justificativa-text');
-                textArea.value = alloc.justificativa || '';
-                modal.style.display = 'block';
-                return;
-            } else {
-                newStatus = 'pendente';
+        const currentStatus = alocs.every(alloc => alloc.status === 'aprovado') ? 'aprovado' :
+                             alocs.every(alloc => alloc.status === 'reprovado') ? 'reprovado' : 'pendente';
+
+        if (currentStatus === 'pendente') {
+            newStatus = 'aprovado';
+        } else if (currentStatus === 'aprovado') {
+            newStatus = 'reprovado';
+            currentJustificativaTarget = { item, monthKey, alloc: alocs[0], propagate: level < 2 };
+            const modal = document.getElementById('justificativa-modal');
+            const textArea = document.getElementById('justificativa-text');
+            textArea.value = alocs[0].justificativa || '';
+            modal.style.display = 'block';
+            return;
+        } else {
+            newStatus = 'pendente';
+            alocs.forEach(alloc => {
+                alloc.justificativa = '';
+            });
+        }
+
+        let shouldPropagate = false;
+        if (level < 2) {
+            shouldPropagate = confirm('Deseja aplicar essa ação a todos os itens abaixo?');
+        }
+
+        alocs.forEach(alloc => {
+            alloc.status = newStatus;
+            if (newStatus !== 'reprovado') {
                 alloc.justificativa = '';
             }
-            alloc.status = newStatus;
-        } else if (propagate) {
-            const currentStatus = item.alocacoes[monthKey].every(alloc => alloc.status === 'aprovado') ? 'aprovado' :
-                                 item.alocacoes[monthKey].every(alloc => alloc.status === 'reprovado') ? 'reprovado' : 'pendente';
-            if (currentStatus === 'pendente') {
-                newStatus = 'aprovado';
-            } else if (currentStatus === 'aprovado') {
-                newStatus = 'reprovado';
-                currentJustificativaTarget = { item, monthKey, alloc: null, propagate: true };
-                const modal = document.getElementById('justificativa-modal');
-                const textArea = document.getElementById('justificativa-text');
-                textArea.value = '';
-                modal.style.display = 'block';
-                return;
-            } else {
-                newStatus = 'pendente';
-            }
-
-            let shouldPropagate = false;
-            if (level < 2) {
-                shouldPropagate = confirm('Deseja aplicar essa ação a todos os itens abaixo?');
-            }
-
-            item.alocacoes[monthKey].forEach(alloc => {
-                alloc.status = newStatus;
-                if (newStatus !== 'reprovado') {
-                    alloc.justificativa = '';
-                }
-            });
-
-            if (shouldPropagate && item.children) {
-                propagateAction(item.children, monthKey, newStatus);
-            }
-        }
-    }
-    saveApprovals();
-    renderTable();
-}
-
-function toggleSubLevelStatus(item, monthKey, subKey, subAlocs, level, iconElement) {
-    let newStatus = 'pendente';
-    const currentStatus = subAlocs.every(alloc => alloc.status === 'aprovado') ? 'aprovado' :
-                         subAlocs.every(alloc => alloc.status === 'reprovado') ? 'reprovado' : 'pendente';
-    if (currentStatus === 'pendente') {
-        newStatus = 'aprovado';
-    } else if (currentStatus === 'aprovado') {
-        newStatus = 'reprovado';
-        currentJustificativaTarget = { item, monthKey, alloc: null, propagate: true, subAlocs: subAlocs };
-        const modal = document.getElementById('justificativa-modal');
-        const textArea = document.getElementById('justificativa-text');
-        textArea.value = '';
-        modal.style.display = 'block';
-        return;
-    } else {
-        newStatus = 'pendente';
-    }
-
-    let shouldPropagate = false;
-    if (level < 2) {
-        shouldPropagate = confirm('Deseja aplicar essa ação a todos os itens abaixo?');
-    }
-
-    subAlocs.forEach(alloc => {
-        alloc.status = newStatus;
-        if (newStatus !== 'reprovado') {
-            alloc.justificativa = '';
-        }
-    });
-
-    if (shouldPropagate && item.children) {
-        propagateAction(item.children, monthKey, newStatus);
-    }
-
-    saveApprovals();
-    renderTable();
-}
-
-function toggleSubSubLevelStatus(item, monthKey, subKey, subSubKey, subSubAlocs, iconElement) {
-    let newStatus = 'pendente';
-    const currentStatus = subSubAlocs.every(alloc => alloc.status === 'aprovado') ? 'aprovado' :
-                         subSubAlocs.every(alloc => alloc.status === 'reprovado') ? 'reprovado' : 'pendente';
-    if (currentStatus === 'pendente') {
-        newStatus = 'aprovado';
-    } else if (currentStatus === 'aprovado') {
-        newStatus = 'reprovado';
-        currentJustificativaTarget = { item, monthKey, alloc: subSubAlocs[0] };
-        const modal = document.getElementById('justificativa-modal');
-        const textArea = document.getElementById('justificativa-text');
-        textArea.value = subSubAlocs[0].justificativa || '';
-        modal.style.display = 'block';
-        return;
-    } else {
-        newStatus = 'pendente';
-        subSubAlocs.forEach(alloc => {
-            alloc.justificativa = '';
         });
+
+        if (shouldPropagate && item.children) {
+            propagateAction(item.children, monthKey, newStatus);
+        }
+
+        saveApprovals();
+        renderTable();
     }
-
-    subSubAlocs.forEach(alloc => {
-        alloc.status = newStatus;
-    });
-
-    saveApprovals();
-    renderTable();
 }
 
 function propagateAction(items, monthKey, newStatus) {
@@ -1072,26 +613,13 @@ function submitJustificativa() {
     }
 
     if (currentJustificativaTarget) {
-        const { item, monthKey, alloc, propagate, subAlocs } = currentJustificativaTarget;
+        const { item, monthKey, alloc, propagate } = currentJustificativaTarget;
         if (alloc) {
             alloc.status = 'reprovado';
             alloc.justificativa = justificativa;
-        } else if (propagate && subAlocs) {
-            subAlocs.forEach(alloc => {
-                alloc.status = 'reprovado';
-                alloc.justificativa = justificativa;
-            });
-            if (item.children) {
-                propagateAction(item.children, monthKey, 'reprovado');
-            }
-        } else if (propagate) {
-            item.alocacoes[monthKey].forEach(alloc => {
-                alloc.status = 'reprovado';
-                alloc.justificativa = justificativa;
-            });
-            if (item.children) {
-                propagateAction(item.children, monthKey, 'reprovado');
-            }
+        }
+        if (propagate && item.children) {
+            propagateAction(item.children, monthKey, 'reprovado');
         }
     }
 

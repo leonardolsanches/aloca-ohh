@@ -244,6 +244,40 @@ body {
     background-color: #5a0015;
 }
 
+.hierarchy-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hierarchy-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.hierarchy-control span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.hierarchy-control select {
+    padding: 8px;
+    border: 1px solid #800020;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #fff;
+    cursor: pointer;
+    max-width: 300px;
+}
+
 .calendar-nav {
     display: flex;
     justify-content: space-between;
@@ -504,14 +538,6 @@ body {
     border-radius: 3px;
 }
 
-.subcell.sublevel-1 {
-    padding-left: 15px;
-}
-
-.subcell.sublevel-2 {
-    padding-left: 30px;
-}
-
 .approved-subcell {
     background-color: #4CAF50;
     color: #fff;
@@ -540,39 +566,6 @@ body {
     font-size: 0.8em;
     margin-left: 5px;
     cursor: pointer;
-}
-
-.hierarchy-control {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.hierarchy-control span {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.hierarchy-control button {
-    padding: 2px 6px;
-    background-color: #666;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
-.hierarchy-control button:hover {
-    background-color: #555;
-}
-
-.hierarchy-control button:disabled {
-    background-color: #999;
-    cursor: not-allowed;
 }
 
 .modal {

@@ -23,13 +23,6 @@
         <!-- Filtros -->
         <div class="filters-container">
             <div class="filter-row">
-                <div class="hierarchy-control">
-                    <span>Ordem Hierárquica:</span>
-                    <select id="hierarchy-select" onchange="updateHierarchy()">
-                        <!-- Opções serão preenchidas dinamicamente -->
-                    </select>
-                    <span id="hierarchy-display"></span>
-                </div>
                 <select id="gestor"></select>
                 <select id="perfil">
                     <option value="Colaborador">Colaborador</option>
@@ -74,6 +67,17 @@
                 <button onclick="filtrar()" class="action-btn">Filtrar</button>
                 <button onclick="approveSelected()" class="action-btn approve-selected">Aprovar Selecionados</button>
                 <button onclick="rejectSelected()" class="action-btn reject-selected">Reprovar Selecionados</button>
+            </div>
+        </div>
+
+        <!-- Combobox de Hierarquia -->
+        <div class="hierarchy-container">
+            <div class="hierarchy-control">
+                <span>Ordem Hierárquica:</span>
+                <select id="hierarchy-select" onchange="updateHierarchy()">
+                    <!-- Opções serão preenchidas dinamicamente -->
+                </select>
+                <span id="hierarchy-display"></span>
             </div>
         </div>
 
