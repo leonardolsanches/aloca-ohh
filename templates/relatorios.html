@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios - Sistema de Alocações</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <img src="/static/logoclaro.png" alt="Logo Claro" class="logo">
+        <header>
+            <h2>Relatórios de Alocações</h2>
+            <span>Usuário: {{ session['username'] }}</span>
+        </header>
+        <nav>
+            <a href="/alocacao">Alocação</a>
+            <a href="/aprovacao">Aprovação</a>
+            <a href="/historico">Histórico</a>
+            <a href="/relatorios">Relatórios</a>
+            <a href="/logout">Sair</a>
+        </nav>
+        <div id="relatorios-table"></div>
+    </div>
+    <script src="/static/js/relatorios.js"></script>
+</body>
+</html>
