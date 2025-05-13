@@ -522,6 +522,22 @@ body {
     cursor: pointer;
     position: relative;
     padding: 5px;
+    width: 100%;
+}
+
+.month-cell-placeholder {
+    width: 100%;
+}
+
+.sub-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sub-table td {
+    border: none;
+    padding: 8px;
+    text-align: center;
 }
 
 .subcell-container {
@@ -536,6 +552,11 @@ body {
     gap: 5px;
     padding: 2px 5px;
     border-radius: 3px;
+}
+
+.subcell.selected {
+    background-color: #800020;
+    color: #fff;
 }
 
 .approved-subcell {
