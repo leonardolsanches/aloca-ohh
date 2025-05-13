@@ -477,6 +477,7 @@ body {
     background-color: #fff;
     border: 1px solid #ddd;
     font-size: 0.9em;
+    table-layout: fixed; /* Garante largura fixa para colunas */
 }
 
 #approval-table th,
@@ -491,21 +492,30 @@ body {
     font-weight: bold;
 }
 
+#approval-table th:first-child {
+    width: 30px; /* Botão de expansão */
+}
+
+#approval-table th:nth-child(2) {
+    width: 200px; /* Coluna "Item" */
+}
+
 #approval-table th:nth-child(n+3):nth-child(-n+14) {
-    width: 8%;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    text-align: center;
 }
 
-#approval-table .level-0 td {
-    background-color: #f9f9f9;
+#approval-table .level-0 .item-cell {
+    padding-left: 0px;
 }
 
-#approval-table .level-1 td {
-    background-color: #f0f0f0;
+#approval-table .level-1 .item-cell {
     padding-left: 20px;
 }
 
-#approval-table .level-2 td {
-    background-color: #e9ecef;
+#approval-table .level-2 .item-cell {
     padding-left: 40px;
 }
 
@@ -526,21 +536,45 @@ body {
     cursor: pointer;
     position: relative;
     padding: 5px;
-    width: 100%;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    text-align: center;
 }
 
 .month-cell-placeholder {
-    width: 100%;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
 }
 
 .sub-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .sub-table td {
-    border: none;
+    border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
+}
+
+.sub-table th:first-child,
+.sub-table td:first-child {
+    width: 30px;
+}
+
+.sub-table th:nth-child(2),
+.sub-table td:nth-child(2) {
+    width: 200px;
+}
+
+.sub-table th:nth-child(n+3):nth-child(-n+14),
+.sub-table td:nth-child(n+3):nth-child(-n+14) {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
     text-align: center;
 }
 
