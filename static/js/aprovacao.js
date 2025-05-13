@@ -11,6 +11,8 @@ let hierarchyOptions = [
 ];
 let currentJustificativaTarget = null;
 let usuarios = {};
+let lastSelectedCell = null;
+let selectedCells = new Set();
 
 // Obter o username da URL
 const urlParams = new URLSearchParams(window.location.search);
@@ -234,6 +236,7 @@ function renderTable() {
         return;
     }
     tbody.innerHTML = '';
+    selectedCells.clear(); // Limpar seleções ao renderizar a tabela
     const groupedData = groupData(data);
 
     function renderRows(items, level = 0, parentKey = '', parentValues = {}) {
@@ -283,7 +286,7 @@ function renderTable() {
                                              alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
                     statusIcon.onclick = (e) => {
                         e.stopPropagation();
-                        toggleCellStatus(item, monthKey, level, statusIcon);
+                        handleCellClick(e, item, monthKey, level, subCell);
                     };
                     subCell.appendChild(statusIcon);
 
@@ -322,6 +325,7 @@ function renderTable() {
             childRow.id = `children-${key}`;
             childRow.style.display = 'none';
             const childCell = document.createElement('td');
+            childCell.className = 'child-cell';
             const childTable = document.createElement('table');
             childTable.className = 'sub-table';
             const childTbody = document.createElement('tbody');
@@ -331,6 +335,7 @@ function renderTable() {
 
             for (let month = 1; month <= 12; month++) {
                 const placeholderCell = document.createElement('td');
+                placeholderCell.className = 'month-cell-placeholder';
                 childRow.appendChild(placeholderCell);
             }
 
@@ -339,6 +344,153 @@ function renderTable() {
     }
 
     renderRows(groupedData);
+}
+
+function handleCellClick(e, item, monthKey, level, subCell) {
+    const isShiftPressed = e.shiftKey;
+    const isCtrlPressed = e.ctrlKey;
+    const cellKey = `${item.name}-${monthKey}-${level}`;
+
+    if (!isShiftPressed && !isCtrlPressed) {
+        // Clique simples: limpar todas as seleções e selecionar apenas a célula clicada
+        selectedCells.clear();
+        document.querySelectorAll('.subcell.selected').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        selectedCells.add(cellKey);
+        subCell.classList.add('selected');
+        lastSelectedCell = { key: cellKey, subCell, item, monthKey, level };
+    } else if (isCtrlPressed) {
+        // CTRL: adicionar/remover a célula da seleção
+        if (selectedCells.has(cellKey)) {
+            selectedCells.delete(cellKey);
+            subCell.classList.remove('selected');
+        } else {
+            selectedCells.add(cellKey);
+            subCell.classList.add('selected');
+        }
+        lastSelectedCell = { key: cellKey, subCell, item, monthKey, level };
+    } else if (isShiftPressed && lastSelectedCell) {
+        // SHIFT: selecionar intervalo entre a última célula e a atual
+        const allCells = Array.from(document.querySelectorAll('.month-cell .subcell'));
+        const startIndex = allCells.indexOf(lastSelectedCell.subCell);
+        const endIndex = allCells.indexOf(subCell);
+
+        const minIndex = Math.min(startIndex, endIndex);
+        const maxIndex = Math.max(startIndex, endIndex);
+
+        selectedCells.clear();
+        document.querySelectorAll('.subcell.selected').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+
+        for (let i = minIndex; i <= maxIndex; i++) {
+            const cell = allCells[i];
+            const cellKey = cell.dataset.allocKey;
+            selectedCells.add(cellKey);
+            cell.classList.add('selected');
+        }
+    }
+
+    updateSelection();
+}
+
+function updateSelection() {
+    const counter = document.getElementById('counter');
+    if (counter) {
+        counter.textContent = `${selectedCells.size} células selecionadas`;
+    }
+}
+
+function approveSelected() {
+    selectedCells.forEach(cellKey => {
+        const [name, monthKey, levelStr] = cellKey.split('-');
+        const level = parseInt(levelStr);
+        const groupedData = groupData(data);
+        const item = findItemByKeyWithName(groupedData, name, level);
+        if (item && item.alocacoes && item.alocacoes[monthKey]) {
+            const alocs = item.alocacoes[monthKey];
+            alocs.forEach(alloc => {
+                alloc.status = 'aprovado';
+                alloc.justificativa = '';
+            });
+            if (level < 2 && item.children) {
+                propagateAction(item.children, monthKey, 'aprovado');
+            }
+        }
+    });
+    selectedCells.clear();
+    document.querySelectorAll('.subcell.selected').forEach(cell => {
+        cell.classList.remove('selected');
+    });
+    saveApprovals();
+    renderTable();
+}
+
+function rejectSelected() {
+    currentJustificativaTarget = { propagate: true };
+    const modal = document.getElementById('justificativa-modal');
+    const textArea = document.getElementById('justificativa-text');
+    textArea.value = '';
+    modal.style.display = 'block';
+}
+
+function submitJustificativa() {
+    const textArea = document.getElementById('justificativa-text');
+    const justificativa = textArea.value.trim();
+    if (!justificativa) {
+        alert('A justificativa é obrigatória.');
+        return;
+    }
+
+    if (currentJustificativaTarget) {
+        const { item, monthKey, alloc, propagate } = currentJustificativaTarget;
+        if (alloc) {
+            alloc.status = 'reprovado';
+            alloc.justificativa = justificativa;
+            if (propagate && item.children) {
+                propagateAction(item.children, monthKey, 'reprovado');
+            }
+        } else if (propagate) {
+            selectedCells.forEach(cellKey => {
+                const [name, monthKey, levelStr] = cellKey.split('-');
+                const level = parseInt(levelStr);
+                const groupedData = groupData(data);
+                const item = findItemByKeyWithName(groupedData, name, level);
+                if (item && item.alocacoes && item.alocacoes[monthKey]) {
+                    const alocs = item.alocacoes[monthKey];
+                    alocs.forEach(alloc => {
+                        alloc.status = 'reprovado';
+                        alloc.justificativa = justificativa;
+                    });
+                    if (level < 2 && item.children) {
+                        propagateAction(item.children, monthKey, 'reprovado');
+                    }
+                }
+            });
+        }
+    }
+
+    selectedCells.clear();
+    document.querySelectorAll('.subcell.selected').forEach(cell => {
+        cell.classList.remove('selected');
+    });
+    saveApprovals();
+    closeModal();
+    renderTable();
+}
+
+function findItemByKeyWithName(items, name, targetLevel, currentLevel = 0) {
+    for (const item of items) {
+        if (item.name === name && currentLevel === targetLevel) {
+            return item;
+        }
+        if (item.children && item.children.length > 0) {
+            const found = findItemByKeyWithName(item.children, name, targetLevel, currentLevel + 1);
+            if (found) return found;
+        }
+    }
+    return null;
 }
 
 function groupData(data) {
@@ -472,7 +624,7 @@ function renderSubRows(items, tbody, parentKey) {
 
                 const subCell = document.createElement('div');
                 subCell.className = 'subcell';
-                subCell.dataset.allocKey = `${key}-${monthKey}`;
+                subCell.dataset.allocKey = `${key}-${monthKey}-${item.name}-${level}`;
 
                 const statusIcon = document.createElement('span');
                 statusIcon.className = 'status-icon';
@@ -480,7 +632,7 @@ function renderSubRows(items, tbody, parentKey) {
                                          alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
                 statusIcon.onclick = (e) => {
                     e.stopPropagation();
-                    toggleCellStatus(item, monthKey, level, statusIcon);
+                    handleCellClick(e, item, monthKey, level, subCell);
                 };
                 subCell.appendChild(statusIcon);
 
@@ -519,6 +671,7 @@ function renderSubRows(items, tbody, parentKey) {
         childRow.id = `children-${key}`;
         childRow.style.display = 'none';
         const childCell = document.createElement('td');
+        childCell.className = 'child-cell';
         const childTable = document.createElement('table');
         childTable.className = 'sub-table';
         const childTbody = document.createElement('tbody');
@@ -528,56 +681,12 @@ function renderSubRows(items, tbody, parentKey) {
 
         for (let month = 1; month <= 12; month++) {
             const placeholderCell = document.createElement('td');
+            placeholderCell.className = 'month-cell-placeholder';
             childRow.appendChild(placeholderCell);
         }
 
         tbody.appendChild(childRow);
     });
-}
-
-function toggleCellStatus(item, monthKey, level, iconElement) {
-    if (item.alocacoes && item.alocacoes[monthKey]) {
-        const alocs = item.alocacoes[monthKey];
-        let newStatus = 'pendente';
-        const currentStatus = alocs.every(alloc => alloc.status === 'aprovado') ? 'aprovado' :
-                             alocs.every(alloc => alloc.status === 'reprovado') ? 'reprovado' : 'pendente';
-
-        if (currentStatus === 'pendente') {
-            newStatus = 'aprovado';
-        } else if (currentStatus === 'aprovado') {
-            newStatus = 'reprovado';
-            currentJustificativaTarget = { item, monthKey, alloc: alocs[0], propagate: level < 2 };
-            const modal = document.getElementById('justificativa-modal');
-            const textArea = document.getElementById('justificativa-text');
-            textArea.value = alocs[0].justificativa || '';
-            modal.style.display = 'block';
-            return;
-        } else {
-            newStatus = 'pendente';
-            alocs.forEach(alloc => {
-                alloc.justificativa = '';
-            });
-        }
-
-        let shouldPropagate = false;
-        if (level < 2) {
-            shouldPropagate = confirm('Deseja aplicar essa ação a todos os itens abaixo?');
-        }
-
-        alocs.forEach(alloc => {
-            alloc.status = newStatus;
-            if (newStatus !== 'reprovado') {
-                alloc.justificativa = '';
-            }
-        });
-
-        if (shouldPropagate && item.children) {
-            propagateAction(item.children, monthKey, newStatus);
-        }
-
-        saveApprovals();
-        renderTable();
-    }
 }
 
 function propagateAction(items, monthKey, newStatus) {
@@ -602,30 +711,6 @@ function editJustificativa(item, monthKey, alloc) {
     const textArea = document.getElementById('justificativa-text');
     textArea.value = alloc.justificativa || '';
     modal.style.display = 'block';
-}
-
-function submitJustificativa() {
-    const textArea = document.getElementById('justificativa-text');
-    const justificativa = textArea.value.trim();
-    if (!justificativa) {
-        alert('A justificativa é obrigatória.');
-        return;
-    }
-
-    if (currentJustificativaTarget) {
-        const { item, monthKey, alloc, propagate } = currentJustificativaTarget;
-        if (alloc) {
-            alloc.status = 'reprovado';
-            alloc.justificativa = justificativa;
-        }
-        if (propagate && item.children) {
-            propagateAction(item.children, monthKey, 'reprovado');
-        }
-    }
-
-    saveApprovals();
-    closeModal();
-    renderTable();
 }
 
 function closeModal() {
