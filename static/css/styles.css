@@ -108,6 +108,7 @@ body {
     gap: 10px;
     border-bottom: 2px solid #800020;
     padding-bottom: 10px;
+    width: 100%;
 }
 
 .header .logo img {
@@ -154,6 +155,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 .filters-container .filter-row {
@@ -251,6 +253,7 @@ body {
     border-radius: 5px;
     border: 1px solid #ccc;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .hierarchy-control {
@@ -407,6 +410,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    width: 100%;
 }
 
 .footer-user {
@@ -675,7 +679,7 @@ body {
         flex-direction: row;
         gap: 5px;
         width: 100%;
-        justify-content: flex-end;
+        justify-content: flex-start;
     }
 
     .nav-link {
@@ -685,37 +689,54 @@ body {
 
     .filters-container .filter-row {
         flex-direction: column;
+        align-items: flex-start;
     }
 
     .filters-container select,
     .filters-container input[type="date"],
-    .filters-container input[type="text"] {
-        min-width: 120px;
-    }
-
+    .filters-container input[type="text"],
     .filters-container button.action-btn {
         width: 100%;
+        max-width: 100%;
         margin-left: 0;
+    }
+
+    .calendar-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .calendar-nav button {
+        width: 100%;
+        padding: 8px 15px;
+        font-size: 0.9em;
     }
 
     .calendar-title {
         font-size: 1.4em;
     }
 
-    .calendar-header .day {
-        padding: 10px;
-        font-size: 0.9em;
+    .calendar-header {
+        display: none; /* Esconder o cabeçalho em telas pequenas */
+    }
+
+    .calendar-days {
+        display: block;
     }
 
     .calendar-days .day {
+        width: 100%;
         padding: 8px;
         font-size: 0.8em;
         min-height: 60px;
+        display: block;
+        border-bottom: 1px solid #ddd;
+        border-left: none;
+        border-right: none;
     }
 
-    .calendar-nav button {
-        padding: 8px 15px;
-        font-size: 0.9em;
+    .calendar-days .day.empty {
+        display: none;
     }
 
     .footer {
@@ -735,11 +756,94 @@ body {
 
     #approval-table {
         font-size: 0.8em;
+        width: 100%;
     }
 
     #approval-table th,
     #approval-table td {
         padding: 6px;
+    }
+
+    #approval-table th:nth-child(n+3):nth-child(-n+14) {
+        display: none; /* Esconder colunas de meses no cabeçalho */
+    }
+
+    #approval-table th:nth-child(2) {
+        width: 100%;
+    }
+
+    #approval-table td {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #approval-table td:first-child {
+        display: none; /* Esconder célula de expansão */
+    }
+
+    #approval-table td:nth-child(2) {
+        font-weight: bold;
+        background-color: #f0f0f0;
+        padding-left: 10px;
+    }
+
+    #approval-table .level-1 td:nth-child(2) {
+        padding-left: 20px;
+    }
+
+    #approval-table .level-2 td:nth-child(2) {
+        padding-left: 30px;
+    }
+
+    #approval-table .month-cell {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+    }
+
+    #approval-table .month-cell:before {
+        content: attr(data-month);
+        font-weight: bold;
+        margin-right: 10px;
+        width: 60px;
+    }
+
+    #approval-table .month-cell-placeholder {
+        display: none;
+    }
+
+    #approval-table .child-cell {
+        display: block;
+        padding: 0;
+    }
+
+    #approval-table .sub-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #approval-table .sub-table td {
+        display: block;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #approval-table .sub-table td:first-child {
+        display: block;
+    }
+
+    #approval-table .sub-table td:nth-child(2) {
+        font-weight: bold;
+        background-color: #f0f0f0;
+        padding-left: 20px;
     }
 
     .action-btn {
@@ -772,22 +876,18 @@ body {
     .nav-menu {
         flex-direction: column;
         gap: 5px;
-        align-items: flex-end;
+        align-items: flex-start;
     }
 
     .filters-container select,
     .filters-container input[type="date"],
-    .filters-container input[type="text"] {
+    .filters-container input[type="text"],
+    .filters-container button.action-btn {
         width: 100%;
     }
 
     .calendar-title {
         font-size: 1.2em;
-    }
-
-    .calendar-header .day {
-        padding: 8px;
-        font-size: 0.8em;
     }
 
     .calendar-days .day {
