@@ -35,6 +35,12 @@ def serve_data_files(filename):
     logging.debug(f"Servindo arquivo da pasta /data/: {filename}")
     return send_from_directory('data', filename)
 
+# Rota para servir arquivos estáticos (como o logotipo)
+@app.route('/static/<path:filename>')
+def serve_static_files(filename):
+    logging.debug(f"Servindo arquivo estático: {filename}")
+    return send_from_directory('static', filename)
+
 if __name__ == '__main__':
     # Iniciar o servidor Flask
     logging.info("Iniciando o servidor Flask na porta 5000...")
