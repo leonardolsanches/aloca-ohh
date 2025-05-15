@@ -41,8 +41,8 @@ document.addEventListener('DOMContentLoaded', function() {
           console.log(`Usuários para o tipo "${userType}":`, users);
           users.forEach(user => {
             const option = document.createElement('option');
-            option.value = user;
-            option.textContent = user;
+            option.value = user.nome;
+            option.textContent = user.nome;
             usernameList.appendChild(option);
           });
         } else {
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar se o usuário existe no tipo selecionado
         const users = data[userType];
         console.log(`Usuários no tipo "${userType}":`, users);
-        const user = users.find(u => u.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
+        const user = users.find(u => u.nome.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
 
         if (user) {
           console.log('Usuário encontrado:', user);
