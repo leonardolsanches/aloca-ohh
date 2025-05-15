@@ -73,9 +73,6 @@ function loadInitialData() {
     const initiativeSearchInput = document.getElementById('initiative-search');
     const initiativeList = document.getElementById('initiative-list');
 
-    initiativeFieldSelect.addEventListener('change', updateInitiativeAutocomplete);
-    initiativeSearchInput.addEventListener('input', updateInitiativeAutocomplete);
-
     function updateInitiativeAutocomplete() {
       const field = initiativeFieldSelect.value;
       const searchValue = initiativeSearchInput.value.toLowerCase();
@@ -94,23 +91,34 @@ function loadInitialData() {
       });
     }
 
+    initiativeFieldSelect.addEventListener('change', updateInitiativeAutocomplete);
+    initiativeSearchInput.addEventListener('input', updateInitiativeAutocomplete);
+    updateInitiativeAutocomplete(); // Inicializa o autocomplete
+
     // Carrega alocações iniciais
     alocacoesData.forEach(alocacao => {
       Object.entries(alocacao.meses).forEach(([mes, percentage]) => {
         if (percentage > 0) {
           const mesIndex = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].indexOf(mes) + 1;
-          const dateStr = `2025-${String(mesIndex).padStart(2, '0')}-01`;
-          if (!allocations[dateStr]) {
-            allocations[dateStr] = [];
+          const daysInMonth = new Date(2025, mesIndex, 0).getDate();
+          for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `2025-${String(mesIndex).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const dayOfWeek = new Date(dateStr).getDay();
+            if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
+              if (!allocations[dateStr]) {
+                allocations[dateStr] = [];
+              }
+              const percentagePerDay = percentage / (daysInMonth - 8); // Aproximado, considerando 8 dias de fim de semana
+              allocations[dateStr].push({
+                percentage: percentagePerDay,
+                projeto: alocacao.projeto,
+                atividade: alocacao.atividade,
+                usuario: alocacao.colaborador,
+                id_alocacao: alocacao.id_alocacao,
+                tipoProjetoAtividade: 'Projeto' // Valor padrão, ajustado conforme necessidade
+              });
+            }
           }
-          allocations[dateStr].push({
-            percentage: percentage,
-            projeto: alocacao.projeto,
-            atividade: alocacao.atividade,
-            usuario: alocacao.colaborador,
-            id_alocacao: alocacao.id_alocacao,
-            tipoProjetoAtividade: 'Projeto' // Valor padrão, ajustado conforme necessidade
-          });
         }
       });
     });
@@ -225,7 +233,7 @@ function renderCalendar() {
       }
 
       // Texto resumido dentro da célula
-      const summaryText = allocations[dateStr].map(alloc => `${Math.round(alloc.percentage)}% (${alloc.id_alocacao})`).join('<br>');
+      const summaryText = `${Math.round(totalPercentage)}%`;
       const summary = document.createElement('span');
       summary.className = 'allocation-summary';
       summary.innerHTML = summaryText;
