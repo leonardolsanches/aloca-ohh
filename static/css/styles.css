@@ -7,420 +7,198 @@
 
 body {
     background-color: #f5f5f5;
-    padding: 10px;
 }
 
 .container {
-    width: 100vw;
+    max-width: 1200px;
     margin: 0 auto;
-    transform: scale(0.95);
-    transform-origin: top left;
+    padding: 20px;
 }
 
-/* Estilos para login.html */
-.login-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    border: 1px solid #800020;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.login-container .logo img {
-    height: 120px;
-    display: block;
-    margin: 0 auto 30px;
-}
-
-.login-container h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #800020;
-}
-
-.login-container label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-}
-
-.login-container select,
-.login-container input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.login-container select {
-    background-color: #fff;
-    cursor: pointer;
-    border-color: #800020;
-}
-
-.login-container input {
-    border-color: #800020;
-}
-
-.login-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.login-container button,
-.bypass-btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #800020;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.bypass-btn {
-    background-color: #555;
-}
-
-.login-container button:hover,
-.bypass-btn:hover {
-    background-color: #5a0015;
-}
-
-/* Estilos para alocacao.html e aprovacao.html */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-    gap: 10px;
-    border-bottom: 2px solid #800020;
-    padding-bottom: 10px;
-    width: 100%;
+    background-color: #003087;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
 }
 
-.header .logo img {
-    height: 80px;
+.logo img {
+    height: 40px;
 }
 
 .nav-menu {
     display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: flex-end;
+    gap: 20px;
 }
 
 .nav-link {
-    padding: 8px 16px;
-    background-color: #ddd;
-    color: #666;
+    color: white;
     text-decoration: none;
-    border-radius: 5px 5px 0 0;
-    transition: background-color 0.3s, color 0.3s;
-    font-size: 0.9em;
-    border: 1px solid #ccc;
-    border-bottom: none;
-}
-
-.nav-link:hover {
-    background-color: #ccc;
-    color: #333;
+    font-weight: bold;
 }
 
 .nav-link.active {
-    background-color: #800020;
-    color: #fff;
-    font-weight: bold;
-    border: 1px solid #800020;
-    border-bottom: none;
+    color: #ffd700;
 }
 
 .filters-container {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    background-color: #fff;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.filters-container .filter-row {
+.filter-row, .initiative-filter-row {
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
     align-items: center;
-    width: 100%;
+    margin-bottom: 10px;
 }
 
-.filters-container select:first-child {
-    max-width: 200px;
-}
-
-.filters-container select#projeto,
-.filters-container select#atividade {
-    max-width: 200px;
-}
-
-.filters-container select,
-.filters-container input[type="date"],
-.filters-container input[type="text"] {
+.filter-row select, .filter-row input, .initiative-filter-row select, .initiative-filter-row input {
     padding: 8px;
-    border: 1px solid #800020;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 1em;
-    background-color: #fff;
-    cursor: pointer;
-    flex: 1;
-    min-width: 75px;
-    max-width: 150px;
-    height: 36px;
+    font-size: 14px;
 }
 
-.filters-container select#gestor,
-.filters-container select#perfil {
-    max-width: 150px;
+.filter-row input[type="number"] {
+    width: 100px;
 }
 
-.filters-container input[type="date"],
-.filters-container input[type="text"] {
-    cursor: text;
-}
-
-.filters-container select#metrica,
-.filters-container input[type="number"] {
-    padding: 8px;
-    border: 1px solid #800020;
-    border-radius: 5px;
-    font-size: 1em;
-    background-color: #fff;
-    cursor: pointer;
-    flex: 1;
-    min-width: 75px;
-    max-width: 100px;
-    height: 36px;
-}
-
-.filters-container button.action-btn {
-    padding: 8px 20px;
-    background-color: #800020;
-    color: #fff;
+.action-btn {
+    padding: 8px 15px;
+    background-color: #003087;
+    color: white;
     border: none;
     border-radius: 5px;
-    font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s;
-    height: 36px;
+    font-size: 14px;
 }
 
-.filters-container button.desalocar-btn {
-    background-color: #800020;
-    margin-left: 0;
+.desalocar-btn {
+    background-color: #d9534f;
 }
 
-.filters-container button.approve-selected {
-    background-color: #4CAF50;
+.action-btn:hover {
+    background-color: #0056b3;
 }
 
-.filters-container button.reject-selected {
-    background-color: #F44336;
-}
-
-.filters-container button.action-btn:hover,
-.filters-container button.desalocar-btn:hover,
-.filters-container button.approve-selected:hover,
-.filters-container button.reject-selected:hover {
-    background-color: #5a0015;
-}
-
-.hierarchy-container {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 100%;
-}
-
-.hierarchy-control {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-.hierarchy-control span {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-.hierarchy-control select {
-    padding: 8px;
-    border: 1px solid #800020;
-    border-radius: 5px;
-    font-size: 1em;
-    background-color: #fff;
-    cursor: pointer;
-    max-width: 300px;
+.desalocar-btn:hover {
+    background-color: #c9302c;
 }
 
 .calendar-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .calendar-nav button {
-    background-color: #800020;
-    color: #fff;
+    padding: 8px 15px;
+    background-color: #003087;
+    color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .calendar-nav button:hover {
-    background-color: #5a0015;
+    background-color: #0056b3;
 }
 
 .calendar-title {
-    text-align: center;
-    font-size: 1.8em;
-    color: #800020;
+    font-size: 24px;
+    color: #333;
 }
 
 .calendar {
-    width: 100%;
     background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 1px solid #800020;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.calendar-header {
+.calendar-header, .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    background-color: #f0f0f0;
-    border-bottom: 1px solid #ddd;
+    gap: 5px;
 }
 
 .calendar-header .day {
+    background-color: #003087;
+    color: white;
+    padding: 10px;
     text-align: center;
-    padding: 15px;
     font-weight: bold;
-    color: #333;
-    border-right: 1px solid #ddd;
-}
-
-.calendar-header .day:last-child {
-    border-right: none;
-}
-
-.calendar-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 1px;
-    background-color: #ddd;
+    border-radius: 5px;
 }
 
 .calendar-days .day {
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding: 10px;
     text-align: center;
     border: 1px solid #ddd;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    border-radius: 5px;
     min-height: 80px;
+    position: relative;
+    cursor: pointer;
 }
 
 .calendar-days .day.empty {
-    background-color: #f5f5f5;
-    cursor: default;
+    background-color: #eee;
+    border: none;
 }
 
-.calendar-days .day.selected {
-    background-color: #800020;
-    color: #fff;
-}
-
-.calendar-days .day.green {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.calendar-days .day.yellow {
-    background-color: #FFC107;
-    color: #333;
-}
-
-.calendar-days .day.red {
-    background-color: #F44336;
-    color: #fff;
-}
-
-.calendar-days .day.gray {
-    background-color: #ddd;
-}
-
-.calendar-days .day:hover:not(.empty) {
-    background-color: #f0f0f0;
+.calendar-days .day:hover {
+    background-color: #e6f0ff;
 }
 
 .day-number {
-    font-size: 1em;
+    display: block;
     font-weight: bold;
 }
 
 .allocation-summary {
-    font-size: 0.7em;
-    color: #333;
-    line-height: 1.2;
+    font-size: 12px;
+    display: block;
     margin-top: 5px;
-    word-wrap: break-word;
+}
+
+.day.green {
+    background-color: #d4edda;
+}
+
+.day.yellow {
+    background-color: #fff3cd;
+}
+
+.day.red {
+    background-color: #f8d7da;
+}
+
+.day.selected {
+    border: 2px solid #003087;
 }
 
 .footer {
-    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .footer-user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-user span {
-    font-size: 1em;
+    font-size: 14px;
     color: #333;
 }
 
@@ -431,200 +209,205 @@ body {
 }
 
 .counter {
-    font-size: 0.9em;
+    font-size: 14px;
     color: #333;
-    font-weight: bold;
 }
 
 .legend {
-    font-size: 0.9em;
-    color: #333;
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
 }
 
 .legend div {
-    display: inline-block;
-    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .color-box {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    vertical-align: middle;
-    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
 }
 
 .color-box.green {
-    background-color: #4CAF50;
+    background-color: #d4edda;
 }
 
 .color-box.yellow {
-    background-color: #FFC107;
+    background-color: #fff3cd;
 }
 
 .color-box.red {
-    background-color: #F44336;
+    background-color: #f8d7da;
 }
 
-.color-box.gray {
-    background-color: #ddd;
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-/* Estilos para aprovacao.html */
-#approval-table {
+.login-container h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-container label {
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+
+.login-container select, .login-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.bypass-btn {
+    background-color: #6c757d;
+}
+
+.bypass-btn:hover {
+    background-color: #5a6268;
+}
+
+.hierarchy-container {
+    margin: 20px 0;
+}
+
+.hierarchy-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+#hierarchy-display {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hierarchy-level {
+    background-color: #e6f0ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #003087;
+}
+
+table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
-    border: 1px solid #ddd;
-    font-size: 0.9em;
-    table-layout: fixed; /* Garante largura fixa para colunas */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#approval-table th,
-#approval-table td {
-    padding: 8px;
-    border: 1px solid #ddd;
+th, td {
+    padding: 10px;
     text-align: center;
+    border: 1px solid #ddd;
 }
 
-#approval-table th {
-    background-color: #f0f0f0;
+th {
+    background-color: #003087;
+    color: white;
     font-weight: bold;
 }
 
-#approval-table th:first-child {
-    width: 30px; /* Botão de expansão */
+tr.level-0 td.item-cell {
+    font-weight: bold;
+    background-color: #f0f0f0;
 }
 
-#approval-table th:nth-child(2) {
-    width: 200px; /* Coluna "Item" */
+tr.level-1 td.item-cell {
+    padding-left: 30px;
+    background-color: #f9f9f9;
 }
 
-#approval-table th:nth-child(n+3):nth-child(-n+14) {
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
-    text-align: center;
-}
-
-#approval-table .level-0 .item-cell {
-    padding-left: 0px;
-}
-
-#approval-table .level-1 .item-cell {
-    padding-left: 20px;
-}
-
-#approval-table .level-2 .item-cell {
-    padding-left: 40px;
+tr.level-2 td.item-cell {
+    padding-left: 50px;
 }
 
 .expand-btn {
-    background-color: #666;
-    color: #fff;
+    background: none;
     border: none;
-    padding: 2px 6px;
-    border-radius: 3px;
+    font-size: 16px;
     cursor: pointer;
-}
-
-.expand-btn:hover {
-    background-color: #555;
-}
-
-.month-cell {
-    cursor: pointer;
-    position: relative;
-    padding: 5px;
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
-    text-align: center;
-}
-
-.month-cell-placeholder {
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
+    color: #003087;
 }
 
 .sub-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
-.sub-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-.sub-table th:first-child,
-.sub-table td:first-child {
-    width: 30px;
-}
-
-.sub-table th:nth-child(2),
-.sub-table td:nth-child(2) {
-    width: 200px;
-}
-
-.sub-table th:nth-child(n+3):nth-child(-n+14),
-.sub-table td:nth-child(n+3):nth-child(-n+14) {
-    width: 70px;
-    min-width: 70px;
-    max-width: 70px;
-    text-align: center;
+.month-cell {
+    position: relative;
 }
 
 .subcell-container {
     display: flex;
-    flex-direction: column;
-    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 .subcell {
     display: flex;
     align-items: center;
     gap: 5px;
-    padding: 2px 5px;
-    border-radius: 3px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    font-size: 12px;
 }
 
 .subcell.selected {
-    background-color: #800020;
-    color: #fff;
-}
-
-.approved-subcell {
-    background-color: #4CAF50;
-    color: #fff;
-}
-
-.rejected-subcell {
-    background-color: #F44336;
-    color: #fff;
-}
-
-.pending-subcell {
-    background-color: #ddd;
-}
-
-.alloc-text {
-    flex: 1;
+    background-color: #e6f0ff;
+    border: 1px solid #003087;
 }
 
 .status-icon {
-    font-size: 1em;
-    margin-right: 5px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .edit-icon {
-    font-size: 0.8em;
-    margin-left: 5px;
     cursor: pointer;
+    font-size: 12px;
+    color: #666;
+}
+
+.approved-subcell {
+    background-color: #d4edda;
+}
+
+.rejected-subcell {
+    background-color: #f8d7da;
+}
+
+.pending-subcell {
+    background-color: #fff3cd;
 }
 
 .modal {
@@ -635,16 +418,16 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
     border-radius: 5px;
+    width: 400px;
+    text-align: center;
 }
 
 .modal-content h3 {
@@ -655,287 +438,25 @@ body {
     width: 100%;
     height: 100px;
     margin-bottom: 15px;
-    padding: 8px;
-    border: 1px solid #ddd;
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 .modal-content button {
-    padding: 8px 16px;
-    margin-right: 10px;
+    padding: 8px 15px;
+    margin: 0 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .modal-content button:first-of-type {
-    background-color: #800020;
-    color: #fff;
+    background-color: #003087;
+    color: white;
 }
 
 .modal-content button:last-of-type {
-    background-color: #555;
-    color: #fff;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    .login-container {
-        padding: 20px;
-    }
-
-    .login-container .logo img {
-        height: 90px;
-    }
-
-    .login-container h2 {
-        font-size: 1.5em;
-    }
-
-    .login-container select,
-    .login-container input,
-    .login-container button,
-    .bypass-btn {
-        padding: 10px;
-        font-size: 0.9em;
-    }
-
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .header .logo img {
-        height: 60px;
-    }
-
-    .nav-menu {
-        flex-direction: row;
-        gap: 5px;
-        width: 100%;
-        justify-content: flex-start;
-    }
-
-    .nav-link {
-        font-size: 0.8em;
-        padding: 6px 12px;
-    }
-
-    .filters-container .filter-row {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .filters-container select,
-    .filters-container input[type="date"],
-    .filters-container input[type="text"],
-    .filters-container button.action-btn {
-        width: 100%;
-        max-width: 100%;
-        margin-left: 0;
-    }
-
-    .calendar-nav {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .calendar-nav button {
-        width: 100%;
-        padding: 8px 15px;
-        font-size: 0.9em;
-    }
-
-    .calendar-title {
-        font-size: 1.4em;
-    }
-
-    .calendar-header {
-        display: none; /* Esconder o cabeçalho em telas pequenas */
-    }
-
-    .calendar-days {
-        display: block;
-    }
-
-    .calendar-days .day {
-        width: 100%;
-        padding: 8px;
-        font-size: 0.8em;
-        min-height: 60px;
-        display: block;
-        border-bottom: 1px solid #ddd;
-        border-left: none;
-        border-right: none;
-    }
-
-    .calendar-days .day.empty {
-        display: none;
-    }
-
-    .footer {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .footer-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-
-    .legend {
-        margin-top: 10px;
-    }
-
-    #approval-table {
-        font-size: 0.8em;
-        width: 100%;
-    }
-
-    #approval-table th,
-    #approval-table td {
-        padding: 6px;
-    }
-
-    #approval-table th:nth-child(n+3):nth-child(-n+14) {
-        display: none; /* Esconder colunas de meses no cabeçalho */
-    }
-
-    #approval-table th:nth-child(2) {
-        width: 100%;
-    }
-
-    #approval-table td {
-        display: block;
-        width: 100%;
-        text-align: left;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        padding: 8px;
-    }
-
-    #approval-table td:first-child {
-        display: none; /* Esconder célula de expansão */
-    }
-
-    #approval-table td:nth-child(2) {
-        font-weight: bold;
-        background-color: #f0f0f0;
-        padding-left: 10px;
-    }
-
-    #approval-table .level-1 td:nth-child(2) {
-        padding-left: 20px;
-    }
-
-    #approval-table .level-2 td:nth-child(2) {
-        padding-left: 30px;
-    }
-
-    #approval-table .month-cell {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 5px 10px;
-    }
-
-    #approval-table .month-cell:before {
-        content: attr(data-month);
-        font-weight: bold;
-        margin-right: 10px;
-        width: 60px;
-    }
-
-    #approval-table .month-cell-placeholder {
-        display: none;
-    }
-
-    #approval-table .child-cell {
-        display: block;
-        padding: 0;
-    }
-
-    #approval-table .sub-table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    #approval-table .sub-table td {
-        display: block;
-        width: 100%;
-        border: none;
-        border-bottom: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    #approval-table .sub-table td:first-child {
-        display: block;
-    }
-
-    #approval-table .sub-table td:nth-child(2) {
-        font-weight: bold;
-        background-color: #f0f0f0;
-        padding-left: 20px;
-    }
-
-    .action-btn {
-        padding: 2px 4px;
-        font-size: 0.7em;
-    }
-}
-
-@media (max-width: 480px) {
-    .login-container .logo img {
-        height: 60px;
-    }
-
-    .login-container h2 {
-        font-size: 1.2em;
-    }
-
-    .login-container select,
-    .login-container input,
-    .login-container button,
-    .bypass-btn {
-        padding: 8px;
-        font-size: 0.8em;
-    }
-
-    .header .logo img {
-        height: 40px;
-    }
-
-    .nav-menu {
-        flex-direction: column;
-        gap: 5px;
-        align-items: flex-start;
-    }
-
-    .filters-container select,
-    .filters-container input[type="date"],
-    .filters-container input[type="text"],
-    .filters-container button.action-btn {
-        width: 100%;
-    }
-
-    .calendar-title {
-        font-size: 1.2em;
-    }
-
-    .calendar-days .day {
-        padding: 6px;
-        font-size: 0.7em;
-        min-height: 50px;
-    }
-
-    .allocation-summary {
-        font-size: 0.6em;
-    }
-
-    .calendar-nav button {
-        padding: 6px 12px;
-        font-size: 0.8em;
-    }
+    background-color: #d9534f;
+    color: white;
 }
