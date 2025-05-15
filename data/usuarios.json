@@ -1,334 +1,1990 @@
-{
-  "Gestor": [
-    "FABIO BRANDAO CAVALCANTI",
-    "ALINE JULIANA LOPES",
-    "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
-    "EDNALDO GIULIANO D ANDREA",
-    "ANA LUCIA ANTUNES DE ARAUJO",
-    "WALDYR LOURENCO DE FREITAS JUNIOR",
-    "MARCUS PAULO DE OLIVEIRA RODRIGUES",
-    "ANDRE LUIS LINS RAMOS",
-    "EVERALDO ALVES DE LIMA",
-    "LUIZ CLAUDIO FERREIRA RAMOS",
-    "ROGERIO VIEIRA DA SILVA",
-    "MARIO NICOLA TAVOLETTA ANGELOZZI",
-    "WASHINGTON LUIS ALMEIDA",
-    "MARCO AURELIO SOUZA SANTOS",
-    "CRISTIANE FUHRMANN MERTINS",
-    "VIVIANE MOTTA COELHO",
-    "MARCELO AUGUSTO GARCIA GOMES",
-    "ISA DOS SANTOS VIEIRA",
-    "WALDIR ALVARENGA JUNIOR",
-    "CAMILA REGINA DE SOUSA PRATA",
-    "TBD (JULIANA ALVES CASTRO PEREZ)",
-    "MICHAEL ROBERTO CARDOSO",
-    "BRUNO BARBOSA DE AZEVEDO",
-    "ANDRE LUIS NUNES",
-    "ARIEL ALVES DA FONSECA",
-    "ALEXSANDRO ALEX WOLLINGER",
-    "CARLOS ROBERTO FUOCO",
-    "FABIANO DE LARA SANTOS",
-    "ELIEZER SARMENTO DOS SANTOS",
-    "LUCIANO HAIEK",
-    "FERNANDA GOMES DINIS",
-    "BRUNA DO NASCIMENTO SEVERIANO SILVA",
-    "BARBARA PIZANE DE AZEVEDO DE PAULA",
-    "VALERIO JOSE DE BRITO",
-    "TATIANA FERNANDES TELES",
-    "LUIS FELIPE DE JESUS SANTOS",
-    "FERNANDO PADRAO DE SOUSA",
-    "TIAGO GONCALVES BARBOSA",
-    "MARIA LUCIA TABORDA MASIERO",
-    "TARCISIO GERALDO TOMAZELA",
-    "ROSANGELA TERESSANI",
-    "RALF MAGNUM PASCUAL MULLER",
-    "FABIO MENEZES AMARAL",
-    "MAURICIO AMARAL MUSETTI QUIROGA",
-    "FLAVIO ROBERTO FONSECA PORTO",
-    "HENRIQUE AUGUSTO DE LIMA",
-    "CAUSA RAIZ",
-    "SUPORTE N3",
-    "PROJETO ESTRATEGICO",
-    "GESTOR À IDENTIFICAR",
-    "DIEGO SANTOS RODRIGUES",
-    "ELISANGELA IEL"
-  ],
-  "Colaborador": [
-    "ABILIO SERGIO MARTINEZ PEREIRA",
-    "ADEMIR JOSE MINATEL JUNIOR",
-    "ADRIANA PEREIRA CRUZ",
-    "AGOSTINHO AYRES CARDOSO DE PINHO",
-    "ALAN DOS SANTOS OLIVEIRA",
-    "ALBERTO BOTTARO NETO",
-    "ALBERTO NAGEL NORONHA",
-    "ALDENIR GIL DE OLIVEIRA",
-    "ALEXANDRE SILVEIRA DE BRAGANCA",
-    "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
-    "ALEXSANDRO ALEX WOLLINGER",
-    "ALINE JULIANA LOPES",
-    "ALINE RAMOS DA SILVA",
-    "ALVARO HERVELLA",
-    "AMARO QUINTINO JUNIOR",
-    "ANA CRISTINA DOS SANTOS CURVELLO",
-    "ANA LUCIA ANTUNES DE ARAUJO",
-    "ANDRE ABREU DE ANDRADE",
-    "ANDRE ALVES SELOTO",
-    "ANDRE FECCHIO SALGADO",
-    "ANDRE GUILHERME ACAYABA DE TOLEDO",
-    "ANDRE LUIS BARROS DA SILVA",
-    "ANDRE LUIS LINS RAMOS",
-    "ANDRE LUIS NUNES",
-    "ANDRE LUIZ GIL DA SILVA",
-    "ANDRE SOMMA GOMES DA SILVA",
-    "ANDREZA RODRIGUES GOMES BALASSIANO",
-    "ANTONIO CARLOS GERALDI",
-    "ARIEL ALVES DA FONSECA",
-    "AUGUSTO SERGIO SOUZA CARNEIRO JUNIOR",
-    "BARBARA PIZANE DE AZEVEDO DE PAULA",
-    "BRUNA DO NASCIMENTO SEVERIANO SILVA",
-    "BRUNA LETICIA DE OLIVEIRA",
-    "BRUNNO AJUDARTE DAVI",
-    "BRUNO AKIO SUGIYAMA",
-    "BRUNO BARBOSA DE AZEVEDO",
-    "BRUNO BENEDITO",
-    "BRUNO KIYOSHI YOSHIKAWA",
-    "BRUNO NEVES PEREIRA",
-    "BRUNO PEREIRA DOS SANTOS",
-    "CAMILA FARACO DOS SANTOS",
-    "CAMILA REGINA DE SOUSA PRATA",
-    "CARLOS HENRIQUE DE SOUSA SILVA",
-    "CARLOS ROBERTO FUOCO",
-    "CECILIA APARECIDA DOS PASSOS RAMOS",
-    "CELSO DE SOUZA LANHAS",
-    "CESAR AUGUSTO DE LIMA COELHO DA SILVA",
-    "CHARLES PAZINI DA SILVA",
-    "CLAUDIA TARTARI FERREIRA",
-    "CLAUDIO BICALHO PITOMBO FILHO",
-    "CLAUDIO IACOVO DOS SANTOS",
-    "CLAUDIO VALERIO DE ALMEIDA",
-    "CRISTIANE FUHRMANN MERTINS",
-    "CRISTIANO ALMERINDO DE OLIVEIRA",
-    "CRISTIANO MATHIELO ALTOE",
-    "DAIANE DOS SANTOS",
-    "DANIEL DE LIMA PIRES",
-    "DANILO CESAR FERNANDES DA SILVA",
-    "DARTANHAN LIMA DA SILVA",
-    "DAVI ATHANAZIO QUENTAL",
-    "DEBORA CESAR DE ANDRADE PAIVA",
-    "DENIS XAVIER DE SOUZA",
-    "DIEGO DE ALMEIDA SILVA",
-    "DIEGO SANTOS RODRIGUES",
-    "DIOGENES HUGO KOPP",
-    "DIOGO YUKIO DE OLIVEIRA CAMADA",
-    "EDELCIO BATISTA VIARO",
-    "EDNALDO GIULIANO D ANDREA",
-    "EDUARDO BASTOS PADILHA",
-    "EDUARDO NASCIMENTO ARAUJO",
-    "ELIEZER SARMENTO DOS SANTOS",
-    "ELISANGELA IEL",
-    "EMANUEL TERGOLINA DE LIMA",
-    "ERICK PAULI NAKAMURA",
-    "ERICO RIGO LA MAISON",
-    "EVERALDO ALVES DE LIMA",
-    "FABIANO DE LARA SANTOS",
-    "FABIO BRANDAO CAVALCANTI",
-    "FABIO MENEZES AMARAL",
-    "FABIO PEREIRA DE ARAUJO",
-    "FABIO ROBERTO DA SILVEIRA ARRUDA",
-    "FABIO VIEIRA SOARES DA SILVA",
-    "FABIOLA FARANI VIEIRA BARBOSA",
-    "FELIPE CALDAS TAKITA",
-    "FERNANDA GOMES DINIS",
-    "FERNANDO CARVALHAIS SILVA",
-    "FERNANDO CHAGAS DO CARMO",
-    "FERNANDO PADRAO DE SOUSA",
-    "FERNANDO SILVA BARRETO",
-    "FLAVIO ROBERTO FONSECA PORTO",
-    "GABRIEL ANTONIO BATISTA MARCILIO",
-    "GILSON ROMERO CARNEIRO",
-    "GIVALDO CAVALCANTI",
-    "GUSTAVO GOMES DE ALMEIDA CORREA",
-    "HENRIQUE AUGUSTO DE LIMA",
-    "HENRY TRINTA PEREIRA DA COSTA",
-    "HEVERTON PASCUCCI FERREIRA",
-    "HUGO MATHEUS FERREIRA DE MELO",
-    "IOANNIS BASILEOS KONSOLAKIS",
-    "IRIS SILVA DE LUCENA",
-    "ISA DOS SANTOS VIEIRA",
-    "ISABEL CRISTINA KRONEMBERGER",
-    "JANAINA LIMA DE SOUSA",
-    "JHOYCE HELEN DOS SANTOS OLIVEIRA",
-    "JOAO CARLOS ARTUSO MATOS",
-    "JOAO PAULO FERREIRA",
-    "JOAO VITOR CONCEICAO DE PAULA",
-    "JOEL NUNES DE CARVALHO",
-    "JONATHA ALVES ROCHA",
-    "JORGE LUIZ QUERIDO COSTA",
-    "JOSE ANTONIO ANTENOR PENNA",
-    "JULIANA IVI MANENTI DA SILVA",
-    "JULIO CESAR DE FREITAS SOARES",
-    "KATIA KIYOMI KUWAYE",
-    "KATIA TERUMI CONEGUNDES DE JESUS",
-    "KENIA PENA DE SOUZA",
-    "LEANE SANTANA",
-    "LEONARDO FREDERICO NEUBAUER",
-    "LUCIANO DE SOUZA MACHADO",
-    "LUCIANO HAIEK",
-    "LUCIANO ROBERTO RAMOS",
-    "LUIGI GEVAERD BRAGHITTONI",
-    "LUIS ALVIM CARIJO",
-    "LUIS CARLOS MEZADRI",
-    "LUIS FELIPE DE JESUS SANTOS",
-    "LUIS FILIPE XAVIER DOS SANTOS",
-    "LUIZ CLAUDIO FERREIRA RAMOS",
-    "LUIZ EDMUNDO DA COSTA NETO",
-    "LUIZ FELIPY BADAIN OLIVEIRA COSTA",
-    "LUIZ FERNANDO GONCALVES MATTOS",
-    "MANOEL ALEXANDRE COSTA DIAS",
-    "MARCELO AUGUSTO GARCIA GOMES",
-    "MARCELO CUNHA ESCRIVANI",
-    "MARCELO DA SILVA PAES",
-    "MARCIO DUCHOVNY GRINBERG",
-    "MARCIO FERREIRA DA CRUZ",
-    "MARCIO MAC CORD MEDINA",
-    "MARCO ANTONIO BELARMINO DA SILVA",
-    "MARCO AURELIO SOUZA SANTOS",
-    "MARCOS PAULO DA SILVA",
-    "MARCUS PAULO DE OLIVEIRA RODRIGUES",
-    "MARCUS PEREIRA REBELLO",
-    "MARIA LUCIA TABORDA MASIERO",
-    "MARIO NICOLA TAVOLETTA ANGELOZZI",
-    "MATEUS MOCO",
-    "MAURICIO AMARAL MUSETTI QUIROGA",
-    "MAURICIO MIKIO KOYAMA",
-    "MAURO NAGO",
-    "MAYSA CAVALCANTE VENTILARI",
-    "MICHAEL ROBERTO CARDOSO",
-    "MILTON HISSAMITSU KOSHIMA",
-    "MOYSES HENRIQUE LOVATO LOPEZ CAROCA",
-    "MURILO VILELA DE ALMEIDA",
-    "MYRELA FRANCA DE SIQUEIRA",
-    "PATRICIA APARECIDA DIAS",
-    "PATRICIA NASCIMENTO RIBEIRO",
-    "PAUL HENRI VIEIRA MENDES",
-    "PAULO DE TARSO FEITAL DE QUEIROZ",
-    "RAFAEL CARVALHO DA FONSECA",
-    "RAFAEL DOS SANTOS",
-    "RAFAEL POLO PEDROSO",
-    "RAISSA SANTOS NASCIMENTO",
-    "RALF MAGNUM PASCUAL MULLER",
-    "RAUL CARLOS NASCIMENTO DE OLIVEIRA",
-    "REGINA CELE NOGUEIRA DE FARIA",
-    "REGINA COELI SANT ANNA PEDROSO DE LIMA",
-    "REINALDO FERREIRA DE OLIVEIRA",
-    "RENATO YOSHIO YOCHIY",
-    "RICARDO GIACOMI LOPES",
-    "RICARDO SANTOS MIETTI",
-    "ROBERTA CALDEIRA DE FREITAS",
-    "ROBERTO DE SOUZA LEITE",
-    "ROBSON CARVALHO DE OLIVEIRA",
-    "ROGER OLIVEIRA CHAGAS",
-    "ROGERIO VIEIRA DA SILVA",
-    "RONALDO CARDOSO GOMES JUNIOR",
-    "RONALDO SERGIO ANDRADE",
-    "ROSANGELA TERESSANI",
-    "SAMANTHA DE PAULA COVIZZI",
-    "SAMIR ALI TARIF",
-    "SANDRO DORNELLES DE CARVALHO",
-    "SANDRO SANTANA GARCIA",
-    "SAULO SANT ANA SOUZA",
-    "SILVIA HELENA CASTRO CHIAVEGATO",
-    "SONIA REGINA FERREIRA DE OLIVEIRA",
-    "SUELI TEIXEIRA DA SILVA",
-    "TARCISIO GERALDO TOMAZELA",
-    "TATIANA FERNANDES TELES",
-    "TERCIO NASCIMENTO CACIANO",
-    "THERENCE BARROS DE OLIVEIRA",
-    "THIAGO BATISTA DE FARIA",
-    "THIAGO EUGENIO BARROS",
-    "THIAGO HENRIQUE MENDES",
-    "THIAGO LIMA CARBONEL DE OLIVEIRA",
-    "THIAGO RODRIGUES DE SOUZA",
-    "THIAGO SAAD DE SIMAS",
-    "TIAGO GONCALVES BARBOSA",
-    "UILSON VALADAO FARIA",
-    "VAGA (ANDRE PEREIRA DA SILVA)",
-    "VAGA (ANDREA YAMAGAWA)",
-    "VAGA (ANDREI SIMONINI SOUZA)",
-    "VAGA (BRUNO RIVIERI POLETI)",
-    "VAGA (CLAUDIO DE MARTINO)",
-    "VAGA (DAVI ISRAEL DE ABREU)",
-    "VAGA (DOUGLAS HENRIQUE ANDRADE FERREIRA)",
-    "VAGA (EMELYN CARINA BORGES TAMACHIRO)",
-    "VAGA (FELIPE BASTOS JOSE)",
-    "VAGA (INGRID DE ASSIS SOUZA)",
-    "VAGA (JULIANA ALVES CASTRO PEREZ)",
-    "VAGA (SILVANA MARIA OTTO DORIA)",
-    "VAGNER DE CARVALHO BRANDAO",
-    "VAGNER FUMES VIEIRA",
-    "VALERIA GONCALVES FERREIRA DA SILVA",
-    "VALERIO JOSE DE BRITO",
-    "VITOR PLETZ VIEIRA",
-    "VIVIANE MOTTA COELHO",
-    "WASHINGTON LUIS ALMEIDA",
-    "WILLIAM CESAR LEITE",
-    "WILSON ALBERTO NEVES",
-    "WLADIMIR ZAGO",
-    "VINNICIUS HENRIQUE SILVA GOMES"
-  ],
-  "Terceiro": [
-    "ADRIANO GARROTE TORRESAN",
-    "ALAN PAULINO PICCHI",
-    "ALDO PAULINO",
-    "ARLINDO SILVA DE ANDRADE JUNIOR",
-    "BRUNO ALVES MONTEIRO",
-    "DANIEL FERNANDES DE LIMA BONIFÁCIO",
-    "DANIEL GOMES DE ALMEIDA",
-    "DENIS IEVENES",
-    "EDELOS MURILO SOARES",
-    "ELIZA OSHITA",
-    "ERIC HENRIQUE ALVES",
-    "FERNANDO CECERE PISATURO",
-    "FILIPE GUARINO MACIEL",
-    "GABRIELA LOPES RODRIGUES DE ALMEIDA",
-    "JOSE ROSA NETO",
-    "KAMILLA CRISTINI LOPES DA SILVA",
-    "KATYA TSAI",
-    "KLEBER EDUARDO ANDRADE BANDEIRA",
-    "LUCIENE MONTEIRO",
-    "LUCIUS GOUVEIA BARBOSA",
-    "MARCIA SAKUDA",
-    "MARCIA YUMI ABE",
-    "MARGARETE NAOMI",
-    "MARIANA LELES",
-    "MARLI KRASTIN DIAS",
-    "MARCOS ROBERTO DA SILVA",
-    "MIYUKI ARAUJO KUWANO",
-    "PAULO HENRIQUE CONFORTINI LUNA",
-    "RICARDO LUCAS CHAGAS",
-    "ROBERTO CLAUDIO MASCARENHAS PEGORETTI",
-    "ROTCHESTER SOARES PONCIANO",
-    "RUBEN VALENZUELA",
-    "TERCEIRO 01 - EDNALDO",
-    "TERCEIRO 01 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 01 - MEZADRI",
-    "TERCEIRO 02 - EDNALDO",
-    "TERCEIRO 02 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 02 - MEZADRI",
-    "TERCEIRO 03 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 04 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 05 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 06 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 07 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 08 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 09 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 10 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 11 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 12 - GESTOR À IDENTIFICAR",
-    "TERCEIRO 13 - GESTOR À IDENTIFICAR",
-    "VAGA (LUIZ ANTONIO CARLIN)",
-    "VAGA (MARIO TADEU DA SILVEIRA)",
-    "WATSON GOMES DA CRUZ",
-    "WILLIAMS DOS SANTOS CARLOS"
-  ]
-}
+[
+  {
+    "nome": "ABILIO SERGIO MARTINEZ PEREIRA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ADEMIR JOSE MINATEL JUNIOR",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ADRIANA PEREIRA CRUZ",
+    "gestor_direto": "EDNALDO GIULIANO D ANDREA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ADRIANO GARROTE TORRESAN",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "AGOSTINHO AYRES CARDOSO DE PINHO",
+    "gestor_direto": "ANA LUCIA ANTUNES DE ARAUJO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALAN DOS SANTOS OLIVEIRA",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALAN PAULINO PICCHI ",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALBERTO BOTTARO NETO",
+    "gestor_direto": "ANDRE LUIS LINS RAMOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALBERTO NAGEL NORONHA",
+    "gestor_direto": "EVERALDO ALVES DE LIMA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALDENIR GIL DE OLIVEIRA",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALDO PAULINO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALEXANDRE SILVEIRA DE BRAGANCA",
+    "gestor_direto": "ROGERIO VIEIRA DA SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALEXSANDRO ALEX WOLLINGER",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALINE JULIANA LOPES",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALINE RAMOS DA SILVA",
+    "gestor_direto": "MARCO AURELIO SOUZA SANTOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ALVARO HERVELLA",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "AMARO QUINTINO JUNIOR",
+    "gestor_direto": "CRISTIANE FUHRMANN MERTINS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANA CRISTINA DOS SANTOS CURVELLO",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANA LUCIA ANTUNES DE ARAUJO",
+    "gestor_direto": "MARCELO AUGUSTO GARCIA GOMES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE ABREU DE ANDRADE",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE ALVES SELOTO",
+    "gestor_direto": "CRISTIANE FUHRMANN MERTINS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE FECCHIO SALGADO",
+    "gestor_direto": "ANDRE LUIS LINS RAMOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE GUILHERME ACAYABA DE TOLEDO",
+    "gestor_direto": "WALDIR ALVARENGA JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE LUIS BARROS DA SILVA",
+    "gestor_direto": "CAMILA REGINA DE SOUSA PRATA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE LUIS LINS RAMOS",
+    "gestor_direto": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE LUIS NUNES",
+    "gestor_direto": "MICHAEL ROBERTO CARDOSO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE LUIZ GIL DA SILVA",
+    "gestor_direto": "BRUNO BARBOSA DE AZEVEDO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDRE SOMMA GOMES DA SILVA",
+    "gestor_direto": "ANDRE LUIS NUNES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANDREZA RODRIGUES GOMES BALASSIANO",
+    "gestor_direto": "ANDRE LUIS LINS RAMOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ANTONIO CARLOS GERALDI",
+    "gestor_direto": "EDNALDO GIULIANO D ANDREA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ARIEL ALVES DA FONSECA",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ARLINDO SILVA DE ANDRADE JUNIOR",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "AUGUSTO SERGIO SOUZA CARNEIRO JUNIOR",
+    "gestor_direto": "CARLOS ROBERTO FUOCO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "gestor_direto": "WALDIR ALVARENGA JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNA LETICIA DE OLIVEIRA ",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNNO AJUDARTE DAVI",
+    "gestor_direto": "ANDRE LUIS NUNES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO AKIO SUGIYAMA",
+    "gestor_direto": "ELIEZER SARMENTO DOS SANTOS",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO ALVES MONTEIRO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO BARBOSA DE AZEVEDO",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO BENEDITO",
+    "gestor_direto": "LUCIANO HAIEK",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO KIYOSHI YOSHIKAWA",
+    "gestor_direto": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO NEVES PEREIRA",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "BRUNO PEREIRA DOS SANTOS",
+    "gestor_direto": "EVERALDO ALVES DE LIMA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CAMILA FARACO DOS SANTOS",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CAMILA REGINA DE SOUSA PRATA",
+    "gestor_direto": "ALEXSANDRO ALEX WOLLINGER",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CARLOS HENRIQUE DE SOUSA SILVA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CARLOS ROBERTO FUOCO",
+    "gestor_direto": "ANDRE LUIS LINS RAMOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CECILIA APARECIDA DOS PASSOS RAMOS",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CELSO DE SOUZA LANHAS",
+    "gestor_direto": "ROGERIO VIEIRA DA SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CESAR AUGUSTO DE LIMA COELHO DA SILVA",
+    "gestor_direto": "FLAVIO ROBERTO FONSECA PORTO",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CHARLES PAZINI DA SILVA",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CLAUDIA TARTARI FERREIRA",
+    "gestor_direto": "EVERALDO ALVES DE LIMA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CLAUDIO BICALHO PITOMBO FILHO",
+    "gestor_direto": "ROGERIO VIEIRA DA SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CLAUDIO IACOVO DOS SANTOS",
+    "gestor_direto": "RALF MAGNUM PASCUAL MULLER",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CLAUDIO VALERIO DE ALMEIDA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CRISTIANE FUHRMANN MERTINS",
+    "gestor_direto": "LUCIANO HAIEK",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CRISTIANO ALMERINDO DE OLIVEIRA",
+    "gestor_direto": "FABIANO DE LARA SANTOS",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "CRISTIANO MATHIELO ALTOE",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DAIANE DOS SANTOS",
+    "gestor_direto": "ELIEZER SARMENTO DOS SANTOS",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DANIEL DE LIMA PIRES",
+    "gestor_direto": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DANIEL FERNANDES DE LIMA BONIFÁCIO",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DANIEL GOMES DE ALMEIDA",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DANIELE RENATA DA SILVA ASSIS",
+    "gestor_direto": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DANILO CESAR FERNANDES DA SILVA",
+    "gestor_direto": "LUIS FELIPE DE JESUS SANTOS",
+    "direto": "LUIS FELIPE DE JESUS SANTOS",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DARTANHAN LIMA DA SILVA",
+    "gestor_direto": "VALERIO JOSE DE BRITO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DAVI ATHANAZIO QUENTAL",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DEBORA CESAR DE ANDRADE PAIVA",
+    "gestor_direto": "FABIANO DE LARA SANTOS",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DENIS IEVENES",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DENIS XAVIER DE SOUZA",
+    "gestor_direto": "TIAGO GONCALVES BARBOSA",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DIEGO DE ALMEIDA SILVA",
+    "gestor_direto": "MARIA LUCIA TABORDA MASIERO",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DIEGO SANTOS RODRIGUES",
+    "gestor_direto": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DIOGENES HUGO KOPP",
+    "gestor_direto": "MARIA LUCIA TABORDA MASIERO",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "DIOGO YUKIO DE OLIVEIRA CAMADA",
+    "gestor_direto": "FABIANO DE LARA SANTOS",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EDELCIO BATISTA VIARO",
+    "gestor_direto": "EDNALDO GIULIANO D ANDREA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EDELOS MURILO SOARES",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EDNALDO GIULIANO D ANDREA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EDUARDO BASTOS PADILHA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EDUARDO NASCIMENTO ARAUJO",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ELIEZER SARMENTO DOS SANTOS",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ELISANGELA IEL",
+    "gestor_direto": "MARCELO AUGUSTO GARCIA GOMES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ELIZA OSHITA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EMANUEL TERGOLINA DE LIMA",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ERIC HENRIQUE ALVES",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ERICK PAULI NAKAMURA",
+    "gestor_direto": "TARCISIO GERALDO TOMAZELA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ERICO RIGO LA MAISON",
+    "gestor_direto": "MARCO AURELIO SOUZA SANTOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "EVERALDO ALVES DE LIMA",
+    "gestor_direto": "WALDIR ALVARENGA JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIANO DE LARA SANTOS",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIO BRANDAO CAVALCANTI",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIO MENEZES AMARAL",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIO PEREIRA DE ARAUJO",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIO VIEIRA SOARES DA SILVA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FABIOLA FARANI VIEIRA BARBOSA",
+    "gestor_direto": "MARIA LUCIA TABORDA MASIERO",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FELIPE CALDAS TAKITA",
+    "gestor_direto": "HENRIQUE AUGUSTO DE LIMA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDA GOMES DINIS",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDO CARVALHAIS SILVA",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDO CECERE PISATURO",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDO CHAGAS DO CARMO",
+    "gestor_direto": "ANDRE LUIS LINS RAMOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDO PADRAO DE SOUSA",
+    "gestor_direto": "FERNANDA GOMES DINIS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FERNANDO SILVA BARRETO",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FILIPE GUARINO MACIEL",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "FLAVIO ROBERTO FONSECA PORTO",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "GABRIEL ANTONIO BATISTA MARCILIO",
+    "gestor_direto": "FABIO MENEZES AMARAL",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "GABRIELA LOPES RODRIGUES DE ALMEIDA",
+    "gestor_direto": "EDUARDO BASTOS PADILHA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "GILSON ROMERO CARNEIRO",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "GIVALDO CAVALCANTI",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "GUSTAVO GOMES DE ALMEIDA CORREA",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "HENRIQUE AUGUSTO DE LIMA",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "HENRY TRINTA PEREIRA DA COSTA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "HEVERTON PASCUCCI FERREIRA",
+    "gestor_direto": "MAURICIO AMARAL MUSETTI QUIROGA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "HUGO MATHEUS FERREIRA DE MELO",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "IOANNIS BASILEOS KONSOLAKIS",
+    "gestor_direto": "CRISTIANE FUHRMANN MERTINS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "IRIS SILVA DE LUCENA",
+    "gestor_direto": "EDUARDO BASTOS PADILHA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ISA DOS SANTOS VIEIRA",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ISA DOS SANTOS VIEIRA ",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ISABEL CRISTINA KRONEMBERGER",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JANAINA LIMA DE SOUSA",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JHOYCE HELEN DOS SANTOS OLIVEIRA",
+    "gestor_direto": "CARLOS ROBERTO FUOCO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOAO CARLOS ARTUSO MATOS",
+    "gestor_direto": "VALERIO JOSE DE BRITO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOAO PAULO FERREIRA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOAO VITOR CONCEICAO DE PAULA",
+    "gestor_direto": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOEL NUNES DE CARVALHO",
+    "gestor_direto": "HENRIQUE AUGUSTO DE LIMA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JONATHA ALVES ROCHA",
+    "gestor_direto": "HENRIQUE AUGUSTO DE LIMA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JORGE LUIZ QUERIDO COSTA",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOSE ANTONIO ANTENOR PENNA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JOSE ROSA NETO",
+    "gestor_direto": "EDUARDO BASTOS PADILHA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JULIANA IVI MANENTI DA SILVA",
+    "gestor_direto": "MARCO AURELIO SOUZA SANTOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "JULIO CESAR DE FREITAS SOARES",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KAMILLA CRISTINI LOPES DA SILVA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KATIA KIYOMI KUWAYE",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KATIA TERUMI CONEGUNDES DE JESUS",
+    "gestor_direto": "ROSANGELA TERESSANI",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KATYA TSAI",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KENIA PENA DE SOUZA",
+    "gestor_direto": "EDNALDO GIULIANO D ANDREA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "KLEBER EDUARDO ANDRADE BANDEIRA",
+    "gestor_direto": "ELIEZER SARMENTO DOS SANTOS",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LEANE SANTANA",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LEONARDO FREDERICO NEUBAUER",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUCIANO DE SOUZA MACHADO",
+    "gestor_direto": "FABIANO DE LARA SANTOS",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUCIANO HAIEK",
+    "gestor_direto": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUCIANO ROBERTO RAMOS",
+    "gestor_direto": "WALDIR ALVARENGA JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUCIENE MONTEIRO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUCIUS GOUVEIA BARBOSA",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIGI GEVAERD BRAGHITTONI",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIS ALVIM CARIJO",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIS CARLOS MEZADRI",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIS FELIPE DE JESUS SANTOS",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIS FILIPE XAVIER DOS SANTOS",
+    "gestor_direto": "VALERIO JOSE DE BRITO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "gestor_direto": "FERNANDA GOMES DINIS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIZ EDMUNDO DA COSTA NETO",
+    "gestor_direto": "ROGERIO VIEIRA DA SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIZ FELIPY BADAIN OLIVEIRA COSTA",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "LUIZ FERNANDO GONCALVES MATTOS",
+    "gestor_direto": "CAMILA REGINA DE SOUSA PRATA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MANOEL ALEXANDRE COSTA DIAS",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCELO AUGUSTO GARCIA GOMES",
+    "gestor_direto": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCELO CUNHA ESCRIVANI",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCELO DA SILVA PAES",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCIA SAKUDA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCIA YUMI ABE",
+    "gestor_direto": "ANDRE LUIS NUNES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCIO DUCHOVNY GRINBERG",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCIO FERREIRA DA CRUZ",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCIO MAC CORD MEDINA",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCO ANTONIO BELARMINO DA SILVA",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCO AURELIO SOUZA SANTOS",
+    "gestor_direto": "MARCELO AUGUSTO GARCIA GOMES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCOS PAULO DA SILVA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCOS ROBERTO DA SILVA",
+    "gestor_direto": "EDUARDO BASTOS PADILHA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARCUS PEREIRA REBELLO",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARGARETE NAOMI",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARIA LUCIA TABORDA MASIERO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARIANA LELES",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MARLI KRASTIN DIAS",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MATEUS MOCO",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MAURICIO AMARAL MUSETTI QUIROGA",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MAURICIO MIKIO KOYAMA",
+    "gestor_direto": "TARCISIO GERALDO TOMAZELA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MAURO NAGO",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MAYSA CAVALCANTE VENTILARI",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MICHAEL ROBERTO CARDOSO",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MILTON HISSAMITSU KOSHIMA",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MIYUKI ARAUJO KUWANO",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MOYSES HENRIQUE LOVATO LOPEZ CAROCA",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MURILO VILELA DE ALMEIDA",
+    "gestor_direto": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "MYRELA FRANCA DE SIQUEIRA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "PATRICIA APARECIDA DIAS",
+    "gestor_direto": "ANDRE FECCHIO SALGADO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "PATRICIA NASCIMENTO RIBEIRO",
+    "gestor_direto": "HENRIQUE AUGUSTO DE LIMA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "PAUL HENRI VIEIRA MENDES",
+    "gestor_direto": "TIAGO GONCALVES BARBOSA",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "PAULO DE TARSO FEITAL DE QUEIROZ",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "PAULO HENRIQUE CONFORTINI LUNA",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RAFAEL CARVALHO DA FONSECA",
+    "gestor_direto": "TIAGO GONCALVES BARBOSA",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RAFAEL DOS SANTOS",
+    "gestor_direto": "WALDIR ALVARENGA JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RAFAEL POLO PEDROSO",
+    "gestor_direto": "MARIA LUCIA TABORDA MASIERO",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RAISSA SANTOS NASCIMENTO",
+    "gestor_direto": "FABIANO DE LARA SANTOS",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RALF MAGNUM PASCUAL MULLER",
+    "gestor_direto": "ALEXSANDRO ALEX WOLLINGER",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RAUL CARLOS NASCIMENTO DE OLIVEIRA",
+    "gestor_direto": "LUIS FELIPE DE JESUS SANTOS",
+    "direto": "LUIS FELIPE DE JESUS SANTOS",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "REGINA CELE NOGUEIRA DE FARIA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "REGINA COELI SANT ANNA PEDROSO DE LIMA",
+    "gestor_direto": "MARIA LUCIA TABORDA MASIERO",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "REINALDO FERREIRA DE OLIVEIRA",
+    "gestor_direto": "VIVIANE MOTTA COELHO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RENATO YOSHIO YOCHIY",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RICARDO GIACOMI LOPES",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RICARDO LUCAS CHAGAS",
+    "gestor_direto": "TATIANA FERNANDES TELES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RICARDO SANTOS MIETTI",
+    "gestor_direto": "BRUNO BARBOSA DE AZEVEDO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROBERTA CALDEIRA DE FREITAS",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROBERTO CLAUDIO MASCARENHAS PEGORETTI",
+    "gestor_direto": "ALEXANDRE TELES DE ALMEIDA MIGLIORIN",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROBERTO DE SOUZA LEITE",
+    "gestor_direto": "ROGERIO VIEIRA DA SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROBSON CARVALHO DE OLIVEIRA",
+    "gestor_direto": "ELIEZER SARMENTO DOS SANTOS",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROGER OLIVEIRA CHAGAS",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROGERIO VIEIRA DA SILVA",
+    "gestor_direto": "FABIO BRANDAO CAVALCANTI",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RONALDO CARDOSO GOMES JUNIOR",
+    "gestor_direto": "FERNANDA GOMES DINIS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RONALDO SERGIO ANDRADE",
+    "gestor_direto": "CAMILA REGINA DE SOUSA PRATA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROSANGELA TERESSANI",
+    "gestor_direto": "LUCIANO HAIEK",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "ROTCHESTER SOARES PONCIANO ",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "RUBEN VALENZUELA",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SAMANTHA DE PAULA COVIZZI",
+    "gestor_direto": "MARCO AURELIO SOUZA SANTOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SAMIR ALI TARIF",
+    "gestor_direto": "MARCELO AUGUSTO GARCIA GOMES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SANDRO DORNELLES DE CARVALHO",
+    "gestor_direto": "CAMILA REGINA DE SOUSA PRATA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SANDRO SANTANA GARCIA",
+    "gestor_direto": "ANA LUCIA ANTUNES DE ARAUJO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SAULO SANT ANA SOUZA",
+    "gestor_direto": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SILVIA HELENA CASTRO CHIAVEGATO",
+    "gestor_direto": "FABIO MENEZES AMARAL",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SONIA REGINA FERREIRA DE OLIVEIRA",
+    "gestor_direto": "FERNANDO PADRAO DE SOUSA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "SUELI TEIXEIRA DA SILVA",
+    "gestor_direto": "FERNANDA GOMES DINIS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TARCISIO GERALDO TOMAZELA",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TATIANA FERNANDES TELES",
+    "gestor_direto": "MICHAEL ROBERTO CARDOSO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 01 - EDNALDO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 01 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 01 - MEZADRI",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 02 - EDNALDO",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 02 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 02 - MEZADRI",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 03 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 04 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 05 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 06 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 07 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 08 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 09 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 10 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 11 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 12 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCEIRO 13 - GESTOR À IDENTIFICAR",
+    "gestor_direto": "GESTOR À IDENTIFICAR",
+    "direto": "GESTOR À IDENTIFICAR",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TERCIO NASCIMENTO CACIANO",
+    "gestor_direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THERENCE BARROS DE OLIVEIRA",
+    "gestor_direto": "BARBARA PIZANE DE AZEVEDO DE PAULA",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO BATISTA DE FARIA",
+    "gestor_direto": "ANDRE LUIS NUNES",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO EUGENIO BARROS",
+    "gestor_direto": "FABIO MENEZES AMARAL",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO HENRIQUE MENDES",
+    "gestor_direto": "LUCIANO HAIEK",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO LIMA CARBONEL DE OLIVEIRA",
+    "gestor_direto": "ELIEZER SARMENTO DOS SANTOS",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO RODRIGUES DE SOUZA",
+    "gestor_direto": "DIEGO SANTOS RODRIGUES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "THIAGO SAAD DE SIMAS",
+    "gestor_direto": "FLAVIO ROBERTO FONSECA PORTO",
+    "direto": "FABIO ROBERTO DA SILVEIRA ARRUDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "TIAGO GONCALVES BARBOSA",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "UILSON VALADAO FARIA",
+    "gestor_direto": "LUIZ CLAUDIO FERREIRA RAMOS",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (ANDRE PEREIRA DA SILVA)",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (ANDREA YAMAGAWA)",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (ANDREI SIMONINI SOUZA)",
+    "gestor_direto": "ROSANGELA TERESSANI",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (BRUNO RIVIERI POLETI)",
+    "gestor_direto": "LUIS CARLOS MEZADRI",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (CLAUDIO DE MARTINO)",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (DAVI ISRAEL DE ABREU)",
+    "gestor_direto": "DIEGO SANTOS RODRIGUES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (DOUGLAS HENRIQUE ANDRADE FERREIRA)",
+    "gestor_direto": "ELISANGELA IEL",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (EMELYN CARINA BORGES TAMACHIRO)",
+    "gestor_direto": "MAURICIO AMARAL MUSETTI QUIROGA",
+    "direto": "LUIS CARLOS MEZADRI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (FELIPE BASTOS JOSE)",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (INGRID DE ASSIS SOUZA)",
+    "gestor_direto": "CRISTIANE FUHRMANN MERTINS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (JULIANA ALVES CASTRO PEREZ)",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "WASHINGTON LUIS ALMEIDA",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (LARISSA APARECIDA SILVA BERTODO)",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (LUCIANO MOROZOWSKI JUNIOR)",
+    "gestor_direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (LUIZ ANTONIO CARLIN)",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (MARCOS ANTONIO MASSON)",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (MARIO TADEU DA SILVEIRA)",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (SILVANA MARIA OTTO DORIA)",
+    "gestor_direto": "ALINE JULIANA LOPES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGA (WENDELL JONATAS DE CAMPOS)",
+    "gestor_direto": "BRUNO BARBOSA DE AZEVEDO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (VAGA)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGNER DE CARVALHO BRANDAO",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VAGNER FUMES VIEIRA",
+    "gestor_direto": "DIEGO SANTOS RODRIGUES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VALERIA GONCALVES FERREIRA DA SILVA",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VALERIO JOSE DE BRITO",
+    "gestor_direto": "MICHAEL ROBERTO CARDOSO",
+    "direto": "MARIO NICOLA TAVOLETTA ANGELOZZI",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VALTER THIAGO JUNIOR",
+    "gestor_direto": "ANA LUCIA ANTUNES DE ARAUJO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VINNICIUS HENRIQUE SILVA GOMES",
+    "gestor_direto": "BRUNA DO NASCIMENTO SEVERIANO SILVA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VITOR PLETZ VIEIRA",
+    "gestor_direto": "ISA DOS SANTOS VIEIRA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "VIVIANE MOTTA COELHO",
+    "gestor_direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WALDIR ALVARENGA JUNIOR",
+    "gestor_direto": "WASHINGTON LUIS ALMEIDA",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WALDYR LOURENCO DE FREITAS JUNIOR",
+    "gestor_direto": "ALEXSANDRO ALEX WOLLINGER",
+    "direto": "TBD - FATURAMENTO",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WASHINGTON LUIS ALMEIDA",
+    "gestor_direto": "CESAR AUGUSTO DOS SANTOS",
+    "direto": "CESAR AUGUSTO DOS SANTOS",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WATSON GOMES DA CRUZ",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WILIAN BATISTA NUNES",
+    "gestor_direto": "MARCO AURELIO SOUZA SANTOS",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WILLIAM CESAR LEITE",
+    "gestor_direto": "CARLOS ROBERTO FUOCO",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WILLIAMS DOS SANTOS CARLOS",
+    "gestor_direto": "ARIEL ALVES DA FONSECA",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA TERCERIZADA",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WILSON ALBERTO NEVES",
+    "gestor_direto": "BRUNO BARBOSA DE AZEVEDO",
+    "direto": "MARCUS PAULO DE OLIVEIRA RODRIGUES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  },
+  {
+    "nome": "WLADIMIR ZAGO",
+    "gestor_direto": "DIEGO SANTOS RODRIGUES",
+    "direto": "ALINE JULIANA LOPES",
+    "perfil": "MÃO DE OBRA PRÓPRIA (HC)",
+    "area": "SISTEMA NEGÓCIO"
+  }
+]

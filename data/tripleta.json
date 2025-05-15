@@ -1,235 +1,1737 @@
 [
   {
-    "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "#NÃO INFORMADO - EXCLUIR"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "#NÃO INFORMADO - EXCLUIR"
-  },
-  {
-    "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
-    "projeto": "PROJETO SOLAR",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
-    "projeto": "PROJETO SOLAR",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
-    "projeto": "ATIVAÇÃO SIMPLIFICADA",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
     "tipo_entregavel": "A IDENTIFICAR",
     "projeto": "A IDENTIFICAR",
     "atividade": "LIDERANÇA TÉCNICA"
   },
   {
     "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
- Bringelly, NSW 2556, Australia -33.4265, 150.7290
-
-System: It looks like the response got cut off again while providing the `tripleta.json` file. Let me continue from where we left off and complete the remaining files (`tripleta.json`, `iniciativas.json`, `alocacoes.json`), then provide a detailed summary of all changes made, including the CSS reduction analysis and files that were not altered.
-
----
-
-### Continuação dos Códigos Completos
-
-#### `/data/tripleta.json` (continuação)
-Vamos completar o `tripleta.json` com base na aba "TRIPLETA" da planilha `Dados.xlsx`. Cada entrada contém `tipo_entregavel`, `projeto`, e `atividade`. Para evitar duplicatas desnecessárias, vou listar apenas entradas únicas com base nas combinações de `tipo_entregavel`, `projeto`, e `atividade`.
-
-<xaiArtifact artifact_id="08c100f5-22d4-4437-afea-956bd8c48e56" artifact_version_id="73740220-2618-44d0-88f9-d0b87c383473" title="tripleta.json" contentType="application/json">
-[
-  {
-    "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "#NÃO INFORMADO - EXCLUIR"
-  },
-  {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "#NÃO INFORMADO - EXCLUIR"
-  },
-  {
-    "tipo_entregavel": "CAUSA RAIZ",
-    "projeto": "CAUSA RAIZ",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
-    "projeto": "PROJETO SOLAR",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
     "projeto": "ATIVAÇÃO SIMPLIFICADA",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "atividade": "FUNCIONAL"
   },
   {
-    "tipo_entregavel": "A IDENTIFICAR",
-    "projeto": "A IDENTIFICAR",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CACS, COBE, TQD",
+    "atividade": "FUNCIONAL"
   },
   {
-    "tipo_entregavel": "SUPORTE N3",
-    "projeto": "SUPORTE N3",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CAPSETTLE/ROAMING TADIG",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CAUSA RAIZ",
+    "atividade": "#NÃO INFORMADO - EXCLUIR"
   },
   {
     "tipo_entregavel": "CAUSA RAIZ",
     "projeto": "CAUSA RAIZ E MELHORIAS NO GSID E SGAP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CAUSA RAIZ E MELHORIAS NO GSID E SGAP",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CLE E CLEF",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CLM",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CONEXÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CPC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "CREDITO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "DEVSECOPS E COE API",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "Fábrica Causa Raiz",
     "atividade": "LIDERANÇA TÉCNICA"
   },
   {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "FATURAMENTO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "FCD, IBMWEB, EBPP, SITEF, SID",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "GESTÃO DE TDOS SISTEMAS FATURAMENTO EMRPESARIAL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "GPL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "IME/MEDIAÇÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "ITP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "JORNADA EMPRESARIAL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "MOBILE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "MOBILE AR E COLLECTION, GEVENUE, PORTAL CCS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "NUMERAÇÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "OUTROS PROJETOS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "PAYMENT",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "PORTABILIDADE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "PORTABILIDADE, SOA, MOBILE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "PROJETO ANATEL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "RADAR",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "RESIDENCIAL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "RESSARCIMENTO/REGULATÓRIO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SAIP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMA FTC, ARV",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS CBC,EBC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS FDS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS IIF, FDS, FRN",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS IOI, MDD, MDI, CRN, CCE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS ITX, ICT, GR3, GFX, FSI, ATM",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS RCL , ARD",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS RIN, TCO, TFI",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS RIN,TCO,TFI",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS SCF, SCE,SFC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMAS: STI, SGT, AXE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SISTEMS FEB, EBC, DER",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SOX GSI; RCLA; WFEP EM ABERTURA DE PPM",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "SRT-SGB-SER-ACCOR/MEDIAÇÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "CAUSA RAIZ",
+    "projeto": "TOA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "OUTROS",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "#NÃO INFORMADO - EXCLUIR"
+  },
+  {
+    "tipo_entregavel": "P TÁTICO (SQUAD, DEMANDA)",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "#NÃO INFORMADO - EXCLUIR"
+  },
+  {
+    "tipo_entregavel": "P TÁTICO (SQUAD, DEMANDA)",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROGRAMA AMX",
+    "projeto": "IOT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "(vazio)"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "APIs + LEGADOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "ATENDIMENTO EVOLUTIVAS",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "CLARO PAY",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "COBOLETAMENTO SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "FINANCEIRO",
+    "atividade": "FINANCEIRO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "FULLFILMENT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "GESTÃO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "HLE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "MELHORIAS COMBO MULTI",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "MIGRAÇÃO LWC",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "MIGRAÇÃO LWC ATENDIMENTO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "NFCOM",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "NFCOM - HIGIENIZAÇÃO",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "NFCOM - TRAVAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "NFCOM SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PIX Automático",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PIX AUTOMÁTICO SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PORTABILIDADE CRUZADA MOVEL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO ANATEL",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO ANATEL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO DISCOVERY",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO DISCOVERY",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO ESTRATEGICO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "GERENCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO FULLFILMENT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO LGPD",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO LGPD",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM",
+    "atividade": "GESTÃO COE SALESFORCE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
     "projeto": "PROJETO NFCOM",
     "atividade": "LIDERANÇA TÉCNICA"
   },
   {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO NFCOM TRAVAS",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
     "projeto": "PROJETO NFCOM TRAVAS",
     "atividade": "LIDERANÇA TÉCNICA"
   },
   {
-    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PCO",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PEC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PEC",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PEC",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PEC",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PEC",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PME",
+    "atividade": "(vazio)"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PME",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PME",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PORTABILIDADE",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PORTABILIDADE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO PORTIFÓLIO PÓS PAGO - Dependente Grátis",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REENVIO DE QRCODE",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REENVIO DE QRCODE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REFORMA TRIBUTÁRIA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REFORMA TRIBUTÁRIA",
+    "atividade": "GERÊNCIA TÉCNICA / LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REFORMA TRIBUTÁRIA",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REFORMA TRIBUTÁRIA",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO REFORMA TRIBUTÁRIA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GERENCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GERENTE TECNICO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "GESTÃO COE SALESFORCE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO RGC",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SAP/HANA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SAP/HANA",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SAP/HANA",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SAP/HANA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
     "projeto": "PROJETO SOLAR",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "GERENCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "GESTÃO COE SALESFORCE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO SUSPENSÃO TEMPORÁRIA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO URA COGNITIVA",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETO URA COGNITIVA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETOS RGC",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "PROJETOS RGC",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "RESTITUIÇÃO EM CONFIANÇA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "RESTITUIÇÃO EM CONFIANÇA SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "SQUAD ATENDIMENTO EVOLUTIVAS (FIN/TEC/CROSS/KB/CC/ME/LGPD)",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO ESTRATEGICO",
+    "projeto": "SQUAD DDPs ATENDIMENTO SOLAR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "ATIVAÇÃO SIMPLIFICADA",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "BILLING RESIDENCIAL",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "CLE E CLEF",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "CONFIGURAÇÃO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "DEMANDAS DE TV; OTT; RECON",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "GESTÃO E LIDERANÇA TÉCNICA NOVO BSS, SQUADS CATÁLOGO, OM/SELFCARE, INTEGRAÇÃO, FINANCEIRO)",
+    "atividade": "COORDENAÇÃO TÉCNICO DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "GESTÃO MULTISSERVIÇOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "IOT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "LICITAÇÕES",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "LIDERANÇA TÉCNICA NOVO BSS, SQUADS CATÁLOGO, OM/SELFCARE, INTEGRAÇÃO, FINANCEIRO)",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "MEDIAÇÃO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "MELHORIAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OBSOLESCÊNCIA DO WFEP/CNPJ ALFANUMERICO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OPERA360/GESTÃO MULTISSERVIÇOS",
+    "atividade": "ARQUITETURA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OPERA360/GESTÃO MULTISSERVIÇOS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OPERA360/GESTÃO MULTISSERVIÇOS",
+    "atividade": "GERENCIA TECNICA DE PROJETOS"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OPERA360/GESTÃO MULTISSERVIÇOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "OUTROS PROJETOS",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PAYMENT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PAYMENT",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PO NOVO BSS, SQUAD FINANCEIRO",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PPM 85682",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PROGRAMA AMX",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "PROJETO TÁTICO (SQUAD)",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "RCLA",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SEGURANÇA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SIV",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SOX GSI; CNPJ ALFANUMÉRICO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD CATALOGO",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD CATALOGO",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD COE API E MS",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD DEVSECOPS",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD DEVSECOPS",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD DEVSECOPS E COE API E MS",
+    "atividade": "GERÊNCIA DE PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD DEVSECOPS, COE API",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD GOVERNANÇA API",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "Squad Ongoing Perene",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OSS",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OSS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OSS",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OTT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OTT",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD OTT/SVA/SGVAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD PAYMENT",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD PRÉ-PAGO",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD PRÉ-PAGO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD PRÉ-PAGO",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD RADAR",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD SICORP",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "SQUAD SOLAR",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (SQUAD)",
+    "projeto": "STIR SHAKEN FASE 2; CAUSA RAIZ; HLE;",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "#NÃO INFORMADO - EXCLUIR",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "110020- EXPOSIÇÃO APIS OPERA 360\n86315 - GESTÃO AVANÇADA MULTISERVIÇOS - ENTREGA 10\n188035 - JORNADA EMPRESARIAL\n108806 - VALIDAÇÃO DE CHAMADAS (STIR SHAKEN)\n100140 - VIABILIDADE TÉCNICA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "86315 - GESTÃO AVANÇADA MULTISERVIÇOS - ENTREGA 09",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "86315 - GESTÃO AVANÇADA MULTISERVIÇOS - ENTREGA 13\n86315 - GESTÃO AVANÇADA MULTISERVIÇOS - ENTREGA 09\n86315 - GESTÃO MULTISSERVIÇOS - ENTREGA 7\n86888- PAGAMENTO DE APARELHOS COM CARTÃO DE CREDITO PME\n91578 - IMS TAS NETFONE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "86315 - GESTÃO MULTISSERVIÇOS - ENTREGA 7",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "86888- PAGAMENTO DE APARELHOS COM CARTÃO DE CREDITO PME",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "91578 - IMS TAS NETFONE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ADEQUAR FTC - EXCLUSAO ICMS DA BASE DO PIS/COFINS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ADEQUAR FTC EXCLUSAO ICMS BASE PIS COFINS",
+    "atividade": "GERENTE TECNICO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ADIÇÃO DE CONVÊNIOS BANCÁRIOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ANATEL - ROBOCALLS / ANTI-SPOOFING",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "APROVISIONAMENTO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ATIVAÇÃO SIMPLIFICADA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CENTRAL INTERNACIONAL OPERADORAS - NICE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CLA",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CLARO CONNECT IMPLANTAÇÃO DO VOLTE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CLARO MONITOR",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CNPJ ALFA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "COBRANÇA",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CPC",
+    "atividade": "GERÊNCIA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CREDITO",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "CREDITO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "DEMANDAS DE TV; NETSMS OSS; OTT; RECON",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "E-SIM",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "E-SIM FASE 2 - CPC",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "E-SIM FASE 2 - SICORP",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ESTEIRA DE CAUSA RAIZ DO CLA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "EVOLUCAO PLATAFORMA GAR",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "FATURAMENTO",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "FATURAMENTO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "FATURAMENTO",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "Flex",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "GERÊNCIA TÉCNICA DO PROJETO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "GESTÃO AVANCADA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "GESTÃO DOS PROJETOS DA ÁREA TÉCNICA E SUPORTE A TOMADA DE DECISÃO",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "GSI E SGA",
+    "atividade": "LIDERANÇA TÉCNICA / DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "IOT",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "IOT",
+    "atividade": "GERENCIA TECNICA DE PROJETOS"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "IOT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "JORNADA CLM",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "JORNADA EMPRESARIAL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "Jornada Única de Pagamentos",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "LEVANTAMENTO DE HLE",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "MOBILE",
+    "atividade": "DEV TEAM"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "MVNO AUTORIZADA - DATORA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "NÃO RETORNOU",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "NETFONE_2.0",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "NOVA REDE INTELIGENTE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "NUMERAÇÃO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "NUMERAÇÃO FAKE PARA MVNOS AUTORIZADAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ODA; INTEGRAÇAO DIGITAL NOTAL 10;",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "OSS",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "OSS",
+    "atividade": "LEVANTAMENTO HLE;STAFF"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "OSS",
+    "atividade": "STAFF;LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "OUTROS PROJETOS",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PAYMENT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PEC - SSO PJ",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PEC - SSO PJ - SGVAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PEC MSE / CONEXÃO TORPEDO / CHECK CREDIT",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PIX AUTOMATICO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PIX Automático",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PORTABILIDADE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PORTABILIDADE CRUZADA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PORTABILIDADE, SOA, MOBILE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PÓS-PAGO",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO  MULTISDWAN",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO BANCO DO BRASIL",
+    "atividade": "GERENCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO BANCO DO BRASIL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO CORREIOS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO CORREIOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO CSL - SIGLA DA ESTACAO",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO DESATIVAÇÃO DE SISTEMAS",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO GERENCIAMENTO SDWAN HUAWEI",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO GESTÃO MULTISERVIÇOS DO CLIENTE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO IMS TAS NETFONE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO IMS TAS NETFONE",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO JORNADA EMPRESARIAL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO JORNADA EMPRESARIAL",
+    "atividade": "LIDERANÇA TECNICA / FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO MELHORIAS REGUA DE COBRANÇA / OUTROS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO PIX RECORRENTE / OUTROS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO PORTAL MULTISERVICOS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETO REESTRUTURACAO DO CLA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETOS FATURAMENTO MÓVEL",
+    "atividade": "GERÊNCIA TÉCNICA / LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETOS SVA",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETOS TORRE FATURAMENTO EMPRESARIAL",
+    "atividade": "GERENTE TECNICO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PROJETOS TORRE MEDIAÇÃO",
+    "atividade": "GERÊNCIA TÉCNICA / LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "PS8",
+    "atividade": "GERÊNCIA TÉCNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "RADAR",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "RESIDENCIAL",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "RESSARCIMENTO (APERFEIÇOAMENTO NO PROCESSO DE RESSARCIMENTO POR INTERRUPÇÃO DE SINAL SMP)",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "ROAMING",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SEGMENTACAO PME",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SICORP,FACHADASOAACRM,FACHADASOAOMS",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SIEBEL RADAR",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SISTEMAS DE FATURAMENTO",
+    "atividade": "GERÊNCIA TECNICA DO PROJETO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SOX GSI; RCLA; WFEP EM ABERTURA DE PPM",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SQUAD DO ATIVAÇÃO SIMPLIFICADA (SONIC), FABRICA DE PROJETOS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SQUAD PRÉ-PAGO",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SSO PJ / MSE / SGWAS",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "SSO PJ / MSE / SGWAS",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "TOA",
+    "atividade": "LEVANTAMENTO HLE"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "TODOS OS SISTEMAS",
+    "atividade": "PO"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "TRANSPORTE HOJE TELECOM - CSP 46",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
+    "projeto": "VENDA APARELHO CARTÃO DE CRÉDITO PME",
+    "atividade": "LIDERANÇA TÉCNICA"
+  },
+  {
+    "tipo_entregavel": "STAFF",
+    "projeto": "GESTÃO DOS PROJETOS DA ÁREA TÉCNICA E SUPORTE A TOMADA DE DECISÃO",
+    "atividade": "FINANCEIRO"
+  },
+  {
+    "tipo_entregavel": "STAFF",
+    "projeto": "GESTÃO DOS RECURSOS E ACOMPANHAMENTO DAS ATIVIDADES DA ÁREA TÉCNICA",
+    "atividade": "FINANCEIRO"
+  },
+  {
+    "tipo_entregavel": "STAFF",
+    "projeto": "GESTÃO DOS RECURSOS E ACOMPANHAMENTO DAS ATIVIDADES DA ÁREA TÉCNICA",
+    "atividade": "FINANCEIRO E GESTÃO TIME"
+  },
+  {
+    "tipo_entregavel": "STAFF",
+    "projeto": "GOVERNANÇA SALESFORCE",
+    "atividade": "FINANCEIRO"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "ADTRAF, VMP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "ATEN",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "ATIVAÇÃO SIMPLIFICADA",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "CAPSETTLE/ROAMING",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "CCIA, ODS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "CEMI-SIGA/FRAUDE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "CFD",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "CPC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "FIELD SERVICE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "FRAUDVIEW/FRAUDE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "GESTÃO DE TDOS SISTEMAS FATURAMENTO EMRPESARIAL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "GRCS / GRC CORREIOS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "GRCS / GRC CORREIOS (CONTRATO 101 E CONTRATO 1738)",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "IME/MEDIAÇÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "NGP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "PAYMENT",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "RAID-RECON/GAR-FRAUDE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "RESSARCIMENTO/REGULATÓRIO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "RPOL, SPSWEB, ODS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SAIP",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SEARCH/JURÍDICO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SERVCELL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SIEBEL, GERENCIAS, ORBILL",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMA FTC, ARV",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMA RAID",
+    "atividade": "#NÃO INFORMADO - EXCLUIR"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS CBC,EBC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS FDS",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS IIF, FDS, FRN",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS IOI, MDD, MDI, CRN, CCE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS ITX, ICT, GR3, GFX, FSI, ATM",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS RCL , ARD",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS RIN, TCO, TFI",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS RIN,TCO,TFI",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS SCF, SCE,SFC",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMAS: STI, SGT, AXE",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SISTEMS FEB, EBC, DER",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SNR",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SRT-SGB-SER-ACCOR/MEDIAÇÃO",
+    "atividade": "FUNCIONAL"
+  },
+  {
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "SUPORTE AO WFEP PRODUÇAO",
     "atividade": "FUNCIONAL"
   },
   {
     "tipo_entregavel": "SUPORTE N3",
     "projeto": "SUPORTE N3",
-    "atividade": "LEVANTAMENTO HLE"
+    "atividade": "#NÃO INFORMADO - EXCLUIR"
   },
   {
-    "tipo_entregavel": "PROJETO ESTRATEGICO",
-    "projeto": "PROJETO ESTRATEGICO",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "TEMIP, SIGAT, IGC, MULT",
+    "atividade": "FUNCIONAL"
   },
   {
-    "tipo_entregavel": "PROGRAMA AMX",
-    "projeto": "PROGRAMA AMX",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "TEMIP, VMP",
+    "atividade": "FUNCIONAL"
   },
   {
-    "tipo_entregavel": "OUTROS",
-    "projeto": "OUTROS PROJETOS",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "P TÁTICO (SQUAD, DEMANDA)",
-    "projeto": "SQUAD ATENDIMENTO EVOLUTIVAS (FIN/TEC/CROSS/KB/CC/ME/LGPD)",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "PROJETO TÁTICO (TRADICIONAL)",
-    "projeto": "PROJETO PORTABILIDADE",
-    "atividade": "LIDERANÇA TÉCNICA"
-  },
-  {
-    "tipo_entregavel": "STAFF",
-    "projeto": "GESTÃO",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "tipo_entregavel": "SUPORTE N3",
+    "projeto": "TODOS OS SISTEMAS",
+    "atividade": "FUNCIONAL"
   },
   {
     "tipo_entregavel": "SUPORTE OGS N2",
-    "projeto": "SQUAD OSS",
-    "atividade": "LIDERANÇA TÉCNICA"
+    "projeto": "SRT-SGB-SER-ACCOR/MEDIAÇÃO",
+    "atividade": "FUNCIONAL"
   }
 ]
