@@ -1,130 +1,122 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprovação - Alocação</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprovação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Cabeçalho -->
-        <div class="header">
-            <div class="logo">
-                <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
-            </div>
-            <nav class="nav-menu">
-                <a href="{{ url_for('alocacao') }}?username={{ username }}" class="nav-link">Alocação</a>
-                <a href="{{ url_for('aprovacao') }}?username={{ username }}" class="nav-link active">Aprovação</a>
-                <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
-            </nav>
-        </div>
-
-        <!-- Filtros -->
-        <div class="filters-container">
-            <div class="filter-row">
-                <select id="gestor"></select>
-                <select id="perfil">
-                    <option value="Colaborador">Colaborador</option>
-                    <option value="Terceiro">Terceiro</option>
-                </select>
-                <input type="text" id="busca" placeholder="Buscar (nome, projeto, atividade)" list="busca-list">
-                <datalist id="busca-list"></datalist>
-                <select id="mes-inicio">
-                    <option value="">Mês de Início</option>
-                    <option value="1">Janeiro</option>
-                    <option value="2">Fevereiro</option>
-                    <option value="3">Março</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Maio</option>
-                    <option value="6">Junho</option>
-                    <option value="7">Julho</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Setembro</option>
-                    <option value="10">Outubro</option>
-                    <option value="11">Novembro</option>
-                    <option value="12">Dezembro</option>
-                </select>
-                <select id="mes-fim">
-                    <option value="">Mês de Fim</option>
-                    <option value="1">Janeiro</option>
-                    <option value="2">Fevereiro</option>
-                    <option value="3">Março</option>
-                    <option value="4">Abril</option>
-                    <option value="5">Maio</option>
-                    <option value="6">Junho</option>
-                    <option value="7">Julho</option>
-                    <option value="8">Agosto</option>
-                    <option value="9">Setembro</option>
-                    <option value="10">Outubro</option>
-                    <option value="11">Novembro</option>
-                    <option value="12">Dezembro</option>
-                </select>
-                <select id="periodo">
-                    <option value="ano">Ano</option>
-                    <option value="trimestre">Trimestre</option>
-                </select>
-                <button onclick="filtrar()" class="action-btn">Filtrar</button>
-                <button onclick="approveSelected()" class="action-btn approve-selected">Aprovar Selecionados</button>
-                <button onclick="rejectSelected()" class="action-btn reject-selected">Reprovar Selecionados</button>
-            </div>
-        </div>
-
-        <!-- Combobox de Hierarquia -->
-        <div class="hierarchy-container">
-            <div class="hierarchy-control">
-                <span>Ordem Hierárquica:</span>
-                <select id="hierarchy-select" onchange="updateHierarchy()">
-                    <!-- Opções serão preenchidas dinamicamente -->
-                </select>
-                <span id="hierarchy-display"></span>
-            </div>
-        </div>
-
-        <!-- Tabela -->
-        <table id="approval-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Item</th>
-                    <th>JAN</th>
-                    <th>FEV</th>
-                    <th>MAR</th>
-                    <th>ABR</th>
-                    <th>MAI</th>
-                    <th>JUN</th>
-                    <th>JUL</th>
-                    <th>AGO</th>
-                    <th>SET</th>
-                    <th>OUT</th>
-                    <th>NOV</th>
-                    <th>DEZ</th>
-                </tr>
-            </thead>
-            <tbody id="approval-table-body"></tbody>
-        </table>
-
-        <!-- Rodapé -->
-        <div class="footer">
-            <div class="footer-user">
-                <span id="footer-user-info">Usuário: {{ username }}</span>
-            </div>
-            <div class="footer-right">
-                <span id="counter">0 células selecionadas</span>
-            </div>
-        </div>
-
-        <!-- Modal para Justificativa -->
-        <div id="justificativa-modal" class="modal">
-            <div class="modal-content">
-                <h3>Justificativa de Reprovação</h3>
-                <textarea id="justificativa-text" required></textarea>
-                <button onclick="submitJustificativa()">Confirmar</button>
-                <button onclick="closeModal()">Cancelar</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logo.png" alt="Logo">
+      </div>
+      <nav class="nav-menu">
+        <a href="/alocacao" class="nav-link">Alocação</a>
+        <a href="/aprovacao" class="nav-link active">Aprovação</a>
+        <a href="/login" class="nav-link">Logout</a>
+      </nav>
     </div>
 
-    <script src="{{ url_for('static', filename='js/aprovacao.js') }}"></script>
+    <div class="filters-container">
+      <div class="filter-row">
+        <select id="gestor">
+          <option>Gestor</option>
+        </select>
+        <select id="perfil">
+          <option value="">Colaborador</option>
+          <option value="Terceiro">Terceiro</option>
+        </select>
+        <input type="text" id="busca" placeholder="Busca" list="busca-list">
+        <datalist id="busca-list"></datalist>
+        <select id="mes-inicio">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <select id="mes-fim">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <select id="periodo">
+          <option value="ano">Ano</option>
+          <option value="trimestre">Trimestre</option>
+        </select>
+        <button class="action-btn" onclick="filtrar()">Filtrar</button>
+        <button class="action-btn approve-selected" onclick="approveSelected()">Aprovar Selecionados</button>
+        <button class="action-btn reject-selected" onclick="rejectSelected()">Reprovar Selecionados</button>
+      </div>
+    </div>
+
+    <div class="hierarchy-container">
+      <div class="hierarchy-control">
+        Ordem Hierárquica:
+        <select id="hierarchy-select" onchange="updateHierarchy()">
+        </select>
+        <div id="hierarchy-display"></div>
+      </div>
+    </div>
+
+    <table id="approval-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>JAN</th>
+          <th>FEV</th>
+          <th>MAR</th>
+          <th>ABR</th>
+          <th>MAI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGO</th>
+          <th>SET</th>
+          <th>OUT</th>
+          <th>NOV</th>
+          <th>DEZ</th>
+        </tr>
+      </thead>
+      <tbody id="approval-table-body"></tbody>
+    </table>
+
+    <div class="footer">
+      <div class="footer-user">
+        <span>Usuário: {{ username }}</span>
+      </div>
+      <div class="footer-right">
+        <span class="counter" id="counter">0 células selecionadas</span>
+      </div>
+    </div>
+
+    <div id="justificativa-modal" class="modal">
+      <div class="modal-content">
+        <h3>Justificativa de Reprovação</h3>
+        <textarea id="justificativa-text" placeholder="Digite a justificativa para a reprovação"></textarea>
+        <button onclick="submitJustificativa()">Confirmar</button>
+        <button onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/aprovacao.js"></script>
 </body>
 </html>
