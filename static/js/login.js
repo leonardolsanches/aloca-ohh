@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Função para preencher a lista de usuários com base no tipo de usuário
-  function populateUsers(userType) {
+  function populateUsers(userType, searchTerm = '') {
     console.log('Carregando usuarios.json para preencher lista de usuários...');
     fetch('/data/usuarios.json')
       .then(response => {
@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameList.innerHTML = ''; // Limpar a lista existente
 
         if (userType && data[userType]) {
-          const users = data[userType];
-          console.log(`Usuários para o tipo "${userType}":`, users);
+          const users = data[userType].filter(user => 
+            user.nome.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          console.log(`Usuários para o tipo "${userType}" com busca "${searchTerm}":`, users);
           users.forEach(user => {
             const option = document.createElement('option');
             option.value = user.nome;
@@ -59,7 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
   userTypeSelect.addEventListener('change', function() {
     const userType = userTypeSelect.value;
     console.log('Tipo de usuário alterado para:', userType);
-    populateUsers(userType);
+    populateUsers(userType, usernameInput.value);
+  });
+
+  // Atualizar a lista ao digitar no campo de usuário
+  usernameInput.addEventListener('input', function() {
+    const userType = userTypeSelect.value;
+    const searchTerm = usernameInput.value;
+    populateUsers(userType, searchTerm);
   });
 
   // Preencher inicialmente com base no tipo de usuário padrão (se houver)
