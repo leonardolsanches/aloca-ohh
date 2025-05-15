@@ -1,0 +1,58 @@
+[
+  {
+    "id_alocacao": "ALC001",
+    "tema": "Resolução de Problemas Críticos",
+    "codigo_ppm": "PPM1234",
+    "budget_seq": "BGT-789",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC002",
+    "tema": "Suporte Avançado N3",
+    "codigo_ppm": "PPM5678",
+    "budget_seq": "BGT-456",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC003",
+    "tema": "Implementação Projeto Solar",
+    "codigo_ppm": "PPM9012",
+    "budget_seq": "BGT-123",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC004",
+    "tema": "Ativação Simplificada",
+    "codigo_ppm": "PPM3456",
+    "budget_seq": "BGT-678",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC005",
+    "tema": "Melhorias GSID e SGAP",
+    "codigo_ppm": "PPM7890",
+    "budget_seq": "BGT-234",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC006",
+    "tema": "Projeto NFCOM",
+    "codigo_ppm": "PPM1122",
+    "budget_seq": "BGT-345",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  },
+  {
+    "id_alocacao": "ALC007",
+    "tema": "Projeto NFCOM Travas",
+    "codigo_ppm": "PPM3344",
+    "budget_seq": "BGT-456",
+    "data_inicio": "2025-01-01",
+    "data_fim": "2025-12-31"
+  }
+]
