@@ -1,14 +1,107 @@
-
 [
   {
-    "colaborador": "LEONARDO LIMA SANCHES",
-    "projeto_id": "001",
-    "atividade": "Desenvolvimento",
-    "mes": "2025-05",
-    "dias": {
-      "1": 100,
-      "2": 100,
-      "5": 80
+    "colaborador": "VAGA (SILVANA MARIA OTTO DORIA)",
+    "gestor": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "projeto": "CAUSA RAIZ",
+    "atividade": "#NÃO INFORMADO - EXCLUIR",
+    "id_alocacao": "ALC001",
+    "meses": {
+      "JAN": 0.5,
+      "FEV": 0.5,
+      "MAR": 0.5,
+      "ABR": 0.5,
+      "MAI": 0.5,
+      "JUN": 0.5,
+      "JUL": 0.5,
+      "AGO": 0.5,
+      "SET": 0.5,
+      "OUT": 0.5,
+      "NOV": 0.5,
+      "DEZ": 0.5
+    }
+  },
+  {
+    "colaborador": "VAGA (SILVANA MARIA OTTO DORIA)",
+    "gestor": "TBD (JULIANA ALVES CASTRO PEREZ)",
+    "projeto": "SUPORTE N3",
+    "atividade": "#NÃO INFORMADO - EXCLUIR",
+    "id_alocacao": "ALC002",
+    "meses": {
+      "JAN": 0.5,
+      "FEV": 0.5,
+      "MAR": 0.5,
+      "ABR": 0.5,
+      "MAI": 0.5,
+      "JUN": 0.5,
+      "JUL": 0.5,
+      "AGO": 0.5,
+      "SET": 0.5,
+      "OUT": 0.5,
+      "NOV": 0.5,
+      "DEZ": 0.5
+    }
+  },
+  {
+    "colaborador": "VAGNER DE CARVALHO BRANDAO",
+    "gestor": "FABIO BRANDAO CAVALCANTI",
+    "projeto": "CAUSA RAIZ",
+    "atividade": "LIDERANÇA TÉCNICA",
+    "id_alocacao": "ALC001",
+    "meses": {
+      "JAN": 0.5,
+      "FEV": 0.5,
+      "MAR": 0.5,
+      "ABR": 0.5,
+      "MAI": 0.6,
+      "JUN": 0.6,
+      "JUL": 0.5,
+      "AGO": 0.4,
+      "SET": 0.4,
+      "OUT": 0.4,
+      "NOV": 0.4,
+      "DEZ": 0.4
+    }
+  },
+  {
+    "colaborador": "VAGNER FUMES VIEIRA",
+    "gestor": "FABIO BRANDAO CAVALCANTI",
+    "projeto": "PROJETO SOLAR",
+    "atividade": "LIDERANÇA TÉCNICA",
+    "id_alocacao": "ALC003",
+    "meses": {
+      "JAN": 1,
+      "FEV": 1,
+      "MAR": 1,
+      "ABR": 1,
+      "MAI": 1,
+      "JUN": 1,
+      "JUL": 1,
+      "AGO": 1,
+      "SET": 1,
+      "OUT": 1,
+      "NOV": 1,
+      "DEZ": 1
+    }
+  },
+  {
+    "colaborador": "VALERIA GONCALVES FERREIRA DA SILVA",
+    "gestor": "FABIO BRANDAO CAVALCANTI",
+    "projeto": "CAUSA RAIZ",
+    "atividade": "LIDERANÇA TÉCNICA",
+    "id_alocacao": "ALC001",
+    "meses": {
+      "JAN": 0.2,
+      "FEV": 0.2,
+      "MAR": 0.2,
+      "ABR": 0.2,
+      "MAI": 0.5,
+      "JUN": 0.3,
+      "JUL": 0.3,
+      "AGO": 0.3,
+      "SET": 0.3,
+      "OUT": 0.3,
+      "NOV": 0.3,
+      "DEZ": 0.3
     }
   }
 ]
