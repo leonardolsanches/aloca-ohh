@@ -145,6 +145,7 @@ Promise.all([
 function updateAutocomplete() {
   const gestor = document.getElementById('gestor').value;
   const perfil = document.getElementById('perfil').value;
+  const busca = document.getElementById('busca').value.toLowerCase();
   const buscaList = document.getElementById('busca-list');
   buscaList.innerHTML = '';
 
@@ -158,6 +159,8 @@ function updateAutocomplete() {
   } else {
     filteredUsers = [...new Set(data.map(item => item.Colaborador))];
   }
+
+  filteredUsers = filteredUsers.filter(user => user.toLowerCase().includes(busca));
 
   filteredUsers.forEach(user => {
     const option = document.createElement('option');
@@ -253,16 +256,26 @@ function renderTable() {
 
         if (item.alocacoes && item.alocacoes[monthKey]) {
           const alocs = item.alocacoes[monthKey];
+          const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
           const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
                              alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
           cell.className += ` ${statusClass}`;
+          cell.dataset.totalPercentage = totalPercentage;
+
+          if (totalPercentage === 100) {
+            cell.classList.add('green');
+          } else if (totalPercentage < 100) {
+            cell.classList.add('yellow');
+          } else {
+            cell.classList.add('red');
+          }
 
           const subCellContainer = document.createElement('div');
           subCellContainer.className = 'subcell-container';
 
           const subCell = document.createElement('div');
           subCell.className = 'subcell';
-          subCell.dataset.allocKey = `${key}-${monthKey}`;
+          subCell.dataset.allocKey = `${key}-${monthKey}-${item.name}-${level}`;
 
           const statusIcon = document.createElement('span');
           statusIcon.className = 'status-icon';
@@ -276,10 +289,7 @@ function renderTable() {
 
           const allocText = document.createElement('span');
           allocText.className = 'alloc-text';
-          allocText.textContent = alocs.map(alloc => `${Math.round(alloc.percentage)}% (${alloc.id_alocacao})`).join(', ');
-          if (alocs[0].justificativa) {
-            allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
-          }
+          allocText.textContent = `${Math.round(totalPercentage)}%`;
           subCell.appendChild(allocText);
 
           if (alocs.some(alloc => alloc.justificativa)) {
@@ -295,6 +305,10 @@ function renderTable() {
 
           subCellContainer.appendChild(subCell);
           cell.appendChild(subCellContainer);
+
+          // Adiciona evento de hover para tooltip
+          cell.addEventListener('mouseover', (e) => showTooltip(e, alocs));
+          cell.addEventListener('mouseout', hideTooltip);
         } else {
           cell.textContent = '-';
         }
@@ -324,6 +338,23 @@ function renderTable() {
   }
 
   renderRows(groupedData);
+}
+
+function showTooltip(e, alocs) {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  const tooltipContent = document.getElementById('tooltip-content');
+  tooltipContent.innerHTML = alocs.map(alloc => 
+    `Percentual: ${Math.round(alloc.percentage)}%<br>ID Alocação: ${alloc.id_alocacao}<br>Projeto: ${alloc.projeto}<br>Atividade: ${alloc.atividade}${alloc.justificativa ? `<br>Justificativa: ${alloc.justificativa}` : ''}`
+  ).join('<br><br>');
+  
+  tooltip.style.display = 'block';
+  tooltip.style.left = `${e.pageX + 10}px`;
+  tooltip.style.top = `${e.pageY + 10}px`;
+}
+
+function hideTooltip() {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  tooltip.style.display = 'none';
 }
 
 function handleCellClick(e, item, monthKey, level, subCell) {
@@ -598,9 +629,19 @@ function renderSubRows(items, tbody, parentKey) {
 
       if (item.alocacoes && item.alocacoes[monthKey]) {
         const alocs = item.alocacoes[monthKey];
+        const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
         const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
                            alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
         cell.className += ` ${statusClass}`;
+        cell.dataset.totalPercentage = totalPercentage;
+
+        if (totalPercentage === 100) {
+          cell.classList.add('green');
+        } else if (totalPercentage < 100) {
+          cell.classList.add('yellow');
+        } else {
+          cell.classList.add('red');
+        }
 
         const subCellContainer = document.createElement('div');
         subCellContainer.className = 'subcell-container';
@@ -621,10 +662,7 @@ function renderSubRows(items, tbody, parentKey) {
 
         const allocText = document.createElement('span');
         allocText.className = 'alloc-text';
-        allocText.textContent = alocs.map(alloc => `${Math.round(alloc.percentage)}% (${alloc.id_alocacao})`).join(', ');
-        if (alocs[0].justificativa) {
-          allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
-        }
+        allocText.textContent = `${Math.round(totalPercentage)}%`;
         subCell.appendChild(allocText);
 
         if (alocs.some(alloc => alloc.justificativa)) {
@@ -640,6 +678,10 @@ function renderSubRows(items, tbody, parentKey) {
 
         subCellContainer.appendChild(subCell);
         cell.appendChild(subCellContainer);
+
+        // Adiciona evento de hover para tooltip
+        cell.addEventListener('mouseover', (e) => showTooltip(e, alocs));
+        cell.addEventListener('mouseout', hideTooltip);
       } else {
         cell.textContent = '-';
       }
@@ -722,49 +764,4 @@ function filtrar() {
   const perfil = document.getElementById('perfil').value;
   const busca = document.getElementById('busca').value.toLowerCase();
   const periodo = document.getElementById('periodo').value;
-  const mesInicio = parseInt(document.getElementById('mes-inicio').value) || 1;
-  const mesFim = parseInt(document.getElementById('mes-fim').value) || 12;
-
-  let filteredData = data.filter(item => {
-    const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
-    const matchesPerfil = perfil === '' || usuarios[perfil]?.map(u => u.nome).includes(item.Colaborador);
-    const matchesBusca = busca === '' || 
-        item.Colaborador.toLowerCase().includes(busca) || 
-        item.Projeto.toLowerCase().includes(busca) || 
-        item.Atividade.toLowerCase().includes(busca);
-    return matchesGestor && matchesPerfil && matchesBusca;
-  });
-
-  filteredData = filteredData.map(item => {
-    const newItem = { ...item, alocacoes: {} };
-    Object.keys(item.alocacoes).forEach(month => {
-      const monthNum = parseInt(month.split('-')[1]);
-      if (monthNum >= mesInicio && monthNum <= mesFim) {
-        newItem.alocacoes[month] = item.alocacoes[month];
-      }
-    });
-    return newItem;
-  });
-
-  if (periodo === 'trimestre') {
-    filteredData = filteredData.map(item => {
-      const newItem = { ...item, alocacoes: {} };
-      const startMonth = 1;
-      const endMonth = 3;
-      Object.keys(item.alocacoes).forEach(month => {
-        const monthNum = parseInt(month.split('-')[1]);
-        if (monthNum >= startMonth && monthNum <= endMonth) {
-          newItem.alocacoes[month] = item.alocacoes[month];
-        }
-      });
-      return newItem;
-    });
-  }
-
-  data = filteredData;
-  renderTable();
-  updateAutocomplete();
-}
-
-document.getElementById('gestor').addEventListener('change', updateAutocomplete);
-document.getElementById('perfil').addEventListener('change', updateAutocomplete);
+  const mesInicio = parseInt(document.getElementById('
