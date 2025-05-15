@@ -41,6 +41,16 @@
         <button class="action-btn desalocar-btn" onclick="desalocar()">Desalocar</button>
         <button class="action-btn" onclick="alocar()">Alocar</button>
       </div>
+      <div class="initiative-filter-row">
+        <label for="initiative-field">Buscar Iniciativa por:</label>
+        <select id="initiative-field">
+          <option value="tema">TEMA</option>
+          <option value="codigo_ppm">Código PPM</option>
+          <option value="budget_seq">Sequencial Budget</option>
+        </select>
+        <input type="text" id="initiative-search" placeholder="Digite para buscar iniciativa" list="initiative-list">
+        <datalist id="initiative-list"></datalist>
+      </div>
     </div>
 
     <div class="calendar-nav">
