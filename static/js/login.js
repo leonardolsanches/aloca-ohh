@@ -1,3 +1,5 @@
+/* global fetch */
+
 document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('login-form');
   const bypassButton = document.getElementById('bypass-login');
@@ -22,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Função para preencher a lista de usuários com base no tipo de usuário
   function populateUsers(userType) {
     console.log('Carregando usuarios.json para preencher lista de usuários...');
-    fetch('/static/usuarios.json')
+    fetch('/data/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carregar o arquivo usuarios.json para autenticação
     console.log('Carregando usuarios.json para autenticação...');
-    fetch('/static/usuarios.json')
+    fetch('/data/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
