@@ -1,66 +1,72 @@
-// Inicialização de variáveis globais
-let currentDate = new Date();
-let allocations = {};
-let selectedDaysByMonth = {};
-let lastSelectedDay = null;
+/* global fetch */
+
+let gestores = [];
+let data = [];
+let hierarchy = ['Projeto', 'Colaborador', 'Atividade'];
+let hierarchyOptions = [
+    { display: 'Atividade > Colaborador > Projeto', value: ['Atividade', 'Colaborador', 'Projeto'] },
+    { display: 'Atividade > Projeto > Colaborador', value: ['Atividade', 'Projeto', 'Colaborador'] },
+    { display: 'Colaborador > Atividade > Projeto', value: ['Colaborador', 'Atividade', 'Projeto'] },
+    { display: 'Colaborador > Projeto > Atividade', value: ['Colaborador', 'Projeto', 'Atividade'] },
+    { display: 'Projeto > Atividade > Colaborador', value: ['Projeto', 'Atividade', 'Colaborador'] },
+    { display: 'Projeto > Colaborador > Atividade', value: ['Projeto', 'Colaborador', 'Atividade'] }
+];
+let currentJustificativaTarget = null;
+let usuarios = {};
+let lastSelectedCell = null;
+let selectedCells = new Set();
 
 // Obter o username da URL
 const urlParams = new URLSearchParams(window.location.search);
 const currentUser = urlParams.get('username') || 'Convidado';
 console.log('Usuário atual obtido da URL:', currentUser);
 
-// Dados simulados para teste (mock)
-const mockAllocations = {
-  "2025-01-01": [
-    { percentage: 50, projeto: "Projeto A", atividade: "Atividade 1", usuario: "João Silva" },
-    { percentage: 25, projeto: "Projeto A", atividade: "Atividade 2", usuario: "João Silva" }
-  ],
-  "2025-01-02": [
-    { percentage: 75, projeto: "Projeto B", atividade: "Atividade 3", usuario: "João Silva" }
-  ],
-  "2025-02-01": [
-    { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", usuario: "João Silva" }
-  ],
-  "2025-02-03": [
-    { percentage: 80, projeto: "Projeto B", atividade: "Atividade 3", usuario: "João Silva" }
-  ],
-  "2025-03-01": [
-    { percentage: 70, projeto: "Projeto A", atividade: "Atividade 2", usuario: "João Silva" }
-  ]
-};
+// Carrega alocações do localStorage e dos dados fornecidos
+function loadDataFromLocalStorage() {
+  const savedAllocations = localStorage.getItem('allocations');
+  const allocations = savedAllocations ? JSON.parse(savedAllocations) : {};
+  console.log('Alocações carregadas do localStorage:', allocations);
 
-// Inicializa alocações com dados simulados se o localStorage estiver vazio
-function initializeMockData() {
-  const saved = localStorage.getItem('allocations');
-  if (!saved) {
-    console.log('Nenhuma alocação encontrada no localStorage. Inicializando com dados simulados...');
-    localStorage.setItem('allocations', JSON.stringify(mockAllocations));
-    allocations = { ...mockAllocations };
-  } else {
-    allocations = JSON.parse(saved);
-    console.log('Alocações carregadas do localStorage:', allocations);
-  }
+  const groupedData = [];
+
+  Object.keys(allocations).forEach(date => {
+    const entries = allocations[date] || [];
+    entries.forEach(entry => {
+      const colaborador = entry.usuario || currentUser;
+      const projeto = entry.projeto || "Projeto Desconhecido";
+      const atividade = entry.atividade || "Atividade Desconhecida";
+      const percentage = entry.percentage || 0;
+
+      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador && item.Projeto === projeto && item.Atividade === atividade);
+      if (!colaboradorEntry) {
+        colaboradorEntry = {
+          Colaborador: colaborador,
+          Projeto: projeto,
+          Atividade: atividade,
+          alocacoes: {}
+        };
+        groupedData.push(colaboradorEntry);
+      }
+
+      const monthKey = date.slice(0, 7);
+      if (!colaboradorEntry.alocacoes[monthKey]) {
+        colaboradorEntry.alocacoes[monthKey] = [];
+      }
+      colaboradorEntry.alocacoes[monthKey].push({
+        percentage: percentage,
+        projeto: projeto,
+        atividade: atividade,
+        status: 'pendente',
+        justificativa: ''
+      });
+    });
+  });
+
+  return groupedData;
 }
 
-// Carrega alocações do localStorage ao iniciar
-function loadAllocations() {
-  const saved = localStorage.getItem('allocations');
-  if (saved) {
-    allocations = JSON.parse(saved);
-    console.log('Alocações carregadas do localStorage:', allocations);
-  } else {
-    console.log('Nenhuma alocação encontrada no localStorage após inicialização.');
-  }
-}
-
-// Salva alocações no localStorage
-function saveAllocations() {
-  console.log('Salvando alocações no localStorage:', allocations);
-  localStorage.setItem('allocations', JSON.stringify(allocations));
-}
-
-// Carrega dados de projetos e atividades do arquivo usuarios.json
-console.log('Carregando usuarios.json para popular projetos e atividades...');
+// Carrega dados de gestores e usuários
+console.log('Carregando usuarios.json para preencher filtros...');
 fetch('/static/usuarios.json')
   .then(response => {
     console.log('Resposta do fetch para usuarios.json:', response);
@@ -69,328 +75,174 @@ fetch('/static/usuarios.json')
     }
     return response.json();
   })
-  .then(data => {
-    console.log('Dados carregados de usuarios.json:', data);
-    const projetosSelect = document.getElementById('projeto');
-    const atividadesSelect = document.getElementById('atividade');
-    projetosSelect.innerHTML = '<option>Projeto</option>';
-    atividadesSelect.innerHTML = '<option>Atividade</option>';
-    data.Projetos.forEach(projeto => {
-      const option = document.createElement('option');
-      option.value = projeto;
-      option.textContent = projeto;
-      projetosSelect.appendChild(option);
-    });
-    data.Atividades.forEach(atividade => {
-      const option = document.createElement('option');
-      option.value = atividade;
-      option.textContent = atividade;
-      atividadesSelect.appendChild(option);
+  .then(json => {
+    usuarios = json;
+    gestores = json.Gestor || [];
+    const gestorSelect = document.getElementById('gestor');
+    gestorSelect.innerHTML = '<option>Gestor</option>';
+    gestores.forEach(gestor => {
+      if (gestor !== 'GESTOR À IDENTIFICAR' && gestor !== 'CAUSA RAIZ' && gestor !== 'SUPORTE N3' && gestor !== 'PROJETO ESTRATEGICO') {
+        const option = document.createElement('option');
+        option.value = gestor;
+        option.textContent = gestor;
+        gestorSelect.appendChild(option);
+      }
     });
 
-    // Inicializa com dados simulados se necessário
-    initializeMockData();
-    loadAllocations();
-    console.log('Chamando renderCalendar para renderizar o calendário...');
-    renderCalendar();
+    let localData = loadDataFromLocalStorage();
+    console.log('Dados processados do localStorage:', localData);
+
+    // Estrutura de dados a partir de Dados.xlsx (simulada aqui com base no contexto)
+    const rawData = [
+      // Dados extraídos de Dados.xlsx (segunda seção)
+      {
+        Colaborador: "VAGA (SILVANA MARIA OTTO DORIA)",
+        Projeto: "CAUSA RAIZ",
+        Atividade: "#NÃO INFORMADO - EXCLUIR",
+        alocacoes: {
+          "2025-01": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-02": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-03": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-04": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-05": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-06": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-07": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-08": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-09": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-10": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-11": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-12": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }]
+        }
+      },
+      {
+        Colaborador: "VAGA (SILVANA MARIA OTTO DORIA)",
+        Projeto: "SUPORTE N3",
+        Atividade: "#NÃO INFORMADO - EXCLUIR",
+        alocacoes: {
+          "2025-01": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-02": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-03": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-04": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-05": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-06": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-07": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-08": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-09": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-10": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-11": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
+          "2025-12": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }]
+        }
+      },
+      {
+        Colaborador: "VAGNER DE CARVALHO BRANDAO",
+        Projeto: "CAUSA RAIZ",
+        Atividade: "LIDERANÇA TÉCNICA",
+        alocacoes: {
+          "2025-01": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-02": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-03": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-04": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-05": [{ percentage: 0.6, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-06": [{ percentage: 0.6, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-07": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-08": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-09": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-10": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-11": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-12": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
+        }
+      },
+      {
+        Colaborador: "VAGNER FUMES VIEIRA",
+        Projeto: "PROJETO SOLAR",
+        Atividade: "LIDERANÇA TÉCNICA",
+        alocacoes: {
+          "2025-01": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-02": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-03": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-04": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-05": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-06": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-07": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-08": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-09": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-10": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-11": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-12": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
+        }
+      },
+      {
+        Colaborador: "VALERIA GONCALVES FERREIRA DA SILVA",
+        Projeto: "CAUSA RAIZ",
+        Atividade: "LIDERANÇA TÉCNICA",
+        alocacoes: {
+          "2025-01": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-02": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-03": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-04": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-05": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-06": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-07": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-08": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-09": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-10": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-11": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
+          "2025-12": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
+        }
+      }
+      // Outros registros podem ser adicionados aqui conforme necessário...
+    ];
+
+    // Filtra entradas inválidas e combina com dados do localStorage
+    data = [...localData, ...rawData.filter(item => item.Projeto !== '#NÃO INFORMADO - EXCLUIR' && item.Atividade !== '#NÃO INFORMADO - EXCLUIR')];
+    console.log('Dados combinados para a tela de aprovação:', data);
+
+    // Popula o seletor de hierarquia
+    const hierarchySelect = document.getElementById('hierarchy-select');
+    hierarchyOptions.forEach((option, index) => {
+      const opt = document.createElement('option');
+      opt.value = index;
+      opt.textContent = option.display;
+      hierarchySelect.appendChild(opt);
+    });
+
+    renderTable();
+    updateAutocomplete();
   })
   .catch(error => {
     console.error('Erro ao carregar usuarios.json:', error);
-    alert('Erro ao carregar dados de projetos e atividades. Verifique o console.');
+    alert('Erro ao carregar dados. Verifique o console.');
   });
 
-// Renderiza o calendário na tela
-function renderCalendar() {
-  console.log('Iniciando renderCalendar...');
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-  
-  // Atualiza o título do calendário
-  const calendarTitle = document.getElementById('calendar-title');
-  if (!calendarTitle) {
-    console.error('Elemento "calendar-title" não encontrado no DOM.');
-    return;
-  }
-  calendarTitle.textContent = `${monthNames[month]} de ${year}`;
+// Atualiza o autocomplete com base nos filtros
+function updateAutocomplete() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const buscaList = document.getElementById('busca-list');
+  buscaList.innerHTML = '';
 
-  // Renderiza os dias da semana no cabeçalho
-  const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-  const header = document.getElementById('calendar-header');
-  if (!header) {
-    console.error('Elemento "calendar-header" não encontrado no DOM.');
-    return;
+  let filteredUsers = [];
+  if (gestor !== 'Gestor' && perfil) {
+    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].includes(item.Colaborador)).map(item => item.Colaborador);
+  } else if (perfil) {
+    filteredUsers = usuarios[perfil];
+  } else if (gestor !== 'Gestor') {
+    filteredUsers = data.filter(item => item.Colaborador === gestor).map(item => item.Colaborador);
+  } else {
+    filteredUsers = [...new Set(data.map(item => item.Colaborador))];
   }
-  header.innerHTML = '';
-  daysOfWeek.forEach(day => {
-    const div = document.createElement('div');
-    div.className = 'day';
-    div.textContent = day;
-    header.appendChild(div);
+
+  filteredUsers.forEach(user => {
+    const option = document.createElement('option');
+    option.value = user;
+    buscaList.appendChild(option);
   });
-
-  // Calcula os dias do mês e o primeiro dia
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysDiv = document.getElementById('calendar-days');
-  if (!daysDiv) {
-    console.error('Elemento "calendar-days" não encontrado no DOM.');
-    return;
-  }
-  daysDiv.innerHTML = '';
-
-  // Adiciona espaços vazios antes do primeiro dia do mês
-  for (let i = 0; i < firstDay; i++) {
-    const emptyDiv = document.createElement('div');
-    emptyDiv.className = 'day empty';
-    emptyDiv.dataset.date = '';
-    daysDiv.appendChild(emptyDiv);
-  }
-
-  // Carrega dias selecionados para o mês atual
-  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
-  const selectedDays = selectedDaysByMonth[monthKey] || new Set();
-
-  // Renderiza os dias do mês
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const dayDiv = document.createElement('div');
-    dayDiv.className = 'day';
-    dayDiv.dataset.date = dateStr;
-
-    // Adiciona o número do dia
-    const dayNumber = document.createElement('span');
-    dayNumber.className = 'day-number';
-    dayNumber.textContent = day;
-    dayDiv.appendChild(dayNumber);
-
-    // Verifica se o dia está selecionado
-    if (selectedDays.has(dateStr)) {
-      dayDiv.classList.add('selected');
-    }
-
-    // Verifica se há alocações para o dia
-    if (allocations[dateStr]) {
-      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + alloc.percentage, 0);
-      dayDiv.dataset.percentage = totalPercentage;
-      if (totalPercentage === 100) {
-        dayDiv.classList.add('green');
-      } else if (totalPercentage < 100) {
-        dayDiv.classList.add('yellow');
-      } else {
-        dayDiv.classList.add('red');
-      }
-
-      // Texto resumido dentro da célula
-      const summaryText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}`).join('<br>');
-      const summary = document.createElement('span');
-      summary.className = 'allocation-summary';
-      summary.innerHTML = summaryText;
-      dayDiv.appendChild(summary);
-
-      // Tooltip com detalhes completos
-      const tooltipText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('\n');
-      dayDiv.setAttribute('title', tooltipText);
-    }
-
-    // Adiciona evento de clique ao dia
-    dayDiv.addEventListener('click', handleDayClick);
-    daysDiv.appendChild(dayDiv);
-  }
-
-  updateSelection();
-  console.log('renderCalendar concluído.');
+  console.log('Autocomplete atualizado:', filteredUsers);
 }
 
-// Navega para o mês anterior
-function previousMonth() {
-  saveSelections();
-  currentDate.setMonth(currentDate.getMonth() - 1);
-  console.log('Navegando para o mês anterior:', currentDate);
-  renderCalendar();
-}
-
-// Navega para o próximo mês
-function nextMonth() {
-  saveSelections();
-  currentDate.setMonth(currentDate.getMonth() + 1);
-  console.log('Navegando para o próximo mês:', currentDate);
-  renderCalendar();
-}
-
-// Salva os dias selecionados para o mês atual
-function saveSelections() {
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const selectedDates = new Set();
-  selectedDays.forEach(day => selectedDates.add(day.dataset.date));
-  selectedDaysByMonth[monthKey] = selectedDates;
-  console.log('Seleções salvas para o mês:', monthKey, selectedDates);
-}
-
-// Lida com o clique em um dia do calendário
-function handleDayClick(e) {
-  const isShiftPressed = e.shiftKey;
-  const isCtrlPressed = e.ctrlKey;
-  const day = e.target.closest('.day'); // Garante que o clique seja no elemento .day
-  if (!day || day.classList.contains('empty')) return;
-
-  const days = document.querySelectorAll('.calendar-days .day:not(.empty)');
-
-  if (!isShiftPressed && !isCtrlPressed) {
-    days.forEach(d => d.classList.remove('selected'));
-    day.classList.add('selected');
-    lastSelectedDay = day;
-  } else if (isCtrlPressed) {
-    day.classList.toggle('selected');
-    lastSelectedDay = day;
-  } else if (isShiftPressed && lastSelectedDay) {
-    const allDays = Array.from(days);
-    const startIndex = allDays.indexOf(lastSelectedDay);
-    const endIndex = allDays.indexOf(day);
-    const minIndex = Math.min(startIndex, endIndex);
-    const maxIndex = Math.max(startIndex, endIndex);
-
-    days.forEach(d => {
-      if (!d.classList.contains('selected')) {
-        d.classList.remove('selected');
-      }
-    });
-
-    for (let i = minIndex; i <= maxIndex; i++) {
-      allDays[i].classList.add('selected');
-    }
-  }
-
-  updateSelection();
-}
-
-// Atualiza a seleção de dias e os campos de data
-function updateSelection() {
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const counter = document.getElementById('counter');
-  if (!counter) {
-    console.error('Elemento "counter" não encontrado no DOM.');
-    return;
-  }
-  counter.textContent = `${selectedDays.length} dias selecionados`;
-
-  if (selectedDays.length > 0) {
-    const dates = Array.from(selectedDays)
-      .map(day => new Date(day.getAttribute('data-date')))
-      .filter(date => !isNaN(date));
-    
-    if (dates.length > 0) {
-      const minDate = new Date(Math.min(...dates));
-      const maxDate = new Date(Math.max(...dates));
-      document.getElementById('data-inicio').value = minDate.toISOString().split('T')[0];
-      document.getElementById('data-fim').value = maxDate.toISOString().split('T')[0];
-    } else {
-      document.getElementById('data-inicio').value = '';
-      document.getElementById('data-fim').value = '';
-    }
-  } else {
-    document.getElementById('data-inicio').value = '';
-    document.getElementById('data-fim').value = '';
-  }
-  console.log('Seleção atualizada. Dias selecionados:', selectedDays.length);
-}
-
-// Realiza a alocação de horas
-function alocar() {
-  const tipoProjetoAtividade = document.getElementById('tipo-projeto-atividade').value;
-  const projeto = document.getElementById('projeto').value;
-  const atividade = document.getElementById('atividade').value;
-  const dataInicio = document.getElementById('data-inicio').value;
-  const dataFim = document.getElementById('data-fim').value;
-  const quantidade = parseFloat(document.getElementById('quantidade').value);
-  const metrica = document.getElementById('metrica').value;
-
-  console.log('Iniciando alocação:', { tipoProjetoAtividade, projeto, atividade, dataInicio, dataFim, quantidade, metrica });
-
-  if (!tipoProjetoAtividade || !projeto || !atividade || !dataInicio || !dataFim || isNaN(quantidade)) {
-    console.log('Campos obrigatórios não preenchidos para alocação.');
-    alert('Preencha todos os campos corretamente.');
-    return;
-  }
-
-  const startDate = new Date(dataInicio);
-  const endDate = new Date(dataFim);
-  const businessDays = [];
-  let current = new Date(startDate);
-
-  while (current <= endDate) {
-    const dayOfWeek = current.getDay();
-    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
-      businessDays.push(new Date(current));
-    }
-    current.setDate(current.getDate() + 1);
-  }
-
-  if (businessDays.length === 0) {
-    console.log('Nenhum dia útil encontrado no período selecionado.');
-    alert('Nenhum dia útil encontrado no período selecionado.');
-    return;
-  }
-
-  let allocationPerDay;
-  if (metrica === 'horas/mês') {
-    allocationPerDay = (quantidade / businessDays.length) / 8 * 100;
-  } else {
-    allocationPerDay = 100 / businessDays.length;
-  }
-
-  businessDays.forEach(day => {
-    const dateStr = day.toISOString().split('T')[0];
-    if (!allocations[dateStr]) {
-      allocations[dateStr] = [];
-    }
-    allocations[dateStr].push({
-      percentage: allocationPerDay,
-      projeto: projeto,
-      atividade: atividade,
-      usuario: currentUser // Adiciona o usuário atual à alocação
-    });
-  });
-
-  saveAllocations();
-  renderCalendar();
-  console.log('Alocação concluída para os dias:', businessDays);
-}
-
-// Realiza a desalocação de horas
-function desalocar() {
-  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  console.log('Iniciando desalocação...');
-  console.log('Dias selecionados:', selectedDays.length);
-
-  if (selectedDays.length > 0) {
-    // Desalocar apenas os dias selecionados
-    selectedDays.forEach(day => {
-      const dateStr = day.dataset.date;
-      if (allocations[dateStr]) {
-        console.log('Desalocando dia:', dateStr);
-        delete allocations[dateStr];
-      }
-    });
-  } else {
-    // Desalocar todo o mês atual
-    for (let day = 1; day <= daysInMonth; day++) {
-      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-      if (allocations[dateStr]) {
-        console.log('Desalocando dia do mês:', dateStr);
-        delete allocations[dateStr];
-      }
-    }
-  }
-
-  saveAllocations();
-  renderCalendar();
-  console.log('Desalocação concluída.');
-}
+// Carrega aprovações salvas do localStorage
+function loadApprovals() {
+  const saved = localStorage.getItem('approvals');
+  if (saved) {
+    const approvals = JSON.parse(saved);
+    console
