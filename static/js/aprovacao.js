@@ -57,7 +57,8 @@ function loadDataFromLocalStorage() {
         projeto: projeto,
         atividade: atividade,
         status: 'pendente',
-        justificativa: ''
+        justificativa: '',
+        id_alocacao: entry.id_alocacao
       });
     });
   });
@@ -65,153 +66,80 @@ function loadDataFromLocalStorage() {
   return groupedData;
 }
 
-// Carrega dados de gestores e usuários
-console.log('Carregando usuarios.json para preencher filtros...');
-fetch('/data/usuarios.json')
-  .then(response => {
-    console.log('Resposta do fetch para usuarios.json:', response);
-    if (!response.ok) {
-      throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
-    }
+// Carrega dados de gestores, usuários e alocações
+console.log('Carregando dados para a tela de aprovação...');
+Promise.all([
+  fetch('/data/usuarios.json').then(response => {
+    if (!response.ok) throw new Error('Erro ao carregar usuarios.json');
+    return response.json();
+  }),
+  fetch('/data/alocacoes.json').then(response => {
+    if (!response.ok) throw new Error('Erro ao carregar alocacoes.json');
     return response.json();
   })
-  .then(json => {
-    usuarios = json;
-    gestores = json.Gestor || [];
-    const gestorSelect = document.getElementById('gestor');
-    gestorSelect.innerHTML = '<option>Gestor</option>';
-    gestores.forEach(gestor => {
-      if (gestor !== 'GESTOR À IDENTIFICAR' && gestor !== 'CAUSA RAIZ' && gestor !== 'SUPORTE N3' && gestor !== 'PROJETO ESTRATEGICO') {
-        const option = document.createElement('option');
-        option.value = gestor;
-        option.textContent = gestor;
-        gestorSelect.appendChild(option);
-      }
-    });
-
-    let localData = loadDataFromLocalStorage();
-    console.log('Dados processados do localStorage:', localData);
-
-    // Estrutura de dados a partir de Dados.xlsx (simulada aqui com base no contexto)
-    const rawData = [
-      // Dados extraídos de Dados.xlsx (segunda seção)
-      {
-        Colaborador: "VAGA (SILVANA MARIA OTTO DORIA)",
-        Projeto: "CAUSA RAIZ",
-        Atividade: "#NÃO INFORMADO - EXCLUIR",
-        alocacoes: {
-          "2025-01": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-02": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-03": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-04": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-05": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-06": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-07": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-08": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-09": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-10": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-11": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-12": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }]
-        }
-      },
-      {
-        Colaborador: "VAGA (SILVANA MARIA OTTO DORIA)",
-        Projeto: "SUPORTE N3",
-        Atividade: "#NÃO INFORMADO - EXCLUIR",
-        alocacoes: {
-          "2025-01": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-02": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-03": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-04": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-05": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-06": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-07": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-08": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-09": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-10": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-11": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }],
-          "2025-12": [{ percentage: 0.5, projeto: "SUPORTE N3", atividade: "#NÃO INFORMADO - EXCLUIR", status: 'pendente', justificativa: '' }]
-        }
-      },
-      {
-        Colaborador: "VAGNER DE CARVALHO BRANDAO",
-        Projeto: "CAUSA RAIZ",
-        Atividade: "LIDERANÇA TÉCNICA",
-        alocacoes: {
-          "2025-01": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-02": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-03": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-04": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-05": [{ percentage: 0.6, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-06": [{ percentage: 0.6, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-07": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-08": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-09": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-10": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-11": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-12": [{ percentage: 0.4, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
-        }
-      },
-      {
-        Colaborador: "VAGNER FUMES VIEIRA",
-        Projeto: "PROJETO SOLAR",
-        Atividade: "LIDERANÇA TÉCNICA",
-        alocacoes: {
-          "2025-01": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-02": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-03": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-04": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-05": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-06": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-07": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-08": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-09": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-10": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-11": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-12": [{ percentage: 1, projeto: "PROJETO SOLAR", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
-        }
-      },
-      {
-        Colaborador: "VALERIA GONCALVES FERREIRA DA SILVA",
-        Projeto: "CAUSA RAIZ",
-        Atividade: "LIDERANÇA TÉCNICA",
-        alocacoes: {
-          "2025-01": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-02": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-03": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-04": [{ percentage: 0.2, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-05": [{ percentage: 0.5, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-06": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-07": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-08": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-09": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-10": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-11": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }],
-          "2025-12": [{ percentage: 0.3, projeto: "CAUSA RAIZ", atividade: "LIDERANÇA TÉCNICA", status: 'pendente', justificativa: '' }]
-        }
-      }
-    ];
-
-    // Filtra entradas inválidas e combina com dados do localStorage
-    data = [...localData, ...rawData.filter(item => item.Projeto !== '#NÃO INFORMADO - EXCLUIR' && item.Atividade !== '#NÃO INFORMADO - EXCLUIR')];
-    console.log('Dados combinados para a tela de aprovação:', data);
-
-    // Popula o seletor de hierarquia
-    const hierarchySelect = document.getElementById('hierarchy-select');
-    hierarchyOptions.forEach((option, index) => {
-      const opt = document.createElement('option');
-      opt.value = index;
-      opt.textContent = option.display;
-      hierarchySelect.appendChild(opt);
-    });
-
-    renderTable();
-    updateAutocomplete();
-  })
-  .catch(error => {
-    console.error('Erro ao carregar usuarios.json:', error);
-    alert('Erro ao carregar dados. Verifique o console.');
+])
+.then(([usuariosData, alocacoesData]) => {
+  usuarios = usuariosData;
+  gestores = usuarios.Gestor || [];
+  const gestorSelect = document.getElementById('gestor');
+  gestorSelect.innerHTML = '<option>Gestor</option>';
+  gestores.forEach(gestor => {
+    if (gestor !== 'GESTOR À IDENTIFICAR' && gestor !== 'CAUSA RAIZ' && gestor !== 'SUPORTE N3' && gestor !== 'PROJETO ESTRATEGICO') {
+      const option = document.createElement('option');
+      option.value = gestor.nome;
+      option.textContent = gestor.nome;
+      gestorSelect.appendChild(option);
+    }
   });
+
+  let localData = loadDataFromLocalStorage();
+  console.log('Dados processados do localStorage:', localData);
+
+  // Estrutura de dados a partir de alocacoes.json
+  const rawData = alocacoesData.map(alocacao => {
+    const alocacoesMensais = {};
+    Object.entries(alocacao.meses).forEach(([mes, percentage]) => {
+      if (percentage > 0) {
+        const mesIndex = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].indexOf(mes) + 1;
+        const monthKey = `2025-${String(mesIndex).padStart(2, '0')}`;
+        alocacoesMensais[monthKey] = [{
+          percentage: percentage,
+          projeto: alocacao.projeto,
+          atividade: alocacao.atividade,
+          status: 'pendente',
+          justificativa: '',
+          id_alocacao: alocacao.id_alocacao
+        }];
+      }
+    });
+    return {
+      Colaborador: alocacao.colaborador,
+      Projeto: alocacao.projeto,
+      Atividade: alocacao.atividade,
+      alocacoes: alocacoesMensais
+    };
+  });
+
+  // Filtra entradas inválidas e combina com dados do localStorage
+  data = [...localData, ...rawData.filter(item => item.Projeto !== '#NÃO INFORMADO - EXCLUIR' && item.Atividade !== '#NÃO INFORMADO - EXCLUIR')];
+  console.log('Dados combinados para a tela de aprovação:', data);
+
+  // Popula o seletor de hierarquia
+  const hierarchySelect = document.getElementById('hierarchy-select');
+  hierarchyOptions.forEach((option, index) => {
+    const opt = document.createElement('option');
+    opt.value = index;
+    opt.textContent = option.display;
+    hierarchySelect.appendChild(opt);
+  });
+
+  renderTable();
+  updateAutocomplete();
+})
+.catch(error => {
+  console.error('Erro ao carregar dados:', error);
+  alert('Erro ao carregar dados. Verifique o console.');
+});
 
 // Atualiza o autocomplete com base nos filtros
 function updateAutocomplete() {
@@ -222,9 +150,9 @@ function updateAutocomplete() {
 
   let filteredUsers = [];
   if (gestor !== 'Gestor' && perfil) {
-    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].includes(item.Colaborador)).map(item => item.Colaborador);
+    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].map(u => u.nome).includes(item.Colaborador)).map(item => item.Colaborador);
   } else if (perfil) {
-    filteredUsers = usuarios[perfil];
+    filteredUsers = usuarios[perfil].map(u => u.nome);
   } else if (gestor !== 'Gestor') {
     filteredUsers = data.filter(item => item.Colaborador === gestor).map(item => item.Colaborador);
   } else {
@@ -272,7 +200,8 @@ function saveApprovals() {
           atividade: item.Atividade,
           mes: month.split('-')[1],
           status: alloc.status,
-          justificativa: alloc.justificativa
+          justificativa: alloc.justificativa,
+          id_alocacao: alloc.id_alocacao
         };
       });
     });
@@ -347,7 +276,7 @@ function renderTable() {
 
           const allocText = document.createElement('span');
           allocText.className = 'alloc-text';
-          allocText.textContent = alocs.map(alloc => `${alloc.percentage}%`).join(', ');
+          allocText.textContent = alocs.map(alloc => `${Math.round(alloc.percentage)}% (${alloc.id_alocacao})`).join(', ');
           if (alocs[0].justificativa) {
             allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
           }
@@ -570,7 +499,8 @@ function groupData(data) {
         atividade: levels['Atividade'],
         status: alloc.status,
         justificativa: alloc.justificativa,
-        colaborador: levels['Colaborador']
+        colaborador: levels['Colaborador'],
+        id_alocacao: alloc.id_alocacao
       })));
     });
   });
@@ -667,4 +597,174 @@ function renderSubRows(items, tbody, parentKey) {
       cell.dataset.month = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'][month - 1];
 
       if (item.alocacoes && item.alocacoes[monthKey]) {
-        const alocs = item
+        const alocs = item.alocacoes[monthKey];
+        const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
+                           alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
+        cell.className += ` ${statusClass}`;
+
+        const subCellContainer = document.createElement('div');
+        subCellContainer.className = 'subcell-container';
+
+        const subCell = document.createElement('div');
+        subCell.className = 'subcell';
+        subCell.dataset.allocKey = `${key}-${monthKey}-${item.name}-${level}`;
+
+        const statusIcon = document.createElement('span');
+        statusIcon.className = 'status-icon';
+        statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
+                                 alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
+        statusIcon.onclick = (e) => {
+          e.stopPropagation();
+          handleCellClick(e, item, monthKey, level, subCell);
+        };
+        subCell.appendChild(statusIcon);
+
+        const allocText = document.createElement('span');
+        allocText.className = 'alloc-text';
+        allocText.textContent = alocs.map(alloc => `${Math.round(alloc.percentage)}% (${alloc.id_alocacao})`).join(', ');
+        if (alocs[0].justificativa) {
+          allocText.setAttribute('title', `Justificativa: ${alocs[0].justificativa}`);
+        }
+        subCell.appendChild(allocText);
+
+        if (alocs.some(alloc => alloc.justificativa)) {
+          const editBtn = document.createElement('span');
+          editBtn.className = 'edit-icon';
+          editBtn.textContent = '✎';
+          editBtn.onclick = (e) => {
+            e.stopPropagation();
+            editJustificativa(item, monthKey, alocs[0]);
+          };
+          subCell.appendChild(editBtn);
+        }
+
+        subCellContainer.appendChild(subCell);
+        cell.appendChild(subCellContainer);
+      } else {
+        cell.textContent = '-';
+      }
+
+      row.appendChild(cell);
+    }
+
+    tbody.appendChild(row);
+
+    // Renderizar os filhos como novas linhas
+    if (item.children && item.children.length > 0) {
+      const childRow = document.createElement('tr');
+      childRow.className = `children level-${level + 1}`;
+      childRow.id = `children-${key}`;
+      childRow.style.display = 'none';
+      const childCell = document.createElement('td');
+      childCell.colSpan = 14; // Ocupa todas as colunas para conter a sub-tabela
+      const childTable = document.createElement('table');
+      childTable.className = 'sub-table';
+      const childTbody = document.createElement('tbody');
+      childTable.appendChild(childTbody);
+      childCell.appendChild(childTable);
+      childRow.appendChild(childCell);
+      tbody.appendChild(childRow);
+    }
+  });
+}
+
+function propagateAction(items, monthKey, newStatus) {
+  items.forEach(item => {
+    if (item.alocacoes && item.alocacoes[monthKey]) {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = newStatus;
+        if (newStatus !== 'reprovado') {
+          alloc.justificativa = '';
+        }
+      });
+    }
+    if (item.children) {
+      propagateAction(item.children, monthKey, newStatus);
+    }
+  });
+}
+
+function editJustificativa(item, monthKey, alloc) {
+  currentJustificativaTarget = { item, monthKey, alloc };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = alloc.justificativa || '';
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  const modal = document.getElementById('justificativa-modal');
+  modal.style.display = 'none';
+  currentJustificativaTarget = null;
+}
+
+function updateHierarchy() {
+  const hierarchySelect = document.getElementById('hierarchy-select');
+  const selectedIndex = parseInt(hierarchySelect.value);
+  hierarchy = hierarchyOptions[selectedIndex].value;
+  updateHierarchyDisplay();
+  renderTable();
+}
+
+function updateHierarchyDisplay() {
+  const display = document.getElementById('hierarchy-display');
+  display.innerHTML = `
+    <span class="hierarchy-level">${hierarchy[0]}</span>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[1]}</span>
+    <span> ⬇ > </span>
+    <span class="hierarchy-level">${hierarchy[2]}</span>
+  `;
+}
+
+function filtrar() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const busca = document.getElementById('busca').value.toLowerCase();
+  const periodo = document.getElementById('periodo').value;
+  const mesInicio = parseInt(document.getElementById('mes-inicio').value) || 1;
+  const mesFim = parseInt(document.getElementById('mes-fim').value) || 12;
+
+  let filteredData = data.filter(item => {
+    const matchesGestor = gestor === 'Gestor' || item.Colaborador === gestor;
+    const matchesPerfil = perfil === '' || usuarios[perfil]?.map(u => u.nome).includes(item.Colaborador);
+    const matchesBusca = busca === '' || 
+        item.Colaborador.toLowerCase().includes(busca) || 
+        item.Projeto.toLowerCase().includes(busca) || 
+        item.Atividade.toLowerCase().includes(busca);
+    return matchesGestor && matchesPerfil && matchesBusca;
+  });
+
+  filteredData = filteredData.map(item => {
+    const newItem = { ...item, alocacoes: {} };
+    Object.keys(item.alocacoes).forEach(month => {
+      const monthNum = parseInt(month.split('-')[1]);
+      if (monthNum >= mesInicio && monthNum <= mesFim) {
+        newItem.alocacoes[month] = item.alocacoes[month];
+      }
+    });
+    return newItem;
+  });
+
+  if (periodo === 'trimestre') {
+    filteredData = filteredData.map(item => {
+      const newItem = { ...item, alocacoes: {} };
+      const startMonth = 1;
+      const endMonth = 3;
+      Object.keys(item.alocacoes).forEach(month => {
+        const monthNum = parseInt(month.split('-')[1]);
+        if (monthNum >= startMonth && monthNum <= endMonth) {
+          newItem.alocacoes[month] = item.alocacoes[month];
+        }
+      });
+      return newItem;
+    });
+  }
+
+  data = filteredData;
+  renderTable();
+  updateAutocomplete();
+}
+
+document.getElementById('gestor').addEventListener('change', updateAutocomplete);
+document.getElementById('perfil').addEventListener('change', updateAutocomplete);
