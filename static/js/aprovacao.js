@@ -361,43 +361,44 @@ function handleCellClick(e, item, monthKey, level, subCell) {
   const isShiftPressed = e.shiftKey;
   const isCtrlPressed = e.ctrlKey;
   const cellKey = `${item.name}-${monthKey}-${level}`;
+  const cell = subCell.closest('.month-cell');
 
   if (!isShiftPressed && !isCtrlPressed) {
     // Clique simples: limpar todas as seleções e selecionar apenas a célula clicada
     selectedCells.clear();
-    document.querySelectorAll('.subcell.selected').forEach(cell => {
+    document.querySelectorAll('.month-cell.selected').forEach(cell => {
       cell.classList.remove('selected');
     });
     selectedCells.add(cellKey);
-    subCell.classList.add('selected');
-    lastSelectedCell = { key: cellKey, subCell, item, monthKey, level };
+    cell.classList.add('selected');
+    lastSelectedCell = { key: cellKey, cell, item, monthKey, level };
   } else if (isCtrlPressed) {
     // CTRL: adicionar/remover a célula da seleção
     if (selectedCells.has(cellKey)) {
       selectedCells.delete(cellKey);
-      subCell.classList.remove('selected');
+      cell.classList.remove('selected');
     } else {
       selectedCells.add(cellKey);
-      subCell.classList.add('selected');
+      cell.classList.add('selected');
     }
-    lastSelectedCell = { key: cellKey, subCell, item, monthKey, level };
+    lastSelectedCell = { key: cellKey, cell, item, monthKey, level };
   } else if (isShiftPressed && lastSelectedCell) {
     // SHIFT: selecionar intervalo entre a última célula e a atual
-    const allCells = Array.from(document.querySelectorAll('.month-cell .subcell'));
-    const startIndex = allCells.indexOf(lastSelectedCell.subCell);
-    const endIndex = allCells.indexOf(subCell);
+    const allCells = Array.from(document.querySelectorAll('.month-cell'));
+    const startIndex = allCells.indexOf(lastSelectedCell.cell);
+    const endIndex = allCells.indexOf(cell);
 
     const minIndex = Math.min(startIndex, endIndex);
     const maxIndex = Math.max(startIndex, endIndex);
 
     selectedCells.clear();
-    document.querySelectorAll('.subcell.selected').forEach(cell => {
+    document.querySelectorAll('.month-cell.selected').forEach(cell => {
       cell.classList.remove('selected');
     });
 
     for (let i = minIndex; i <= maxIndex; i++) {
       const cell = allCells[i];
-      const cellKey = cell.dataset.allocKey;
+      const cellKey = cell.dataset.key;
       selectedCells.add(cellKey);
       cell.classList.add('selected');
     }
@@ -415,23 +416,25 @@ function updateSelection() {
 
 function approveSelected() {
   selectedCells.forEach(cellKey => {
-    const [name, monthKey, levelStr] = cellKey.split('-');
+    const [key, monthKey] = cellKey.split('-2025-');
+    const [_, levelStr] = key.split('-').slice(-2);
     const level = parseInt(levelStr);
+    const name = key.split('-').slice(0, -2).join('-');
     const groupedData = groupData(data);
     const item = findItemByKeyWithName(groupedData, name, level);
-    if (item && item.alocacoes && item.alocacoes[monthKey]) {
-      const alocs = item.alocacoes[monthKey];
+    if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+      const alocs = item.alocacoes[`2025-${monthKey}`];
       alocs.forEach(alloc => {
         alloc.status = 'aprovado';
         alloc.justificativa = '';
       });
       if (level < 2 && item.children) {
-        propagateAction(item.children, monthKey, 'aprovado');
+        propagateAction(item.children, `2025-${monthKey}`, 'aprovado');
       }
     }
   });
   selectedCells.clear();
-  document.querySelectorAll('.subcell.selected').forEach(cell => {
+  document.querySelectorAll('.month-cell.selected').forEach(cell => {
     cell.classList.remove('selected');
   });
   saveApprovals();
@@ -464,18 +467,20 @@ function submitJustificativa() {
       }
     } else if (propagate) {
       selectedCells.forEach(cellKey => {
-        const [name, monthKey, levelStr] = cellKey.split('-');
+        const [key, monthKey] = cellKey.split('-2025-');
+        const [_, levelStr] = key.split('-').slice(-2);
         const level = parseInt(levelStr);
+        const name = key.split('-').slice(0, -2).join('-');
         const groupedData = groupData(data);
         const item = findItemByKeyWithName(groupedData, name, level);
-        if (item && item.alocacoes && item.alocacoes[monthKey]) {
-          const alocs = item.alocacoes[monthKey];
+        if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+          const alocs = item.alocacoes[`2025-${monthKey}`];
           alocs.forEach(alloc => {
             alloc.status = 'reprovado';
             alloc.justificativa = justificativa;
           });
           if (level < 2 && item.children) {
-            propagateAction(item.children, monthKey, 'reprovado');
+            propagateAction(item.children, `2025-${monthKey}`, 'reprovado');
           }
         }
       });
@@ -483,7 +488,7 @@ function submitJustificativa() {
   }
 
   selectedCells.clear();
-  document.querySelectorAll('.subcell.selected').forEach(cell => {
+  document.querySelectorAll('.month-cell.selected').forEach(cell => {
     cell.classList.remove('selected');
   });
   saveApprovals();
@@ -751,17 +756,4 @@ function updateHierarchy() {
 function updateHierarchyDisplay() {
   const display = document.getElementById('hierarchy-display');
   display.innerHTML = `
-    <span class="hierarchy-level">${hierarchy[0]}</span>
-    <span> ⬇ > </span>
-    <span class="hierarchy-level">${hierarchy[1]}</span>
-    <span> ⬇ > </span>
-    <span class="hierarchy-level">${hierarchy[2]}</span>
-  `;
-}
-
-function filtrar() {
-  const gestor = document.getElementById('gestor').value;
-  const perfil = document.getElementById('perfil').value;
-  const busca = document.getElementById('busca').value.toLowerCase();
-  const periodo = document.getElementById('periodo').value;
-  const mesInicio = parseInt(document.getElementById('
+    <span class="hierarchy
