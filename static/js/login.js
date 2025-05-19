@@ -1,3 +1,5 @@
+/* global fetch */
+
 document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('login-form');
   const bypassButton = document.getElementById('bypass-login');
@@ -20,9 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Função para preencher a lista de usuários com base no tipo de usuário
-  function populateUsers(userType) {
+  function populateUsers(userType, searchTerm = '') {
     console.log('Carregando usuarios.json para preencher lista de usuários...');
-    fetch('/static/usuarios.json')
+    fetch('/data/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
@@ -35,12 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameList.innerHTML = ''; // Limpar a lista existente
 
         if (userType && data[userType]) {
-          const users = data[userType];
-          console.log(`Usuários para o tipo "${userType}":`, users);
+          const users = data[userType].filter(user => 
+            user.nome.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          console.log(`Usuários para o tipo "${userType}" com busca "${searchTerm}":`, users);
           users.forEach(user => {
             const option = document.createElement('option');
-            option.value = user;
-            option.textContent = user;
+            option.value = user.nome;
+            option.textContent = user.nome;
             usernameList.appendChild(option);
           });
         } else {
@@ -57,7 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
   userTypeSelect.addEventListener('change', function() {
     const userType = userTypeSelect.value;
     console.log('Tipo de usuário alterado para:', userType);
-    populateUsers(userType);
+    populateUsers(userType, usernameInput.value);
+  });
+
+  // Atualizar a lista ao digitar no campo de usuário
+  usernameInput.addEventListener('input', function() {
+    const userType = userTypeSelect.value;
+    const searchTerm = usernameInput.value;
+    populateUsers(userType, searchTerm);
   });
 
   // Preencher inicialmente com base no tipo de usuário padrão (se houver)
@@ -89,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carregar o arquivo usuarios.json para autenticação
     console.log('Carregando usuarios.json para autenticação...');
-    fetch('/static/usuarios.json')
+    fetch('/data/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
@@ -110,18 +121,26 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar se o usuário existe no tipo selecionado
         const users = data[userType];
         console.log(`Usuários no tipo "${userType}":`, users);
-        const user = users.find(u => u.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
+        const user = users.find(u => u.nome.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
 
         if (user) {
           console.log('Usuário encontrado:', user);
           // Simulação de verificação de senha (senha padrão: "senha123")
           if (password.toLowerCase() === 'senha123') {
-            console.log('Senha correta. Redirecionando para a tela de alocação...');
+            console.log('Senha correta. Verificando acesso à tela de aprovação...');
+            // Verificar se o usuário tem acesso à tela de aprovação (Gestor ou Direto)
+            const isGestor = data.Gestor.some(g => g.nome.toLowerCase() === username.toLowerCase());
             try {
-              window.location.href = '/alocacao?username=' + encodeURIComponent(username);
+              if (userType === "Gestor" || isGestor) {
+                // Usuários do tipo Gestor ou listados como gestores têm acesso à tela de aprovação
+                window.location.href = '/alocacao?username=' + encodeURIComponent(username);
+              } else {
+                // Usuários do tipo Colaborador ou Terceiro vão direto para a tela de alocação
+                window.location.href = '/alocacao?username=' + encodeURIComponent(username);
+              }
             } catch (error) {
-              console.error('Erro ao redirecionar para /alocacao:', error);
-              alert('Erro ao redirecionar para a tela de alocação. Verifique o console.');
+              console.error('Erro ao redirecionar:', error);
+              alert('Erro ao redirecionar. Verifique o console.');
             }
           } else {
             console.log('Senha incorreta. Senha fornecida:', password);

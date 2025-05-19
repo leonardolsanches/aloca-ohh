@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 import logging
+import os
 
 # Configurar logging para depuração
 logging.basicConfig(level=logging.DEBUG)
 
-app = Flask(__name__)
+# Inicializar o Flask com os diretórios corretos
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
 # Rota para a página de login
 @app.route('/')
@@ -26,6 +28,18 @@ def aprovacao():
     username = request.args.get('username', 'Convidado')
     logging.debug(f"Acessando a rota /aprovacao com username: {username}")
     return render_template('aprovacao.html', username=username)
+
+# Rota para servir arquivos JSON da pasta /data/
+@app.route('/data/<path:filename>')
+def serve_data_files(filename):
+    logging.debug(f"Servindo arquivo da pasta /data/: {filename}")
+    return send_from_directory('data', filename)
+
+# Rota para servir arquivos estáticos (como o logotipo)
+@app.route('/static/<path:filename>')
+def serve_static_files(filename):
+    logging.debug(f"Servindo arquivo estático: {filename}")
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
     # Iniciar o servidor Flask
