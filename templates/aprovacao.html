@@ -3,81 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alocação</title>
-  <link rel="stylesheet" href="/static/css/styles.css">
+  <title>Aprovação - Alocação</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}?v=1">
 </head>
 <body>
   <div class="container">
+    <!-- Cabeçalho -->
     <div class="header">
       <div class="logo">
-        <img src="/static/logoclaro.png" alt="Logo Claro">
+        <img src="{{ url_for('static', filename='logoclaro.png') }}" alt="Logo Claro">
       </div>
       <nav class="nav-menu">
-        <a href="/alocacao" class="nav-link active">Alocação</a>
-        <a href="/aprovacao" class="nav-link">Aprovação</a>
-        <a href="/login" class="nav-link">Logout</a>
+        <a href="{{ url_for('alocacao') }}?username={{ username }}" class="nav-link">Alocação</a>
+        <a href="{{ url_for('aprovacao') }}?username={{ username }}" class="nav-link active">Aprovação</a>
+        <a href="{{ url_for('login') }}" class="nav-link">Logout</a>
       </nav>
     </div>
 
+    <!-- Filtros -->
     <div class="filters-container">
       <div class="filter-row">
-        <select id="tipo-projeto-atividade">
-          <option>Projeto</option>
-          <option>Atividade</option>
+        <div class="hierarchy-control">
+          <span>Hierarquia:</span>
+          <span id="hierarchy-display">
+            <span class="hierarchy-level">Colaborador</span>
+            <button onclick="moveDown(0)" id="down-0" title="Descer">⬇ Descer</button>
+            <span> ⬇ > </span>
+            <span class="hierarchy-level">Projeto</span>
+            <button onclick="moveUp(1)" id="up-1" title="Subir">⬆ Subir</button>
+            <button onclick="moveDown(1)" id="down-1" title="Descer">⬇ Descer</button>
+            <span> ⬇ > </span>
+            <span class="hierarchy-level">Atividade</span>
+            <button onclick="moveUp(2)" id="up-2" title="Subir">⬆ Subir</button>
+          </span>
+        </div>
+        <select id="gestor"></select>
+        <select id="perfil">
+          <option value="Colaborador">Colaborador</option>
+          <option value="Terceiro">Terceiro</option>
         </select>
-        <select id="projeto">
-          <option>Projeto</option>
+        <input type="text" id="busca" placeholder="Buscar (nome, projeto, atividade)" list="busca-list">
+        <datalist id="busca-list"></datalist>
+        <select id="mes-inicio">
+          <option value="">Mês de Início</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
         </select>
-        <select id="atividade">
-          <option>Atividade</option>
+        <select id="mes-fim">
+          <option value="">Mês de Fim</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
         </select>
-        <input type="date" id="data-inicio" readonly>
-        <input type="date" id="data-fim" readonly>
-        <input type="number" id="quantidade" placeholder="Quantidade">
-        <select id="metrica">
-          <option>horas/mês</option>
-          <option>%</option>
+        <select id="periodo">
+          <option value="ano">Ano</option>
+          <option value="trimestre">Trimestre</option>
         </select>
-        <button class="action-btn desalocar-btn" onclick="desalocar()">Desalocar</button>
-        <button class="action-btn" onclick="alocar()">Alocar</button>
+        <button onclick="filtrar()" class="action-btn">Filtrar</button>
+        <button onclick="approveSelected()" class="action-btn approve-selected">Aprovar Selecionados</button>
+        <button onclick="rejectSelected()" class="action-btn reject-selected">Reprovar Selecionados</button>
       </div>
-      <div class="initiative-filter-row">
-        <label for="initiative-field">Buscar Iniciativa por:</label>
-        <select id="initiative-field">
-          <option value="tema">TEMA</option>
-          <option value="codigo_ppm">Código PPM</option>
-          <option value="budget_seq">Sequencial Budget</option>
-        </select>
-        <input type="text" id="initiative-search" placeholder="Digite para buscar iniciativa" list="initiative-list">
-        <datalist id="initiative-list"></datalist>
-      </div>
     </div>
 
-    <div class="calendar-nav">
-      <button onclick="previousMonth()">← Anterior</button>
-      <h2 class="calendar-title" id="calendar-title"></h2>
-      <button onclick="nextMonth()">Próximo →</button>
-    </div>
+    <!-- Tabela -->
+    <table id="approval-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>JAN</th>
+          <th>FEV</th>
+          <th>MAR</th>
+          <th>ABR</th>
+          <th>MAI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGO</th>
+          <th>SET</th>
+          <th>OUT</th>
+          <th>NOV</th>
+          <th>DEZ</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="approval-table-body"></tbody>
+    </table>
 
-    <div class="calendar">
-      <div class="calendar-header" id="calendar-header"></div>
-      <div class="calendar-days" id="calendar-days"></div>
-    </div>
-
+    <!-- Rodapé -->
     <div class="footer">
       <div class="footer-user">
-        <span>Usuário: {{ username }}</span>
+        <span id="footer-user-info">Usuário: {{ username }}</span>
       </div>
-      <div class="footer-right">
-        <span class="counter" id="counter">0 dias selecionados</span>
-        <div class="legend">
-          <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
-          <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
-          <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
-        </div>
+    </div>
+
+    <!-- Modal para Justificativa -->
+    <div id="justificativa-modal" class="modal">
+      <div class="modal-content">
+        <h3>Justificativa de Reprovação</h3>
+        <textarea id="justificativa-text" required></textarea>
+        <button onclick="submitJustificativa()">Confirmar</button>
+        <button onclick="closeModal()">Cancelar</button>
       </div>
     </div>
   </div>
-  <script src="/static/js/alocacao.js"></script>
+
+  <script src="{{ url_for('static', filename='js/aprovacao.js') }}"></script>
 </body>
 </html>

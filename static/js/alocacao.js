@@ -1,135 +1,45 @@
-/* global fetch */
-
 // Inicialização de variáveis globais
-let currentDate = new Date(2025, 4, 1); // Definir data inicial como maio de 2025
+let currentDate = new Date();
 let allocations = {};
 let selectedDaysByMonth = {};
 let lastSelectedDay = null;
-let iniciativas = [];
 
 // Obter o username da URL
 const urlParams = new URLSearchParams(window.location.search);
 const currentUser = urlParams.get('username') || 'Convidado';
 console.log('Usuário atual obtido da URL:', currentUser);
 
-// Carrega dados de projetos, atividades e iniciativas
-function loadInitialData() {
-  Promise.all([
-    fetch('/data/tripleta.json').then(response => {
-      if (!response.ok) throw new Error('Erro ao carregar tripleta.json');
-      return response.json();
-    }),
-    fetch('/data/iniciativas.json').then(response => {
-      if (!response.ok) throw new Error('Erro ao carregar iniciativas.json');
-      return response.json();
-    }),
-    fetch('/data/alocacoes.json').then(response => {
-      if (!response.ok) throw new Error('Erro ao carregar alocacoes.json');
-      return response.json();
-    })
-  ])
-  .then(([tripletaData, iniciativasData, alocacoesData]) => {
-    console.log('Dados carregados:', { tripletaData, iniciativasData, alocacoesData });
+// Dados simulados para teste (mock)
+const mockAllocations = {
+  "2025-01-01": [
+    { percentage: 50, projeto: "Projeto A", atividade: "Atividade 1", usuario: "João Silva" },
+    { percentage: 25, projeto: "Projeto A", atividade: "Atividade 2", usuario: "João Silva" }
+  ],
+  "2025-01-02": [
+    { percentage: 75, projeto: "Projeto B", atividade: "Atividade 3", usuario: "João Silva" }
+  ],
+  "2025-02-01": [
+    { percentage: 60, projeto: "Projeto A", atividade: "Atividade 1", usuario: "João Silva" }
+  ],
+  "2025-02-03": [
+    { percentage: 80, projeto: "Projeto B", atividade: "Atividade 3", usuario: "João Silva" }
+  ],
+  "2025-03-01": [
+    { percentage: 70, projeto: "Projeto A", atividade: "Atividade 2", usuario: "João Silva" }
+  ]
+};
 
-    // Popula os dropdowns de tipo, projeto e atividade
-    const tipoProjetoAtividadeSelect = document.getElementById('tipo-projeto-atividade');
-    const projetosSelect = document.getElementById('projeto');
-    const atividadesSelect = document.getElementById('atividade');
-
-    // Popula o dropdown de tipo projeto/atividade com valores fixos
-    tipoProjetoAtividadeSelect.innerHTML = '<option value="Projeto">Projeto</option><option value="Atividade">Atividade</option>';
-
-    // Popula o dropdown de projetos
-    const projetosUnicos = [...new Set(tripletaData.map(item => item.projeto))];
-    projetosSelect.innerHTML = '<option>Projeto</option>';
-    projetosUnicos.forEach(projeto => {
-      if (projeto !== '#NÃO INFORMADO - EXCLUIR') {
-        const option = document.createElement('option');
-        option.value = projeto;
-        option.textContent = projeto;
-        projetosSelect.appendChild(option);
-      }
-    });
-
-    // Atualiza atividades com base no projeto selecionado
-    projetosSelect.addEventListener('change', function() {
-      const projetoSelecionado = this.value;
-      atividadesSelect.innerHTML = '<option>Atividade</option>';
-      const atividadesFiltradas = tripletaData.filter(item => item.projeto === projetoSelecionado);
-      const atividadesUnicas = [...new Set(atividadesFiltradas.map(item => item.atividade))];
-      atividadesUnicas.forEach(atividade => {
-        if (atividade !== '#NÃO INFORMADO - EXCLUIR') {
-          const option = document.createElement('option');
-          option.value = atividade;
-          option.textContent = atividade;
-          atividadesSelect.appendChild(option);
-        }
-      });
-    });
-
-    // Popula o autocomplete de iniciativas
-    iniciativas = iniciativasData;
-    const initiativeFieldSelect = document.getElementById('initiative-field');
-    const initiativeSearchInput = document.getElementById('initiative-search');
-    const initiativeList = document.getElementById('initiative-list');
-
-    function updateInitiativeAutocomplete() {
-      const field = initiativeFieldSelect.value;
-      const searchValue = initiativeSearchInput.value.toLowerCase();
-      initiativeList.innerHTML = '';
-
-      const filteredIniciativas = iniciativas.filter(iniciativa => {
-        const fieldValue = iniciativa[field]?.toLowerCase() || '';
-        return fieldValue.includes(searchValue);
-      });
-
-      filteredIniciativas.forEach(iniciativa => {
-        const option = document.createElement('option');
-        option.value = iniciativa[field];
-        option.textContent = `${iniciativa[field]} (ID: ${iniciativa.id_alocacao})`;
-        initiativeList.appendChild(option);
-      });
-    }
-
-    initiativeFieldSelect.addEventListener('change', updateInitiativeAutocomplete);
-    initiativeSearchInput.addEventListener('input', updateInitiativeAutocomplete);
-    updateInitiativeAutocomplete(); // Inicializa o autocomplete
-
-    // Carrega alocações iniciais
-    alocacoesData.forEach(alocacao => {
-      Object.entries(alocacao.meses).forEach(([mes, percentage]) => {
-        if (percentage > 0) {
-          const mesIndex = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].indexOf(mes) + 1;
-          const daysInMonth = new Date(2025, mesIndex, 0).getDate();
-          for (let day = 1; day <= daysInMonth; day++) {
-            const dateStr = `2025-${String(mesIndex).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            const dayOfWeek = new Date(dateStr).getDay();
-            if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
-              if (!allocations[dateStr]) {
-                allocations[dateStr] = [];
-              }
-              const percentagePerDay = percentage / (daysInMonth - 8); // Aproximado, considerando 8 dias de fim de semana
-              allocations[dateStr].push({
-                percentage: percentagePerDay,
-                projeto: alocacao.projeto,
-                atividade: alocacao.atividade,
-                usuario: alocacao.colaborador,
-                id_alocacao: alocacao.id_alocacao,
-                tipoProjetoAtividade: 'Projeto' // Valor padrão, ajustado conforme necessidade
-              });
-            }
-          }
-        }
-      });
-    });
-
-    saveAllocations();
-    renderCalendar();
-  })
-  .catch(error => {
-    console.error('Erro ao carregar dados iniciais:', error);
-    alert('Erro ao carregar dados. Verifique o console.');
-  });
+// Inicializa alocações com dados simulados se o localStorage estiver vazio
+function initializeMockData() {
+  const saved = localStorage.getItem('allocations');
+  if (!saved) {
+    console.log('Nenhuma alocação encontrada no localStorage. Inicializando com dados simulados...');
+    localStorage.setItem('allocations', JSON.stringify(mockAllocations));
+    allocations = { ...mockAllocations };
+  } else {
+    allocations = JSON.parse(saved);
+    console.log('Alocações carregadas do localStorage:', allocations);
+  }
 }
 
 // Carrega alocações do localStorage ao iniciar
@@ -139,8 +49,7 @@ function loadAllocations() {
     allocations = JSON.parse(saved);
     console.log('Alocações carregadas do localStorage:', allocations);
   } else {
-    console.log('Nenhuma alocação encontrada no localStorage. Inicializando com dados vazios.');
-    allocations = {};
+    console.log('Nenhuma alocação encontrada no localStorage após inicialização.');
   }
 }
 
@@ -149,6 +58,46 @@ function saveAllocations() {
   console.log('Salvando alocações no localStorage:', allocations);
   localStorage.setItem('allocations', JSON.stringify(allocations));
 }
+
+// Carrega dados de projetos e atividades do arquivo usuarios.json
+console.log('Carregando usuarios.json para popular projetos e atividades...');
+fetch('/static/usuarios.json')
+  .then(response => {
+    console.log('Resposta do fetch para usuarios.json:', response);
+    if (!response.ok) {
+      throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Dados carregados de usuarios.json:', data);
+    const projetosSelect = document.getElementById('projeto');
+    const atividadesSelect = document.getElementById('atividade');
+    projetosSelect.innerHTML = '<option>Projeto</option>';
+    atividadesSelect.innerHTML = '<option>Atividade</option>';
+    data.Projetos.forEach(projeto => {
+      const option = document.createElement('option');
+      option.value = projeto;
+      option.textContent = projeto;
+      projetosSelect.appendChild(option);
+    });
+    data.Atividades.forEach(atividade => {
+      const option = document.createElement('option');
+      option.value = atividade;
+      option.textContent = atividade;
+      atividadesSelect.appendChild(option);
+    });
+
+    // Inicializa com dados simulados se necessário
+    initializeMockData();
+    loadAllocations();
+    console.log('Chamando renderCalendar para renderizar o calendário...');
+    renderCalendar();
+  })
+  .catch(error => {
+    console.error('Erro ao carregar usuarios.json:', error);
+    alert('Erro ao carregar dados de projetos e atividades. Verifique o console.');
+  });
 
 // Renderiza o calendário na tela
 function renderCalendar() {
@@ -222,7 +171,7 @@ function renderCalendar() {
 
     // Verifica se há alocações para o dia
     if (allocations[dateStr]) {
-      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + (alloc.percentage || 0), 0);
+      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + alloc.percentage, 0);
       dayDiv.dataset.percentage = totalPercentage;
       if (totalPercentage === 100) {
         dayDiv.classList.add('green');
@@ -233,14 +182,14 @@ function renderCalendar() {
       }
 
       // Texto resumido dentro da célula
-      const summaryText = `${Math.round(totalPercentage)}%`;
+      const summaryText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}`).join('<br>');
       const summary = document.createElement('span');
       summary.className = 'allocation-summary';
       summary.innerHTML = summaryText;
       dayDiv.appendChild(summary);
 
       // Tooltip com detalhes completos
-      const tooltipText = allocations[dateStr].map(alloc => `${Math.round(alloc.percentage)}% ${alloc.projeto}, ${alloc.atividade} (ID: ${alloc.id_alocacao})`).join('\n');
+      const tooltipText = allocations[dateStr].map(alloc => `${alloc.percentage}% ${alloc.projeto}, ${alloc.atividade}`).join('\n');
       dayDiv.setAttribute('title', tooltipText);
     }
 
@@ -358,39 +307,21 @@ function alocar() {
   const dataFim = document.getElementById('data-fim').value;
   const quantidade = parseFloat(document.getElementById('quantidade').value);
   const metrica = document.getElementById('metrica').value;
-  const initiativeField = document.getElementById('initiative-field').value;
-  const initiativeSearch = document.getElementById('initiative-search').value;
 
-  console.log('Iniciando alocação:', { tipoProjetoAtividade, projeto, atividade, dataInicio, dataFim, quantidade, metrica, initiativeField, initiativeSearch });
+  console.log('Iniciando alocação:', { tipoProjetoAtividade, projeto, atividade, dataInicio, dataFim, quantidade, metrica });
 
-  // Validação dos campos obrigatórios
-  if (!tipoProjetoAtividade || projeto === 'Projeto' || atividade === 'Atividade' || !dataInicio || !dataFim || isNaN(quantidade) || !initiativeSearch) {
+  if (!tipoProjetoAtividade || !projeto || !atividade || !dataInicio || !dataFim || isNaN(quantidade)) {
     console.log('Campos obrigatórios não preenchidos para alocação.');
-    alert('Preencha todos os campos corretamente, incluindo a iniciativa.');
+    alert('Preencha todos os campos corretamente.');
     return;
   }
 
-  // Validação da iniciativa
-  const iniciativaSelecionada = iniciativas.find(iniciativa => iniciativa[initiativeField]?.toLowerCase() === initiativeSearch.toLowerCase());
-  if (!iniciativaSelecionada) {
-    alert('Iniciativa não encontrada. Por favor, selecione uma iniciativa válida.');
-    return;
-  }
-
-  const inicioIniciativa = new Date(iniciativaSelecionada.data_inicio);
-  const fimIniciativa = new Date(iniciativaSelecionada.data_fim);
-  const inicioAlocacao = new Date(dataInicio);
-  const fimAlocacao = new Date(dataFim);
-
-  if (inicioAlocacao < inicioIniciativa || fimAlocacao > fimIniciativa) {
-    alert('A data de alocação está fora do período permitido pela iniciativa.');
-    return;
-  }
-
+  const startDate = new Date(dataInicio);
+  const endDate = new Date(dataFim);
   const businessDays = [];
-  let current = new Date(inicioAlocacao);
+  let current = new Date(startDate);
 
-  while (current <= fimAlocacao) {
+  while (current <= endDate) {
     const dayOfWeek = current.getDay();
     if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
       businessDays.push(new Date(current));
@@ -408,7 +339,7 @@ function alocar() {
   if (metrica === 'horas/mês') {
     allocationPerDay = (quantidade / businessDays.length) / 8 * 100;
   } else {
-    allocationPerDay = quantidade / businessDays.length; // Distribuir a porcentagem igualmente entre os dias úteis
+    allocationPerDay = 100 / businessDays.length;
   }
 
   businessDays.forEach(day => {
@@ -420,9 +351,7 @@ function alocar() {
       percentage: allocationPerDay,
       projeto: projeto,
       atividade: atividade,
-      usuario: currentUser,
-      tipoProjetoAtividade: tipoProjetoAtividade,
-      id_alocacao: iniciativaSelecionada.id_alocacao
+      usuario: currentUser // Adiciona o usuário atual à alocação
     });
   });
 
@@ -465,6 +394,3 @@ function desalocar() {
   renderCalendar();
   console.log('Desalocação concluída.');
 }
-
-// Carrega os dados ao iniciar a página
-document.addEventListener('DOMContentLoaded', loadInitialData);

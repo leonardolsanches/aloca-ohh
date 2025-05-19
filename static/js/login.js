@@ -1,5 +1,3 @@
-/* global fetch */
-
 document.addEventListener('DOMContentLoaded', function() {
   const loginForm = document.getElementById('login-form');
   const bypassButton = document.getElementById('bypass-login');
@@ -22,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Função para preencher a lista de usuários com base no tipo de usuário
-  function populateUsers(userType, searchTerm = '') {
+  function populateUsers(userType) {
     console.log('Carregando usuarios.json para preencher lista de usuários...');
-    fetch('/data/usuarios.json')
+    fetch('/static/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
@@ -37,14 +35,12 @@ document.addEventListener('DOMContentLoaded', function() {
         usernameList.innerHTML = ''; // Limpar a lista existente
 
         if (userType && data[userType]) {
-          const users = data[userType].filter(user => 
-            user.nome.toLowerCase().includes(searchTerm.toLowerCase())
-          );
-          console.log(`Usuários para o tipo "${userType}" com busca "${searchTerm}":`, users);
+          const users = data[userType];
+          console.log(`Usuários para o tipo "${userType}":`, users);
           users.forEach(user => {
             const option = document.createElement('option');
-            option.value = user.nome;
-            option.textContent = user.nome;
+            option.value = user;
+            option.textContent = user;
             usernameList.appendChild(option);
           });
         } else {
@@ -61,14 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
   userTypeSelect.addEventListener('change', function() {
     const userType = userTypeSelect.value;
     console.log('Tipo de usuário alterado para:', userType);
-    populateUsers(userType, usernameInput.value);
-  });
-
-  // Atualizar a lista ao digitar no campo de usuário
-  usernameInput.addEventListener('input', function() {
-    const userType = userTypeSelect.value;
-    const searchTerm = usernameInput.value;
-    populateUsers(userType, searchTerm);
+    populateUsers(userType);
   });
 
   // Preencher inicialmente com base no tipo de usuário padrão (se houver)
@@ -100,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Carregar o arquivo usuarios.json para autenticação
     console.log('Carregando usuarios.json para autenticação...');
-    fetch('/data/usuarios.json')
+    fetch('/static/usuarios.json')
       .then(response => {
         console.log('Resposta do fetch para usuarios.json:', response);
         if (!response.ok) {
@@ -121,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Verificar se o usuário existe no tipo selecionado
         const users = data[userType];
         console.log(`Usuários no tipo "${userType}":`, users);
-        const user = users.find(u => u.nome.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
+        const user = users.find(u => u.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
 
         if (user) {
           console.log('Usuário encontrado:', user);
