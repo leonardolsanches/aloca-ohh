@@ -1,1 +1,83 @@
-<h1>Aprovação</h1><script src='/static/js/aprovacao.js'></script>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alocação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
+      </div>
+      <nav class="nav-menu">
+        <a href="/alocacao" class="nav-link active">Alocação</a>
+        <a href="/aprovacao" class="nav-link">Aprovação</a>
+        <a href="/login" class="nav-link">Logout</a>
+      </nav>
+    </div>
+
+    <div class="filters-container">
+      <div class="filter-row">
+        <select id="tipo-projeto-atividade">
+          <option>Projeto</option>
+          <option>Atividade</option>
+        </select>
+        <select id="projeto">
+          <option>Projeto</option>
+        </select>
+        <select id="atividade">
+          <option>Atividade</option>
+        </select>
+        <input type="date" id="data-inicio" readonly>
+        <input type="date" id="data-fim" readonly>
+        <input type="number" id="quantidade" placeholder="Quantidade">
+        <select id="metrica">
+          <option>horas/mês</option>
+          <option>%</option>
+        </select>
+        <button class="action-btn desalocar-btn" onclick="desalocar()">Desalocar</button>
+        <button class="action-btn" onclick="alocar()">Alocar</button>
+      </div>
+      <div class="initiative-filter-row">
+        <label for="initiative-field">Buscar Iniciativa por:</label>
+        <select id="initiative-field">
+          <option value="tema">TEMA</option>
+          <option value="codigo_ppm">Código PPM</option>
+          <option value="budget_seq">Sequencial Budget</option>
+        </select>
+        <input type="text" id="initiative-search" placeholder="Digite para buscar iniciativa" list="initiative-list">
+        <datalist id="initiative-list"></datalist>
+      </div>
+    </div>
+
+    <div class="calendar-nav">
+      <button onclick="previousMonth()">← Anterior</button>
+      <h2 class="calendar-title" id="calendar-title"></h2>
+      <button onclick="nextMonth()">Próximo →</button>
+    </div>
+
+    <div class="calendar">
+      <div class="calendar-header" id="calendar-header"></div>
+      <div class="calendar-days" id="calendar-days"></div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-user">
+        <span>Usuário: {{ username }}</span>
+      </div>
+      <div class="footer-right">
+        <span class="counter" id="counter">0 dias selecionados</span>
+        <div class="legend">
+          <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
+          <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
+          <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/static/js/alocacao.js"></script>
+</body>
+</html>

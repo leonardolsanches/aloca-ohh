@@ -1,13 +1,1810 @@
+Desculpe pela confusão, Leonardo! Você está correto, e eu não prestei a devida atenção ao fato de que os arquivos JSON completos (`usuarios.json`, `tripleta.json`, `iniciativas.json`, `alocacoes.json`) já foram extraídos da planilha Excel e estão carregados no kit Hub. Como você mencionou, não há necessidade de postá-los aqui, especialmente considerando a extensão dos arquivos, que poderia dificultar a leitura e o foco nas correções principais.
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  margin: 0;
-  padding: 0;
+Agradeço por apontar isso! Vou remover os arquivos JSON da resposta anterior e focar exclusivamente nos ajustes solicitados para os arquivos HTML, CSS e JS, garantindo que a aplicação consuma corretamente os JSONs já disponíveis no servidor e atenda a todas as especificações visuais e funcionais mencionadas na sua instrução consolidada. Vou prosseguir com os arquivos ajustados e, ao final, fornecer um resumo detalhado das alterações, confirmando que posso gerar o ZIP completo com os arquivos corrigidos.
+
+---
+
+### Estrutura do Projeto (Atualizada)
+
+Como os arquivos JSON já estão carregados no servidor, a estrutura do projeto será mantida, mas os arquivos HTML, CSS e JS serão ajustados para corrigir os problemas identificados, restaurar a identidade visual da Claro (vermelho bordô e branco), reativar a responsividade e implementar as funcionalidades solicitadas.
+
+```
+/project-root
+├── /data
+│   ├── usuarios.json      (já carregado no servidor)
+│   ├── tripleta.json      (já carregado no servidor)
+│   ├── iniciativas.json   (já carregado no servidor)
+│   ├── alocacoes.json     (já carregado no servidor)
+├── /static
+│   ├── /css
+│   │   └── styles.css
+│   ├── /js
+│   │   ├── alocacao.js
+│   │   ├── aprovacao.js
+│   │   └── login.js
+│   └── logoclaro.png
+├── /templates
+│   ├── alocacao.html
+│   ├── aprovacao.html
+│   └── login.html
+├── app.py
+├── Procfile
+└── requirements.txt
+```
+
+---
+
+### Códigos Completos
+
+#### `app.py`
+
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+import logging
+import os
+
+# Configurar logging para depuração
+logging.basicConfig(level=logging.DEBUG)
+
+# Inicializar o Flask com os diretórios corretos
+app = Flask(__name__, template_folder='templates', static_folder='static')
+
+# Rota para a página de login
+@app.route('/')
+@app.route('/login')
+def login():
+    logging.debug("Acessando a rota /login")
+    return render_template('login.html')
+
+# Rota para a página de alocação
+@app.route('/alocacao')
+def alocacao():
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /alocacao com username: {username}")
+    return render_template('alocacao.html', username=username)
+
+# Rota para a página de aprovação
+@app.route('/aprovacao')
+def aprovacao():
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /aprovacao com username: {username}")
+    return render_template('aprovacao.html', username=username)
+
+# Rota para servir arquivos JSON da pasta /data/
+@app.route('/data/<path:filename>')
+def serve_data_files(filename):
+    logging.debug(f"Servindo arquivo da pasta /data/: {filename}")
+    return send_from_directory('data', filename)
+
+# Rota para servir arquivos estáticos (como o logotipo)
+@app.route('/static/<path:filename>')
+def serve_static_files(filename):
+    logging.debug(f"Servindo arquivo estático: {filename}")
+    return send_from_directory('static', filename)
+
+if __name__ == '__main__':
+    # Iniciar o servidor Flask
+    logging.info("Iniciando o servidor Flask na porta 5000...")
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
+
+#### `Procfile`
+
+web: gunicorn app:app
+
+
+#### `requirements.txt`
+
+flask==3.1.0
+gunicorn==23.0.0
+
+
+#### `/templates/login.html`
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
+      </div>
+    </div>
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="user-type">Tipo de Usuário:</label>
+      <select id="user-type">
+        <option value="">Selecione</option>
+        <option value="Gestor">Gestor</option>
+        <option value="Colaborador">Colaborador</option>
+        <option value="Terceiro">Terceiro</option>
+      </select>
+
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" list="username-list" required>
+      <datalist id="username-list"></datalist>
+
+      <label for="password">Senha:</label>
+      <input type="password" id="password" required>
+
+      <div class="login-buttons">
+        <button type="submit">Entrar</button>
+        <button id="bypass-login" class="bypass-btn">Seguir sem Login</button>
+      </div>
+    </form>
+  </div>
+  <script src="/static/js/login.js"></script>
+</body>
+</html>
+
+
+#### `/templates/alocacao.html`
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alocação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
+      </div>
+      <nav class="nav-menu">
+        <a href="/alocacao" class="nav-link active">Alocação</a>
+        <a href="/aprovacao" class="nav-link">Aprovação</a>
+        <a href="/login" class="nav-link">Logout</a>
+      </nav>
+    </div>
+
+    <div class="filters-container">
+      <div class="filter-row">
+        <select id="tipo-projeto-atividade">
+          <option value="Projeto">Projeto</option>
+          <option value="Atividade">Atividade</option>
+        </select>
+        <select id="projeto">
+          <option>Projeto</option>
+        </select>
+        <select id="atividade">
+          <option>Atividade</option>
+        </select>
+        <input type="date" id="data-inicio" readonly>
+        <input type="date" id="data-fim" readonly>
+        <input type="number" id="quantidade" placeholder="Quantidade">
+        <select id="metrica">
+          <option>horas/mês</option>
+          <option>%</option>
+        </select>
+        <button class="action-btn desalocar-btn" onclick="desalocar()">Desalocar</button>
+        <button class="action-btn" onclick="alocar()">Alocar</button>
+      </div>
+      <div class="initiative-filter-row">
+        <label for="initiative-field">Buscar Iniciativa por:</label>
+        <select id="initiative-field">
+          <option value="tema">TEMA</option>
+          <option value="codigo_ppm">Código PPM</option>
+          <option value="budget_seq">Sequencial Budget</option>
+        </select>
+        <input type="text" id="initiative-search" placeholder="Digite para buscar iniciativa" list="initiative-list">
+        <datalist id="initiative-list"></datalist>
+      </div>
+    </div>
+
+    <div class="calendar-nav">
+      <button onclick="previousMonth()">← Anterior</button>
+      <h2 class="calendar-title" id="calendar-title"></h2>
+      <button onclick="nextMonth()">Próximo →</button>
+    </div>
+
+    <div class="calendar">
+      <div class="calendar-header" id="calendar-header"></div>
+      <div class="calendar-days" id="calendar-days"></div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-user">
+        <span>Usuário: {{ username }}</span>
+      </div>
+      <div class="footer-right">
+        <span class="counter" id="counter">0 dias selecionados</span>
+        <div class="legend">
+          <div><span class="color-box green"></span> Verde: 100% do dia preenchido</div>
+          <div><span class="color-box yellow"></span> Amarelo: Abaixo de 100%</div>
+          <div><span class="color-box red"></span> Vermelho: Acima de 100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="cell-details-tooltip" class="tooltip">
+    <div class="tooltip-content" id="tooltip-content"></div>
+  </div>
+  <script src="/static/js/alocacao.js"></script>
+</body>
+</html>
+
+
+#### `/templates/aprovacao.html`
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aprovação</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="/static/logoclaro.png" alt="Logo Claro">
+      </div>
+      <nav class="nav-menu">
+        <a href="/alocacao" class="nav-link">Alocação</a>
+        <a href="/aprovacao" class="nav-link active">Aprovação</a>
+        <a href="/login" class="nav-link">Logout</a>
+      </nav>
+    </div>
+
+    <div class="filters-container">
+      <div class="filter-row">
+        <select id="gestor">
+          <option>Gestor</option>
+        </select>
+        <select id="perfil">
+          <option value="">Colaborador</option>
+          <option value="Terceiro">Terceiro</option>
+        </select>
+        <input type="text" id="busca" placeholder="Busca" list="busca-list">
+        <datalist id="busca-list"></datalist>
+        <select id="mes-inicio">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <select id="mes-fim">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <select id="periodo">
+          <option value="ano">Ano</option>
+          <option value="trimestre">Trimestre</option>
+        </select>
+        <button class="action-btn" onclick="filtrar()">Filtrar</button>
+        <button class="action-btn approve-selected" onclick="approveSelected()">Aprovar Selecionados</button>
+        <button class="action-btn reject-selected" onclick="rejectSelected()">Reprovar Selecionados</button>
+      </div>
+    </div>
+
+    <div class="hierarchy-container">
+      <div class="hierarchy-control">
+        Ordem Hierárquica:
+        <select id="hierarchy-select" onchange="updateHierarchy()">
+          <option value="0">Atividade > Colaborador > Projeto</option>
+          <option value="1">Atividade > Projeto > Colaborador</option>
+          <option value="2">Colaborador > Atividade > Projeto</option>
+          <option value="3">Colaborador > Projeto > Atividade</option>
+          <option value="4">Projeto > Atividade > Colaborador</option>
+          <option value="5">Projeto > Colaborador > Atividade</option>
+        </select>
+        <div id="hierarchy-display"></div>
+      </div>
+    </div>
+
+    <table id="approval-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>JAN</th>
+          <th>FEV</th>
+          <th>MAR</th>
+          <th>ABR</th>
+          <th>MAI</th>
+          <th>JUN</th>
+          <th>JUL</th>
+          <th>AGO</th>
+          <th>SET</th>
+          <th>OUT</th>
+          <th>NOV</th>
+          <th>DEZ</th>
+        </tr>
+      </thead>
+      <tbody id="approval-table-body"></tbody>
+    </table>
+
+    <div class="footer">
+      <div class="footer-user">
+        <span>Usuário: {{ username }}</span>
+      </div>
+      <div class="footer-right">
+        <span class="counter" id="counter">0 células selecionadas</span>
+      </div>
+    </div>
+
+    <div id="justificativa-modal" class="modal">
+      <div class="modal-content">
+        <h3>Justificativa de Reprovação</h3>
+        <textarea id="justificativa-text" placeholder="Digite a justificativa para a reprovação"></textarea>
+        <button onclick="submitJustificativa()">Confirmar</button>
+        <button onclick="closeModal()">Cancelar</button>
+      </div>
+    </div>
+
+    <div id="cell-details-tooltip" class="tooltip">
+      <div class="tooltip-content" id="tooltip-content"></div>
+    </div>
+  </div>
+  <script src="/static/js/aprovacao.js"></script>
+</body>
+</html>
+
+
+#### `/static/js/login.js`
+
+/* global fetch */
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.getElementById('login-form');
+  const bypassButton = document.getElementById('bypass-login');
+  const userTypeSelect = document.getElementById('user-type');
+  const usernameInput = document.getElementById('username');
+  const usernameList = document.getElementById('username-list');
+
+  // Verificar se os elementos existem
+  if (!loginForm) {
+    console.error('Elemento "login-form" não encontrado no DOM.');
+    return;
+  }
+  if (!bypassButton) {
+    console.error('Elemento "bypass-login" não encontrado no DOM.');
+    return;
+  }
+  if (!userTypeSelect || !usernameInput || !usernameList) {
+    console.error('Elementos necessários para o login não encontrados:', { userTypeSelect, usernameInput, usernameList });
+    return;
+  }
+
+  // Função para preencher a lista de usuários com base no tipo de usuário
+  function populateUsers(userType, searchTerm = '') {
+    console.log('Carregando usuarios.json para preencher lista de usuários...');
+    fetch('/data/usuarios.json')
+      .then(response => {
+        console.log('Resposta do fetch para usuarios.json:', response);
+        if (!response.ok) {
+          throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados carregados de usuarios.json:', data);
+        usernameList.innerHTML = ''; // Limpar a lista existente
+
+        if (userType && data[userType]) {
+          const users = data[userType].filter(user => 
+            user.nome.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+          console.log(`Usuários para o tipo "${userType}" com busca "${searchTerm}":`, users);
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.nome;
+            option.textContent = user.nome;
+            usernameList.appendChild(option);
+          });
+        } else {
+          console.log(`Nenhum usuário encontrado para o tipo "${userType}"`);
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao carregar usuarios.json:', error);
+        alert('Erro ao carregar lista de usuários. Verifique o console.');
+      });
+  }
+
+  // Preencher a lista de usuários quando o tipo de usuário mudar
+  userTypeSelect.addEventListener('change', function() {
+    const userType = userTypeSelect.value;
+    console.log('Tipo de usuário alterado para:', userType);
+    populateUsers(userType, usernameInput.value);
+  });
+
+  // Atualizar a lista ao digitar no campo de usuário
+  usernameInput.addEventListener('input', function() {
+    const userType = userTypeSelect.value;
+    const searchTerm = usernameInput.value;
+    populateUsers(userType, searchTerm);
+  });
+
+  // Preencher inicialmente com base no tipo de usuário padrão (se houver)
+  populateUsers(userTypeSelect.value);
+
+  // Evento de submit do formulário de login
+  loginForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const userType = userTypeSelect.value;
+    const username = usernameInput.value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    console.log('Iniciando processo de login...');
+    console.log('Dados do formulário:', { userType, username, password });
+
+    // Validação de campos
+    if (!userType || !username) {
+      console.log('Campos obrigatórios não preenchidos:', { userType, username });
+      alert('Por favor, preencha todos os campos obrigatórios (Tipo de Usuário e Usuário).');
+      return;
+    }
+
+    if (!password) {
+      console.log('Senha está em branco.');
+      alert('A senha não pode estar em branco. Por favor, insira a senha.');
+      return;
+    }
+
+    // Carregar o arquivo usuarios.json para autenticação
+    console.log('Carregando usuarios.json para autenticação...');
+    fetch('/data/usuarios.json')
+      .then(response => {
+        console.log('Resposta do fetch para usuarios.json:', response);
+        if (!response.ok) {
+          throw new Error('Erro ao carregar usuarios.json: ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados carregados de usuarios.json:', data);
+
+        // Verificar se o tipo de usuário existe no JSON
+        if (!data[userType]) {
+          console.log(`Tipo de usuário "${userType}" não encontrado em usuarios.json`);
+          alert('Tipo de usuário inválido.');
+          return;
+        }
+
+        // Verificar se o usuário existe no tipo selecionado
+        const users = data[userType];
+        console.log(`Usuários no tipo "${userType}":`, users);
+        const user = users.find(u => u.nome.toLowerCase() === username.toLowerCase()); // Comparação case-insensitive
+
+        if (user) {
+          console.log('Usuário encontrado:', user);
+          // Simulação de verificação de senha (senha padrão: "senha123")
+          if (password.toLowerCase() === 'senha123') {
+            console.log('Senha correta. Verificando acesso à tela de aprovação...');
+            // Verificar se o usuário tem acesso à tela de aprovação (Gestor ou Direto)
+            const isGestor = data.Gestor.some(g => g.nome.toLowerCase() === username.toLowerCase());
+            try {
+              if (userType === "Gestor" || isGestor) {
+                // Usuários do tipo Gestor ou listados como gestores têm acesso à tela de aprovação
+                window.location.href = '/alocacao?username=' + encodeURIComponent(username);
+              } else {
+                // Usuários do tipo Colaborador ou Terceiro vão direto para a tela de alocação
+                window.location.href = '/alocacao?username=' + encodeURIComponent(username);
+              }
+            } catch (error) {
+              console.error('Erro ao redirecionar:', error);
+              alert('Erro ao redirecionar. Verifique o console.');
+            }
+          } else {
+            console.log('Senha incorreta. Senha fornecida:', password);
+            alert('Credenciais inválidas: Senha incorreta. Tente novamente. (Dica: a senha padrão para testes é "senha123")');
+          }
+        } else {
+          console.log(`Usuário "${username}" não encontrado no tipo "${userType}"`);
+          alert('Credenciais inválidas: Usuário não encontrado.');
+        }
+      })
+      .catch(error => {
+        console.error('Erro ao autenticar:', error);
+        alert('Erro ao autenticar. Verifique o console para mais detalhes.');
+      });
+  });
+
+  // Evento do botão "Seguir sem Login"
+  bypassButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    console.log('Botão "Seguir sem Login" clicado. Redirecionando como Convidado...');
+    try {
+      window.location.href = '/alocacao?username=Convidado';
+    } catch (error) {
+      console.error('Erro ao redirecionar com "Seguir sem Login":', error);
+      alert('Erro ao redirecionar com "Seguir sem Login". Verifique o console para mais detalhes.');
+    }
+  });
+});
+
+
+#### `/static/js/alocacao.js`
+
+/* global fetch */
+
+// Inicialização de variáveis globais
+let currentDate = new Date(2025, 4, 1); // Definir data inicial como maio de 2025
+let allocations = {};
+let selectedDaysByMonth = {};
+let lastSelectedDay = null;
+let iniciativas = [];
+
+// Obter o username da URL
+const urlParams = new URLSearchParams(window.location.search);
+const currentUser = urlParams.get('username') || 'Convidado';
+console.log('Usuário atual obtido da URL:', currentUser);
+
+// Carrega dados de projetos, atividades e iniciativas
+function loadInitialData() {
+  Promise.all([
+    fetch('/data/tripleta.json').then(response => {
+      if (!response.ok) throw new Error('Erro ao carregar tripleta.json');
+      return response.json();
+    }),
+    fetch('/data/iniciativas.json').then(response => {
+      if (!response.ok) throw new Error('Erro ao carregar iniciativas.json');
+      return response.json();
+    }),
+    fetch('/data/alocacoes.json').then(response => {
+      if (!response.ok) throw new Error('Erro ao carregar alocacoes.json');
+      return response.json();
+    })
+  ])
+  .then(([tripletaData, iniciativasData, alocacoesData]) => {
+    console.log('Dados carregados:', { tripletaData, iniciativasData, alocacoesData });
+
+    // Popula os dropdowns de tipo, projeto e atividade
+    const tipoProjetoAtividadeSelect = document.getElementById('tipo-projeto-atividade');
+    const projetosSelect = document.getElementById('projeto');
+    const atividadesSelect = document.getElementById('atividade');
+
+    // Popula o dropdown de tipo projeto/atividade com valores fixos
+    tipoProjetoAtividadeSelect.innerHTML = '<option value="Projeto">Projeto</option><option value="Atividade">Atividade</option>';
+
+    // Popula o dropdown de projetos
+    const projetosUnicos = [...new Set(tripletaData.map(item => item.projeto))].sort();
+    projetosSelect.innerHTML = '<option>Projeto</option>';
+    projetosUnicos.forEach(projeto => {
+      if (projeto && projeto !== '#NÃO INFORMADO - EXCLUIR') {
+        const option = document.createElement('option');
+        option.value = projeto;
+        option.textContent = projeto;
+        projetosSelect.appendChild(option);
+      }
+    });
+
+    // Atualiza atividades com base no projeto selecionado
+    projetosSelect.addEventListener('change', function() {
+      const projetoSelecionado = this.value;
+      atividadesSelect.innerHTML = '<option>Atividade</option>';
+      const atividadesFiltradas = tripletaData.filter(item => item.projeto === projetoSelecionado);
+      const atividadesUnicas = [...new Set(atividadesFiltradas.map(item => item.atividade))].sort();
+      atividadesUnicas.forEach(atividade => {
+        if (atividade && atividade !== '#NÃO INFORMADO - EXCLUIR') {
+          const option = document.createElement('option');
+          option.value = atividade;
+          option.textContent = atividade;
+          atividadesSelect.appendChild(option);
+        }
+      });
+    });
+
+    // Popula o autocomplete de iniciativas
+    iniciativas = iniciativasData;
+    const initiativeFieldSelect = document.getElementById('initiative-field');
+    const initiativeSearchInput = document.getElementById('initiative-search');
+    const initiativeList = document.getElementById('initiative-list');
+
+    function updateInitiativeAutocomplete() {
+      const field = initiativeFieldSelect.value;
+      const searchValue = initiativeSearchInput.value.toLowerCase();
+      initiativeList.innerHTML = '';
+
+      const filteredIniciativas = iniciativas.filter(iniciativa => {
+        const fieldValue = iniciativa[field]?.toLowerCase() || '';
+        return fieldValue.includes(searchValue);
+      }).sort((a, b) => a[field].localeCompare(b[field]));
+
+      filteredIniciativas.forEach(iniciativa => {
+        const option = document.createElement('option');
+        option.value = iniciativa[field];
+        option.textContent = `${iniciativa[field]} (ID: ${iniciativa.id_alocacao})`;
+        option.dataset.idAlocacao = iniciativa.id_alocacao;
+        option.dataset.dataInicio = iniciativa.data_inicio;
+        option.dataset.dataFim = iniciativa.data_fim;
+        initiativeList.appendChild(option);
+      });
+    }
+
+    initiativeFieldSelect.addEventListener('change', updateInitiativeAutocomplete);
+    initiativeSearchInput.addEventListener('input', updateInitiativeAutocomplete);
+    updateInitiativeAutocomplete(); // Inicializa o autocomplete
+
+    // Carrega alocações iniciais
+    alocacoesData.forEach(alocacao => {
+      if (alocacao.colaborador === currentUser) { // Filtra alocações do usuário atual
+        Object.entries(alocacao.meses).forEach(([mes, percentage]) => {
+          if (percentage > 0) {
+            const mesIndex = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].indexOf(mes) + 1;
+            const daysInMonth = new Date(2025, mesIndex, 0).getDate();
+            for (let day = 1; day <= daysInMonth; day++) {
+              const dateStr = `2025-${String(mesIndex).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+              const dayOfWeek = new Date(dateStr).getDay();
+              if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
+                if (!allocations[dateStr]) {
+                  allocations[dateStr] = [];
+                }
+                const percentagePerDay = percentage / (daysInMonth - 8); // Aproximado, considerando 8 dias de fim de semana
+                allocations[dateStr].push({
+                  percentage: percentagePerDay,
+                  projeto: alocacao.projeto,
+                  atividade: alocacao.atividade,
+                  usuario: alocacao.colaborador,
+                  id_alocacao: alocacao.id_alocacao,
+                  tipoProjetoAtividade: 'Projeto' // Valor padrão, ajustado conforme necessidade
+                });
+              }
+            }
+          }
+        });
+      }
+    });
+
+    saveAllocations();
+    renderCalendar();
+  })
+  .catch(error => {
+    console.error('Erro ao carregar dados iniciais:', error);
+    alert('Erro ao carregar dados. Verifique o console.');
+  });
 }
-header {
-  background-color: #9e0b0f;
-  color: white;
-  padding: 10px;
-  text-align: center;
+
+// Carrega alocações do localStorage ao iniciar
+function loadAllocations() {
+  const saved = localStorage.getItem('allocations');
+  if (saved) {
+    allocations = JSON.parse(saved);
+    console.log('Alocações carregadas do localStorage:', allocations);
+  } else {
+    console.log('Nenhuma alocação encontrada no localStorage. Inicializando com dados vazios.');
+    allocations = {};
+  }
 }
+
+// Salva alocações no localStorage
+function saveAllocations() {
+  console.log('Salvando alocações no localStorage:', allocations);
+  localStorage.setItem('allocations', JSON.stringify(allocations));
+}
+
+// Renderiza o calendário na tela
+function renderCalendar() {
+  console.log('Iniciando renderCalendar...');
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+  
+  // Atualiza o título do calendário
+  const calendarTitle = document.getElementById('calendar-title');
+  if (!calendarTitle) {
+    console.error('Elemento "calendar-title" não encontrado no DOM.');
+    return;
+  }
+  calendarTitle.textContent = `${monthNames[month]} de ${year}`;
+
+  // Renderiza os dias da semana no cabeçalho
+  const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+  const header = document.getElementById('calendar-header');
+  if (!header) {
+    console.error('Elemento "calendar-header" não encontrado no DOM.');
+    return;
+  }
+  header.innerHTML = '';
+  daysOfWeek.forEach(day => {
+    const div = document.createElement('div');
+    div.className = 'day';
+    div.textContent = day;
+    header.appendChild(div);
+  });
+
+  // Calcula os dias do mês e o primeiro dia
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysDiv = document.getElementById('calendar-days');
+  if (!daysDiv) {
+    console.error('Elemento "calendar-days" não encontrado no DOM.');
+    return;
+  }
+  daysDiv.innerHTML = '';
+
+  // Adiciona espaços vazios antes do primeiro dia do mês
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'day empty';
+    emptyDiv.dataset.date = '';
+    daysDiv.appendChild(emptyDiv);
+  }
+
+  // Carrega dias selecionados para o mês atual
+  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+  const selectedDays = selectedDaysByMonth[monthKey] || new Set();
+
+  // Renderiza os dias do mês
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'day';
+    dayDiv.dataset.date = dateStr;
+
+    // Adiciona o número do dia
+    const dayNumber = document.createElement('span');
+    dayNumber.className = 'day-number';
+    dayNumber.textContent = day;
+    dayDiv.appendChild(dayNumber);
+
+    // Verifica se o dia está selecionado
+    if (selectedDays.has(dateStr)) {
+      dayDiv.classList.add('selected');
+    }
+
+    // Verifica se há alocações para o dia
+    if (allocations[dateStr]) {
+      const totalPercentage = allocations[dateStr].reduce((sum, alloc) => sum + (alloc.percentage || 0), 0);
+      dayDiv.dataset.percentage = totalPercentage;
+      if (totalPercentage === 100) {
+        dayDiv.classList.add('green');
+      } else if (totalPercentage < 100) {
+        dayDiv.classList.add('yellow');
+      } else {
+        dayDiv.classList.add('red');
+      }
+
+      // Texto resumido dentro da célula
+      const summaryText = `${Math.round(totalPercentage)}% (${allocations[dateStr][0].id_alocacao})`;
+      const summary = document.createElement('span');
+      summary.className = 'allocation-summary';
+      summary.innerHTML = summaryText;
+      dayDiv.appendChild(summary);
+
+      // Tooltip com detalhes completos
+      const tooltipText = allocations[dateStr].map(alloc => `${Math.round(alloc.percentage)}% ${alloc.projeto}, ${alloc.atividade} (ID: ${alloc.id_alocacao})`).join('\n');
+      dayDiv.setAttribute('title', tooltipText);
+
+      // Adiciona evento de hover para tooltip
+      dayDiv.addEventListener('mouseover', (e) => showTooltip(e, allocations[dateStr]));
+      dayDiv.addEventListener('mouseout', hideTooltip);
+    }
+
+    // Adiciona evento de clique ao dia
+    dayDiv.addEventListener('click', handleDayClick);
+    daysDiv.appendChild(dayDiv);
+  }
+
+  updateSelection();
+  console.log('renderCalendar concluído.');
+}
+
+function showTooltip(e, alocs) {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  const tooltipContent = document.getElementById('tooltip-content');
+  tooltipContent.innerHTML = alocs.map(alloc => 
+    `Percentual: ${Math.round(alloc.percentage)}%<br>ID Alocação: ${alloc.id_alocacao}<br>Projeto: ${alloc.projeto}<br>Atividade: ${alloc.atividade}`
+  ).join('<br><br>');
+  
+  tooltip.style.display = 'block';
+  tooltip.style.left = `${e.pageX + 10}px`;
+  tooltip.style.top = `${e.pageY + 10}px`;
+}
+
+function hideTooltip() {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  tooltip.style.display = 'none';
+}
+
+// Navega para o mês anterior
+function previousMonth() {
+  saveSelections();
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  console.log('Navegando para o mês anterior:', currentDate);
+  renderCalendar();
+}
+
+// Navega para o próximo mês
+function nextMonth() {
+  saveSelections();
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  console.log('Navegando para o próximo mês:', currentDate);
+  renderCalendar();
+}
+
+// Salva os dias selecionados para o mês atual
+function saveSelections() {
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const monthKey = `${year}-${String(month + 1).padStart(2, '0')}`;
+  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
+  const selectedDates = new Set();
+  selectedDays.forEach(day => selectedDates.add(day.dataset.date));
+  selectedDaysByMonth[monthKey] = selectedDates;
+  console.log('Seleções salvas para o mês:', monthKey, selectedDates);
+}
+
+// Lida com o clique em um dia do calendário
+function handleDayClick(e) {
+  const isShiftPressed = e.shiftKey;
+  const isCtrlPressed = e.ctrlKey;
+  const day = e.target.closest('.day'); // Garante que o clique seja no elemento .day
+  if (!day || day.classList.contains('empty')) return;
+
+  const days = document.querySelectorAll('.calendar-days .day:not(.empty)');
+
+  if (!isShiftPressed && !isCtrlPressed) {
+    days.forEach(d => d.classList.remove('selected'));
+    day.classList.add('selected');
+    lastSelectedDay = day;
+  } else if (isCtrlPressed) {
+    day.classList.toggle('selected');
+    lastSelectedDay = day;
+  } else if (isShiftPressed && lastSelectedDay) {
+    const allDays = Array.from(days);
+    const startIndex = allDays.indexOf(lastSelectedDay);
+    const endIndex = allDays.indexOf(day);
+    const minIndex = Math.min(startIndex, endIndex);
+    const maxIndex = Math.max(startIndex, endIndex);
+
+    days.forEach(d => {
+      if (!d.classList.contains('selected')) {
+        d.classList.remove('selected');
+      }
+    });
+
+    for (let i = minIndex; i <= maxIndex; i++) {
+      allDays[i].classList.add('selected');
+    }
+  }
+
+  updateSelection();
+}
+
+// Atualiza a seleção de dias e os campos de data
+function updateSelection() {
+  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
+  const counter = document.getElementById('counter');
+  if (!counter) {
+    console.error('Elemento "counter" não encontrado no DOM.');
+    return;
+  }
+  counter.textContent = `${selectedDays.length} dias selecionados`;
+
+  if (selectedDays.length > 0) {
+    const dates = Array.from(selectedDays)
+      .map(day => new Date(day.getAttribute('data-date')))
+      .filter(date => !isNaN(date));
+    
+    if (dates.length > 0) {
+      const minDate = new Date(Math.min(...dates));
+      const maxDate = new Date(Math.max(...dates));
+      document.getElementById('data-inicio').value = minDate.toISOString().split('T')[0];
+      document.getElementById('data-fim').value = maxDate.toISOString().split('T')[0];
+    } else {
+      document.getElementById('data-inicio').value = '';
+      document.getElementById('data-fim').value = '';
+    }
+  } else {
+    document.getElementById('data-inicio').value = '';
+    document.getElementById('data-fim').value = '';
+  }
+  console.log('Seleção atualizada. Dias selecionados:', selectedDays.length);
+}
+
+// Realiza a alocação de horas
+function alocar() {
+  const tipoProjetoAtividade = document.getElementById('tipo-projeto-atividade').value;
+  const projeto = document.getElementById('projeto').value;
+  const atividade = document.getElementById('atividade').value;
+  const dataInicio = document.getElementById('data-inicio').value;
+  const dataFim = document.getElementById('data-fim').value;
+  const quantidade = parseFloat(document.getElementById('quantidade').value);
+  const metrica = document.getElementById('metrica').value;
+  const initiativeField = document.getElementById('initiative-field').value;
+  const initiativeSearch = document.getElementById('initiative-search').value;
+
+  console.log('Iniciando alocação:', { tipoProjetoAtividade, projeto, atividade, dataInicio, dataFim, quantidade, metrica, initiativeField, initiativeSearch });
+
+  // Validação dos campos obrigatórios
+  if (!tipoProjetoAtividade || projeto === 'Projeto' || atividade === 'Atividade' || !dataInicio || !dataFim || isNaN(quantidade) || !initiativeSearch) {
+    console.log('Campos obrigatórios não preenchidos para alocação.');
+    alert('Preencha todos os campos corretamente, incluindo a iniciativa.');
+    return;
+  }
+
+  // Validação da iniciativa
+  const iniciativaSelecionada = iniciativas.find(iniciativa => iniciativa[initiativeField]?.toLowerCase() === initiativeSearch.toLowerCase());
+  if (!iniciativaSelecionada) {
+    alert('Iniciativa não encontrada. Por favor, selecione uma iniciativa válida.');
+    return;
+  }
+
+  const inicioIniciativa = new Date(iniciativaSelecionada.data_inicio);
+  const fimIniciativa = new Date(iniciativaSelecionada.data_fim);
+  const inicioAlocacao = new Date(dataInicio);
+  const fimAlocacao = new Date(dataFim);
+
+  if (inicioAlocacao < inicioIniciativa || fimAlocacao > fimIniciativa) {
+    alert('A data de alocação está fora do período permitido pela iniciativa.');
+    return;
+  }
+
+  const businessDays = [];
+  let current = new Date(inicioAlocacao);
+
+  while (current <= fimAlocacao) {
+    const dayOfWeek = current.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclui fins de semana
+      businessDays.push(new Date(current));
+    }
+    current.setDate(current.getDate() + 1);
+  }
+
+  if (businessDays.length === 0) {
+    console.log('Nenhum dia útil encontrado no período selecionado.');
+    alert('Nenhum dia útil encontrado no período selecionado.');
+    return;
+  }
+
+  let allocationPerDay;
+  if (metrica === 'horas/mês') {
+    allocationPerDay = (quantidade / businessDays.length) / 8 * 100;
+  } else {
+    allocationPerDay = quantidade / businessDays.length; // Distribuir a porcentagem igualmente entre os dias úteis
+  }
+
+  businessDays.forEach(day => {
+    const dateStr = day.toISOString().split('T')[0];
+    if (!allocations[dateStr]) {
+      allocations[dateStr] = [];
+    }
+    allocations[dateStr].push({
+      percentage: allocationPerDay,
+      projeto: projeto,
+      atividade: atividade,
+      usuario: currentUser,
+      tipoProjetoAtividade: tipoProjetoAtividade,
+      id_alocacao: iniciativaSelecionada.id_alocacao
+    });
+  });
+
+  saveAllocations();
+  renderCalendar();
+  console.log('Alocação concluída para os dias:', businessDays);
+}
+
+// Realiza a desalocação de horas
+function desalocar() {
+  const selectedDays = document.querySelectorAll('.calendar-days .day.selected');
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  console.log('Iniciando desalocação...');
+  console.log('Dias selecionados:', selectedDays.length);
+
+  if (selectedDays.length > 0) {
+    // Desalocar apenas os dias selecionados
+    selectedDays.forEach(day => {
+      const dateStr = day.dataset.date;
+      if (allocations[dateStr]) {
+        console.log('Desalocando dia:', dateStr);
+        delete allocations[dateStr];
+      }
+    });
+  } else {
+    // Desalocar todo o mês atual
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      if (allocations[dateStr]) {
+        console.log('Desalocando dia do mês:', dateStr);
+        delete allocations[dateStr];
+      }
+    }
+  }
+
+  saveAllocations();
+  renderCalendar();
+  console.log('Desalocação concluída.');
+}
+
+// Carrega os dados ao iniciar a página
+document.addEventListener('DOMContentLoaded', loadInitialData);
+
+
+#### `/static/js/aprovacao.js`
+
+/* global fetch */
+
+let gestores = [];
+let data = [];
+let hierarchy = ['Projeto', 'Colaborador', 'Atividade'];
+let hierarchyOptions = [
+    { display: 'Atividade > Colaborador > Projeto', value: ['Atividade', 'Colaborador', 'Projeto'] },
+    { display: 'Atividade > Projeto > Colaborador', value: ['Atividade', 'Projeto', 'Colaborador'] },
+    { display: 'Colaborador > Atividade > Projeto', value: ['Colaborador', 'Atividade', 'Projeto'] },
+    { display: 'Colaborador > Projeto > Atividade', value: ['Colaborador', 'Projeto', 'Atividade'] },
+    { display: 'Projeto > Atividade > Colaborador', value: ['Projeto', 'Atividade', 'Colaborador'] },
+    { display: 'Projeto > Colaborador > Atividade', value: ['Projeto', 'Colaborador', 'Atividade'] }
+];
+let currentJustificativaTarget = null;
+let usuarios = {};
+let lastSelectedCell = null;
+let selectedCells = new Set();
+
+// Obter o username da URL
+const urlParams = new URLSearchParams(window.location.search);
+const currentUser = urlParams.get('username') || 'Convidado';
+console.log('Usuário atual obtido da URL:', currentUser);
+
+// Carrega alocações do localStorage e dos dados fornecidos
+function loadDataFromLocalStorage() {
+  const savedAllocations = localStorage.getItem('allocations');
+  const allocations = savedAllocations ? JSON.parse(savedAllocations) : {};
+  console.log('Alocações carregadas do localStorage:', allocations);
+
+  const groupedData = [];
+
+  Object.keys(allocations).forEach(date => {
+    const entries = allocations[date] || [];
+    entries.forEach(entry => {
+      const colaborador = entry.usuario || currentUser;
+      const projeto = entry.projeto || "Projeto Desconhecido";
+      const atividade = entry.atividade || "Atividade Desconhecida";
+      const percentage = entry.percentage || 0;
+
+      let colaboradorEntry = groupedData.find(item => item.Colaborador === colaborador && item.Projeto === projeto && item.Atividade === atividade);
+      if (!colaboradorEntry) {
+        colaboradorEntry = {
+          Colaborador: colaborador,
+          Projeto: projeto,
+          Atividade: atividade,
+          alocacoes: {}
+        };
+        groupedData.push(colaboradorEntry);
+      }
+
+      const monthKey = date.slice(0, 7);
+      if (!colaboradorEntry.alocacoes[monthKey]) {
+        colaboradorEntry.alocacoes[monthKey] = [];
+      }
+      colaboradorEntry.alocacoes[monthKey].push({
+        percentage: percentage,
+        projeto: projeto,
+        atividade: atividade,
+        status: 'pendente',
+        justificativa: '',
+        id_alocacao: entry.id_alocacao
+      });
+    });
+  });
+
+  return groupedData;
+}
+
+// Carrega dados de gestores, usuários e alocações
+console.log('Carregando dados para a tela de aprovação...');
+Promise.all([
+  fetch('/data/usuarios.json').then(response => {
+    if (!response.ok) throw new Error('Erro ao carregar usuarios.json');
+    return response.json();
+  }),
+  fetch('/data/alocacoes.json').then(response => {
+    if (!response.ok) throw new Error('Erro ao carregar alocacoes.json');
+    return response.json();
+  })
+])
+.then(([usuariosData, alocacoesData]) => {
+  usuarios = usuariosData;
+  gestores = usuarios.Gestor || [];
+  const gestorSelect = document.getElementById('gestor');
+  gestorSelect.innerHTML = '<option>Gestor</option>';
+  gestores.forEach(gestor => {
+    if (gestor && gestor.nome && gestor.nome !== 'GESTOR À IDENTIFICAR' && gestor.nome !== 'CAUSA RAIZ' && gestor.nome !== 'SUPORTE N3' && gestor.nome !== 'PROJETO ESTRATEGICO') {
+      const option = document.createElement('option');
+      option.value = gestor.nome;
+      option.textContent = gestor.nome;
+      gestorSelect.appendChild(option);
+    }
+  });
+
+  let localData = loadDataFromLocalStorage();
+  console.log('Dados processados do localStorage:', localData);
+
+  // Estrutura de dados a partir de alocacoes.json
+  const rawData = alocacoesData.map(alocacao => {
+    const alocacoesMensais = {};
+    Object.entries(alocacao.meses).forEach(([mes, percentage]) => {
+      if (percentage > 0) {
+        const mesIndex = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'].indexOf(mes) + 1;
+        const monthKey = `2025-${String(mesIndex).padStart(2, '0')}`;
+        alocacoesMensais[monthKey] = [{
+          percentage: percentage,
+          projeto: alocacao.projeto,
+          atividade: alocacao.atividade,
+          status: 'pendente',
+          justificativa: '',
+          id_alocacao: alocacao.id_alocacao
+        }];
+      }
+    });
+    return {
+      Colaborador: alocacao.colaborador,
+      Projeto: alocacao.projeto,
+      Atividade: alocacao.atividade,
+      alocacoes: alocacoesMensais
+    };
+  });
+
+  // Filtra entradas inválidas e combina com dados do localStorage
+  data = [...localData, ...rawData.filter(item => item.Projeto !== '#NÃO INFORMADO - EXCLUIR' && item.Atividade !== '#NÃO INFORMADO - EXCLUIR')];
+  console.log('Dados combinados para a tela de aprovação:', data);
+
+  // Popula o seletor de hierarquia
+  const hierarchySelect = document.getElementById('hierarchy-select');
+  hierarchyOptions.forEach((option, index) => {
+    const opt = document.createElement('option');
+    opt.value = index;
+    opt.textContent = option.display;
+    hierarchySelect.appendChild(opt);
+  });
+
+  renderTable();
+  updateAutocomplete();
+})
+.catch(error => {
+  console.error('Erro ao carregar dados:', error);
+  alert('Erro ao carregar dados. Verifique o console.');
+});
+
+// Atualiza o autocomplete com base nos filtros
+function updateAutocomplete() {
+  const gestor = document.getElementById('gestor').value;
+  const perfil = document.getElementById('perfil').value;
+  const busca = document.getElementById('busca').value.toLowerCase();
+  const buscaList = document.getElementById('busca-list');
+  buscaList.innerHTML = '';
+
+  let filteredUsers = [];
+  if (gestor !== 'Gestor' && perfil) {
+    filteredUsers = data.filter(item => item.Colaborador === gestor || usuarios[perfil].map(u => u.nome).includes(item.Colaborador)).map(item => item.Colaborador);
+  } else if (perfil) {
+    filteredUsers = usuarios[perfil].map(u => u.nome);
+  } else if (gestor !== 'Gestor') {
+    filteredUsers = data.filter(item => item.Colaborador === gestor).map(item => item.Colaborador);
+  } else {
+    filteredUsers = [...new Set(data.map(item => item.Colaborador))];
+  }
+
+  filteredUsers = filteredUsers.filter(user => user.toLowerCase().includes(busca));
+
+  filteredUsers.forEach(user => {
+    const option = document.createElement('option');
+    option.value = user;
+    buscaList.appendChild(option);
+  });
+  console.log('Autocomplete atualizado:', filteredUsers);
+}
+
+// Carrega aprovações salvas do localStorage
+function loadApprovals() {
+  const saved = localStorage.getItem('approvals');
+  if (saved) {
+    const approvals = JSON.parse(saved);
+    console.log('Aprovações carregadas do localStorage:', approvals);
+    data.forEach(item => {
+      Object.keys(item.alocacoes).forEach(month => {
+        item.alocacoes[month].forEach((alloc, index) => {
+          const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+          if (approvals[key]) {
+            alloc.status = approvals[key].status;
+            alloc.justificativa = approvals[key].justificativa;
+          }
+        });
+      });
+    });
+  }
+}
+
+function saveApprovals() {
+  const approvals = {};
+  data.forEach(item => {
+    Object.keys(item.alocacoes).forEach(month => {
+      item.alocacoes[month].forEach((alloc, index) => {
+        const key = `${item.Colaborador}-${item.Projeto}-${item.Atividade}-${month}-${index}`;
+        approvals[key] = {
+          nivel: 'atividade',
+          projeto: item.Projeto,
+          colaborador: item.Colaborador,
+          atividade: item.Atividade,
+          mes: month.split('-')[1],
+          status: alloc.status,
+          justificativa: alloc.justificativa,
+          id_alocacao: alloc.id_alocacao
+        };
+      });
+    });
+  });
+  console.log('Salvando aprovações no localStorage:', approvals);
+  localStorage.setItem('approvals', JSON.stringify(approvals));
+}
+
+function renderTable() {
+  loadApprovals();
+  const tbody = document.getElementById('approval-table-body');
+  if (!tbody) {
+    console.error('Elemento "approval-table-body" não encontrado no DOM.');
+    return;
+  }
+  tbody.innerHTML = '';
+  selectedCells.clear(); // Limpar seleções ao renderizar a tabela
+  const groupedData = groupData(data);
+
+  function renderRows(items, level = 0, parentKey = '') {
+    if (level > 2) return; // Limita a hierarquia a 3 níveis
+
+    items.forEach((item, index) => {
+      const key = parentKey ? `${parentKey}-${index}` : `${index}`;
+      const row = document.createElement('tr');
+      row.className = `level-${level}`;
+      row.dataset.key = key;
+
+      const expandCell = document.createElement('td');
+      if (item.children && item.children.length > 0 && level < 2) {
+        const expandBtn = document.createElement('button');
+        expandBtn.className = 'expand-btn';
+        expandBtn.textContent = '+';
+        expandBtn.onclick = () => toggleExpand(key);
+        expandCell.appendChild(expandBtn);
+      }
+      row.appendChild(expandCell);
+
+      const itemCell = document.createElement('td');
+      itemCell.className = `item-cell level-${level}`;
+      itemCell.textContent = item.name;
+      row.appendChild(itemCell);
+
+      // Colunas dos meses
+      for (let month = 1; month <= 12; month++) {
+        const monthKey = `2025-${String(month).padStart(2, '0')}`;
+        const cell = document.createElement('td');
+        cell.className = 'month-cell col-mes';
+        cell.dataset.key = `${key}-${monthKey}-${level}`;
+        cell.dataset.month = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'][month - 1];
+
+        if (item.alocacoes && item.alocacoes[monthKey]) {
+          const alocs = item.alocacoes[monthKey];
+          const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+          const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
+                             alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
+          cell.className += ` ${statusClass}`;
+          cell.dataset.totalPercentage = totalPercentage;
+
+          if (totalPercentage === 100) {
+            cell.classList.add('green');
+          } else if (totalPercentage < 100) {
+            cell.classList.add('yellow');
+          } else {
+            cell.classList.add('red');
+          }
+
+          const subCellContainer = document.createElement('div');
+          subCellContainer.className = 'subcell-container';
+
+          const subCell = document.createElement('div');
+          subCell.className = 'subcell';
+          subCell.dataset.allocKey = `${key}-${monthKey}-${item.name}-${level}`;
+
+          const statusIcon = document.createElement('span');
+          statusIcon.className = 'status-icon';
+          statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
+                                   alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
+          statusIcon.onclick = (e) => {
+            e.stopPropagation();
+            handleCellClick(e, item, monthKey, level, cell);
+          };
+          subCell.appendChild(statusIcon);
+
+          const allocText = document.createElement('span');
+          allocText.className = 'alloc-text';
+          allocText.textContent = `${Math.round(totalPercentage)}%`;
+          subCell.appendChild(allocText);
+
+          if (alocs.some(alloc => alloc.justificativa)) {
+            const editBtn = document.createElement('span');
+            editBtn.className = 'edit-icon';
+            editBtn.textContent = '✎';
+            editBtn.onclick = (e) => {
+              e.stopPropagation();
+              editJustificativa(item, monthKey, alocs[0]);
+            };
+            subCell.appendChild(editBtn);
+          }
+
+          subCellContainer.appendChild(subCell);
+          cell.appendChild(subCellContainer);
+
+          // Adiciona evento de hover para tooltip
+          cell.addEventListener('mouseover', (e) => showTooltip(e, alocs));
+          cell.addEventListener('mouseout', hideTooltip);
+
+          // Adiciona evento de clique para seleção
+          cell.addEventListener('click', (e) => handleCellClick(e, item, monthKey, level, cell));
+        } else {
+          cell.textContent = '-';
+        }
+
+        row.appendChild(cell);
+      }
+
+      tbody.appendChild(row);
+
+      // Renderizar os filhos como novas linhas
+      if (item.children && item.children.length > 0 && level < 2) {
+        const childRow = document.createElement('tr');
+        childRow.className = `children level-${level + 1}`;
+        childRow.id = `children-${key}`;
+        childRow.style.display = 'none';
+        const childCell = document.createElement('td');
+        childCell.colSpan = 14; // Ocupa todas as colunas para conter a sub-tabela
+        const childTable = document.createElement('table');
+        childTable.className = 'sub-table';
+        const childTbody = document.createElement('tbody');
+        childTable.appendChild(childTbody);
+        childCell.appendChild(childTable);
+        childRow.appendChild(childCell);
+        tbody.appendChild(childRow);
+      }
+    });
+  }
+
+  renderRows(groupedData);
+}
+
+function showTooltip(e, alocs) {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  const tooltipContent = document.getElementById('tooltip-content');
+  tooltipContent.innerHTML = alocs.map(alloc => 
+    `Percentual: ${Math.round(alloc.percentage)}%<br>ID Alocação: ${alloc.id_alocacao}<br>Projeto: ${alloc.projeto}<br>Atividade: ${alloc.atividade}${alloc.justificativa ? `<br>Justificativa: ${alloc.justificativa}` : ''}`
+  ).join('<br><br>');
+  
+  tooltip.style.display = 'block';
+  tooltip.style.left = `${e.pageX + 10}px`;
+  tooltip.style.top = `${e.pageY + 10}px`;
+}
+
+function hideTooltip() {
+  const tooltip = document.getElementById('cell-details-tooltip');
+  tooltip.style.display = 'none';
+}
+
+function handleCellClick(e, item, monthKey, level, cell) {
+  const isShiftPressed = e.shiftKey;
+  const isCtrlPressed = e.ctrlKey;
+  const cellKey = `${item.name}-${monthKey}-${level}`;
+
+  if (!isShiftPressed && !isCtrlPressed) {
+    // Clique simples: limpar todas as seleções e selecionar apenas a célula clicada
+    selectedCells.clear();
+    document.querySelectorAll('.month-cell.selected').forEach(cell => {
+      cell.classList.remove('selected');
+    });
+    selectedCells.add(cellKey);
+    cell.classList.add('selected');
+    lastSelectedCell = { key: cellKey, cell, item, monthKey, level };
+  } else if (isCtrlPressed) {
+    // CTRL: adicionar/remover a célula da seleção
+    if (selectedCells.has(cellKey)) {
+      selectedCells.delete(cellKey);
+      cell.classList.remove('selected');
+    } else {
+      selectedCells.add(cellKey);
+      cell.classList.add('selected');
+    }
+    lastSelectedCell = { key: cellKey, cell, item, monthKey, level };
+  } else if (isShiftPressed && lastSelectedCell) {
+    // SHIFT: selecionar intervalo entre a última célula e a atual
+    const allCells = Array.from(document.querySelectorAll('.month-cell'));
+    const startIndex = allCells.indexOf(lastSelectedCell.cell);
+    const endIndex = allCells.indexOf(cell);
+
+    const minIndex = Math.min(startIndex, endIndex);
+    const maxIndex = Math.max(startIndex, endIndex);
+
+    selectedCells.clear();
+    document.querySelectorAll('.month-cell.selected').forEach(cell => {
+      cell.classList.remove('selected');
+    });
+
+    for (let i = minIndex; i <= maxIndex; i++) {
+      const cell = allCells[i];
+      const cellKey = cell.dataset.key;
+      selectedCells.add(cellKey);
+      cell.classList.add('selected');
+    }
+  }
+
+  updateSelection();
+}
+
+function updateSelection() {
+  const counter = document.getElementById('counter');
+  if (counter) {
+    counter.textContent = `${selectedCells.size} células selecionadas`;
+  }
+}
+
+function approveSelected() {
+  selectedCells.forEach(cellKey => {
+    const [name, monthKey, levelStr] = cellKey.split('-');
+    const level = parseInt(levelStr);
+    const groupedData = groupData(data);
+    const item = findItemByKeyWithName(groupedData, name, level);
+    if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+      const alocs = item.alocacoes[`2025-${monthKey}`];
+      alocs.forEach(alloc => {
+        alloc.status = 'aprovado';
+        alloc.justificativa = '';
+      });
+      if (level < 2 && item.children) {
+        propagateAction(item.children, `2025-${monthKey}`, 'aprovado');
+      }
+    }
+  });
+  selectedCells.clear();
+  document.querySelectorAll('.month-cell.selected').forEach(cell => {
+    cell.classList.remove('selected');
+  });
+  saveApprovals();
+  renderTable();
+}
+
+function rejectSelected() {
+  currentJustificativaTarget = { propagate: true };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = '';
+  modal.style.display = 'block';
+}
+
+function submitJustificativa() {
+  const textArea = document.getElementById('justificativa-text');
+  const justificativa = textArea.value.trim();
+  if (!justificativa) {
+    alert('A justificativa é obrigatória.');
+    return;
+  }
+
+  if (currentJustificativaTarget) {
+    const { item, monthKey, alloc, propagate } = currentJustificativaTarget;
+    if (alloc) {
+      alloc.status = 'reprovado';
+      alloc.justificativa = justificativa;
+      if (propagate && item.children) {
+        propagateAction(item.children, monthKey, 'reprovado');
+      }
+    } else if (propagate) {
+      selectedCells.forEach(cellKey => {
+        const [name, monthKey, levelStr] = cellKey.split('-');
+        const level = parseInt(levelStr);
+        const groupedData = groupData(data);
+        const item = findItemByKeyWithName(groupedData, name, level);
+        if (item && item.alocacoes && item.alocacoes[`2025-${monthKey}`]) {
+          const alocs = item.alocacoes[`2025-${monthKey}`];
+          alocs.forEach(alloc => {
+            alloc.status = 'reprovado';
+            alloc.justificativa = justificativa;
+          });
+          if (level < 2 && item.children) {
+            propagateAction(item.children, `2025-${monthKey}`, 'reprovado');
+          }
+        }
+      });
+    }
+  }
+
+  selectedCells.clear();
+  document.querySelectorAll('.month-cell.selected').forEach(cell => {
+    cell.classList.remove('selected');
+  });
+  saveApprovals();
+  closeModal();
+  renderTable();
+}
+
+function findItemByKeyWithName(items, name, targetLevel, currentLevel = 0) {
+  for (const item of items) {
+    if (item.name === name && currentLevel === targetLevel) {
+      return item;
+    }
+    if (item.children && item.children.length > 0 && currentLevel < 2) {
+      const found = findItemByKeyWithName(item.children, name, targetLevel, currentLevel + 1);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+function groupData(data) {
+  const grouped = {};
+
+  data.forEach(item => {
+    let currentLevel = grouped;
+    const levels = {};
+
+    hierarchy.forEach(level => {
+      levels[level] = item[level];
+      const key = item[level];
+      if (!currentLevel[key]) {
+        currentLevel[key] = { name: key, children: {}, alocacoes: null };
+      }
+      currentLevel = currentLevel[key].children;
+    });
+
+    Object.keys(item.alocacoes).forEach(monthKey => {
+      if (!currentLevel[monthKey]) {
+        currentLevel[monthKey] = [];
+      }
+      currentLevel[monthKey].push(...item.alocacoes[monthKey].map(alloc => ({
+        percentage: alloc.percentage,
+        projeto: levels['Projeto'],
+        atividade: levels['Atividade'],
+        status: alloc.status,
+        justificativa: alloc.justificativa,
+        colaborador: levels['Colaborador'],
+        id_alocacao: alloc.id_alocacao
+      })));
+    });
+  });
+
+  function buildHierarchy(obj, levelIndex) {
+    if (levelIndex === hierarchy.length) {
+      const alocacoes = {};
+      Object.keys(obj).forEach(monthKey => {
+        if (obj[monthKey] && obj[monthKey].length > 0) {
+          alocacoes[monthKey] = obj[monthKey];
+        }
+      });
+      return Object.keys(alocacoes).length > 0 ? [{ alocacoes: alocacoes }] : [];
+    }
+
+    const levelName = hierarchy[levelIndex];
+    return Object.keys(obj).map(key => {
+      const children = buildHierarchy(obj[key].children, levelIndex + 1);
+      return {
+        name: key,
+        children: children.length ? children : null,
+        alocacoes: levelIndex === hierarchy.length - 1 ? obj[key].children : null
+      };
+    }).filter(item => item.alocacoes || (item.children && item.children.length > 0));
+  }
+
+  return buildHierarchy(grouped, 0);
+}
+
+function toggleExpand(key) {
+  const childrenRow = document.getElementById(`children-${key}`);
+  const childTbody = childrenRow.querySelector('tbody');
+  const btn = document.querySelector(`tr[data-key="${key}"] .expand-btn`);
+
+  if (childrenRow.style.display === 'none') {
+    childTbody.innerHTML = '';
+    const groupedData = groupData(data);
+    const item = findItemByKey(groupedData, key.split('-').map(Number));
+
+    if (item && item.children && item.children.length > 0) {
+      renderSubRows(item.children, childTbody, key);
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+    } else {
+      childTbody.innerHTML = '<tr><td colspan="14">Sem registros no período selecionado.</td></tr>';
+      childrenRow.style.display = 'table-row';
+      btn.textContent = '-';
+    }
+  } else {
+    childrenRow.style.display = 'none';
+    btn.textContent = '+';
+  }
+}
+
+function findItemByKey(items, indices) {
+  let current = items;
+  for (let i = 0; i < indices.length; i++) {
+    current = current[indices[i]];
+    if (i < indices.length - 1) {
+      current = current.children;
+    }
+  }
+  return current;
+}
+
+function renderSubRows(items, tbody, parentKey) {
+  const level = parentKey.split('-').length;
+  if (level > 2) return; // Limita a hierarquia a 3 níveis
+
+  items.forEach((item, index) => {
+    const key = `${parentKey}-${index}`;
+    const row = document.createElement('tr');
+    row.className = `level-${level}`;
+    row.dataset.key = key;
+
+    const expandCell = document.createElement('td');
+    if (item.children && item.children.length > 0 && level < 2) {
+      const expandBtn = document.createElement('button');
+      expandBtn.className = 'expand-btn';
+      expandBtn.textContent = '+';
+      expandBtn.onclick = () => toggleExpand(key);
+      expandCell.appendChild(expandBtn);
+    }
+    row.appendChild(expandCell);
+
+    const itemCell = document.createElement('td');
+    itemCell.className = `item-cell level-${level}`;
+    itemCell.textContent = item.name;
+    row.appendChild(itemCell);
+
+    for (let month = 1; month <= 12; month++) {
+      const monthKey = `2025-${String(month).padStart(2, '0')}`;
+      const cell = document.createElement('td');
+      cell.className = 'month-cell col-mes';
+      cell.dataset.key = `${key}-${monthKey}-${level}`;
+      cell.dataset.month = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'][month - 1];
+
+      if (item.alocacoes && item.alocacoes[monthKey]) {
+        const alocs = item.alocacoes[monthKey];
+        const totalPercentage = alocs.reduce((sum, alloc) => sum + alloc.percentage, 0);
+        const statusClass = alocs.every(alloc => alloc.status === 'aprovado') ? 'approved-subcell' :
+                           alocs.some(alloc => alloc.status === 'reprovado') ? 'rejected-subcell' : 'pending-subcell';
+        cell.className += ` ${statusClass}`;
+        cell.dataset.totalPercentage = totalPercentage;
+
+        if (totalPercentage === 100) {
+          cell.classList.add('green');
+        } else if (totalPercentage < 100) {
+          cell.classList.add('yellow');
+        } else {
+          cell.classList.add('red');
+        }
+
+        const subCellContainer = document.createElement('div');
+        subCellContainer.className = 'subcell-container';
+
+        const subCell = document.createElement('div');
+        subCell.className = 'subcell';
+        subCell.dataset.allocKey = `${key}-${monthKey}-${item.name}-${level}`;
+
+        const statusIcon = document.createElement('span');
+        statusIcon.className = 'status-icon';
+        statusIcon.textContent = alocs.every(alloc => alloc.status === 'aprovado') ? '✓' :
+                                 alocs.some(alloc => alloc.status === 'reprovado') ? '✗' : '↺';
+        statusIcon.onclick = (e) => {
+          e.stopPropagation();
+          handleCellClick(e, item, monthKey, level, cell);
+        };
+        subCell.appendChild(statusIcon);
+
+        const allocText = document.createElement('span');
+        allocText.className = 'alloc-text';
+        allocText.textContent = `${Math.round(totalPercentage)}%`;
+        subCell.appendChild(allocText);
+
+        if (alocs.some(alloc => alloc.justificativa)) {
+          const editBtn = document.createElement('span');
+          editBtn.className = 'edit-icon';
+          editBtn.textContent = '✎';
+          editBtn.onclick = (e) => {
+            e.stopPropagation();
+            editJustificativa(item, monthKey, alocs[0]);
+          };
+          subCell.appendChild(editBtn);
+        }
+
+        subCellContainer.appendChild(subCell);
+        cell.appendChild(subCellContainer);
+
+        // Adiciona evento de hover para tooltip
+        cell.addEventListener('mouseover', (e) => showTooltip(e, alocs));
+        cell.addEventListener('mouseout', hideTooltip);
+
+        // Adiciona evento de clique para seleção
+        cell.addEventListener('click', (e) => handleCellClick(e, item, monthKey, level, cell));
+      } else {
+        cell.textContent = '-';
+      }
+
+      row.appendChild(cell);
+    }
+
+    tbody.appendChild(row);
+
+    // Renderizar os filhos como novas linhas
+    if (item.children && item.children.length > 0 && level < 2) {
+      const childRow = document.createElement('tr');
+      childRow.className = `children level-${level + 1}`;
+      childRow.id = `children-${key}`;
+      childRow.style.display = 'none';
+      const childCell = document.createElement('td');
+      childCell.colSpan = 14; // Ocupa todas as colunas para conter a sub-tabela
+      const childTable = document.createElement('table');
+      childTable.className = 'sub-table';
+      const childTbody = document.createElement('tbody');
+      childTable.appendChild(childTbody);
+      childCell.appendChild(childTable);
+      childRow.appendChild(childCell);
+      tbody.appendChild(childRow);
+    }
+  });
+}
+
+function propagateAction(items, monthKey, newStatus) {
+  items.forEach(item => {
+    if (item.alocacoes && item.alocacoes[monthKey]) {
+      item.alocacoes[monthKey].forEach(alloc => {
+        alloc.status = newStatus;
+        if (newStatus !== 'reprovado') {
+          alloc.justificativa = '';
+        }
+      });
+    }
+    if (item.children && item.children.length > 0) {
+      propagateAction(item.children, monthKey, newStatus);
+    }
+  });
+}
+
+function editJustificativa(item, monthKey, alloc) {
+  currentJustificativaTarget = { item, monthKey, alloc };
+  const modal = document.getElementById('justificativa-modal');
+  const textArea = document.getElementById('justificativa-text');
+  textArea.value = alloc.justificativa || '';
+  modal.style.display = 'block';
+}
+
+function closeModal() {
+  const modal = document.getElementById('justificativa-modal');
+  modal.style.display = 'none';
+  currentJustificativaTarget = null;
+}
+
+function updateHierarchy() {
+  const hierarchySelect = document.getElementById('hierarchy-select');
+  const selectedIndex = parseInt(hierarchySelect.value);
+  hierarchy = hierarchyOptions[selectedIndex].value;
+  updateHierarchyDisplay();
+  renderTable();
+}
+
+function updateHierarchyDisplay() {
+  const display

@@ -1,36 +1,47 @@
-
-from flask import Flask, render_template, send_from_directory, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+import logging
 import os
 
-app = Flask(__name__)
+# Configurar logging para depuração
+logging.basicConfig(level=logging.DEBUG)
 
+# Inicializar o Flask com os diretórios corretos
+app = Flask(__name__, template_folder='templates', static_folder='static')
+
+# Rota para a página de login
 @app.route('/')
-def index():
+@app.route('/login')
+def login():
+    logging.debug("Acessando a rota /login")
     return render_template('login.html')
 
+# Rota para a página de alocação
 @app.route('/alocacao')
 def alocacao():
-    return render_template('alocacao.html')
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /alocacao com username: {username}")
+    return render_template('alocacao.html', username=username)
 
+# Rota para a página de aprovação
 @app.route('/aprovacao')
 def aprovacao():
-    return render_template('aprovacao.html')
+    username = request.args.get('username', 'Convidado')
+    logging.debug(f"Acessando a rota /aprovacao com username: {username}")
+    return render_template('aprovacao.html', username=username)
 
+# Rota para servir arquivos JSON da pasta /data/
 @app.route('/data/<path:filename>')
-def data(filename):
+def serve_data_files(filename):
+    logging.debug(f"Servindo arquivo da pasta /data/: {filename}")
     return send_from_directory('data', filename)
 
-@app.route('/static/js/<path:filename>')
-def js(filename):
-    return send_from_directory('static/js', filename)
-
-@app.route('/static/css/<path:filename>')
-def css(filename):
-    return send_from_directory('static/css', filename)
-
-@app.route('/static/img/<path:filename>')
-def img(filename):
-    return send_from_directory('static/img', filename)
+# Rota para servir arquivos estáticos (como o logotipo)
+@app.route('/static/<path:filename>')
+def serve_static_files(filename):
+    logging.debug(f"Servindo arquivo estático: {filename}")
+    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Iniciar o servidor Flask
+    logging.info("Iniciando o servidor Flask na porta 5000...")
+    app.run(debug=True, host='0.0.0.0', port=5000)
